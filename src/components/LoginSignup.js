@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import PageRouter from './PageRouter'
 import {login, register} from '../actions/fetch_actions.js'
 
 class LoginSignup extends React.Component {
@@ -21,16 +20,14 @@ class LoginSignup extends React.Component {
   handleSubmit = (e, arg=true) => {
     e.preventDefault()
     if (arg) {
-      this.props.login(this.state.username, this.state.password).then(this.props.history.push("/lobby"))
+      this.props.login(this.state.username, this.state.password).then( JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null)
     } else {
-      this.props.register(this.state.newusername, this.state.newpassword).then(this.props.history.push("/lobby"))
+      this.props.register(this.state.newusername, this.state.newpassword).then(JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null)
     }
   }
 
   render() {
     return(
-      <div>
-      {!this.props.currentUser ?
       <div id="login">
         <h4> Register an Account </h4>
         <form onSubmit={(e) => this.handleSubmit(e, false)}>
@@ -44,7 +41,6 @@ class LoginSignup extends React.Component {
           <input type="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="Enter Password"/>
           <input type="submit"/>
         </form>
-      </div> : <PageRouter/> }
       </div>
     )
   }

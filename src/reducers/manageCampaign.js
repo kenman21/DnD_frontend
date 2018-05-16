@@ -1,12 +1,11 @@
 let defaultState = {
-  currentUser: null,
+  currentUser: {},
   campaigns: [],
-  rendering_content: false,
-  rendering_mapcreator: false,
   openCampaign: null
 }
 
 export default function manageCampaign(state = defaultState, action) {
+  // console.log(action);
   switch (action.type) {
     case 'LOGIN_PLAYER':
       return {...state, currentUser: action.payload}
@@ -17,12 +16,8 @@ export default function manageCampaign(state = defaultState, action) {
     case 'DELETE_CAMPAIGN':
       let new_campaigns = state.campaigns.filter(campaign => campaign.id !== action.payload)
       return {...state, campaigns: new_campaigns}
-    case "RENDER_CONTENT":
-      return {...state, rendering_content: true, openCampaign: action.payload}
-    case "LOBBY_RETURN":
-      return {...state, rendering_content: false, openCampaign: null}
-    case "RENDER_MAP_CREATOR":
-      return {...state, rendering_content: false, rendering_mapcreator: true}
+    case 'OPEN_CAMPAIGN':
+      return {...state, openCampaign: action.payload}
     default:
       return state;
   }

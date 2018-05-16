@@ -1,18 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {NavLink} from 'react-router-dom';
+import LinkButton from './LinkButton'
 
 class Content extends React.Component {
 
-  onClick = () => {
-    console.log("here");
-    this.props.history.push("/lobby")
-  }
   render() {
     return (
       <div>
-        <button onClick={this.onClick}>Return to Lobby</button>
-        {JSON.parse(localStorage.currentUser).id === JSON.parse(localStorage.openCampaign).creator_id ? <div>DM</div>:<div>PLAYER</div>}
+        <LinkButton to="/lobby">Return to Lobby</LinkButton>
+        {this.props.currentUser.id === this.props.openCampaign.creator_id ? <div>DM</div>:<div>PLAYER</div>}
       </div>
     )
   }

@@ -1,11 +1,11 @@
-export function renderContent(campaign) {
+export function openCampaign(campaign){
   return (dispatch) => {
-    dispatch({type: 'RENDER_CONTENT', payload: campaign})
+    dispatch({type: 'OPEN_CAMPAIGN', payload: campaign})
   }
 }
 
-export function renderMapCreator(){
+export function clearUser(value){
   return (dispatch) => {
-    dispatch({type: 'RENDER_MAP_CREATOR'})
+    dispatch({type: 'LOGIN_PLAYER', payload: value})
   }
 }
