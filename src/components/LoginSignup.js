@@ -1,5 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Home from './Home'
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+
 
 const URL = 'http://localhost:3000/api/v1/'
 
@@ -34,6 +37,7 @@ class LoginSignup extends React.Component {
 
         if (!json.errors) {
           this.props.saveUser(json)
+
         }
       })
     } else {
@@ -56,7 +60,10 @@ class LoginSignup extends React.Component {
   }
 
   render(){
+    console.log(this.props.currentUser);
     return(
+      <div>
+      {!this.props.currentUser ?
       <div id="login">
         <h4> Register an Account </h4>
         <form onSubmit={(e) => this.handleSubmit(e, false)}>
@@ -70,8 +77,15 @@ class LoginSignup extends React.Component {
           <input type="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="Enter Password"/>
           <input type="submit"/>
         </form>
+      </div> : <Home/> }
       </div>
     )
+  }
+}
+
+function mapStatetoProps(state) {
+  return{
+    currentUser: state.currentUser
   }
 }
 
@@ -83,4 +97,4 @@ function mapDispatchtoProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchtoProps)(LoginSignup)
+export default connect(mapStatetoProps, mapDispatchtoProps)(LoginSignup)

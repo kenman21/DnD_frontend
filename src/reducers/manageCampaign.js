@@ -1,11 +1,12 @@
 let defaultState = {
   currentUser: null,
   campaigns: [],
-  rendering_content: false
+  rendering_content: false,
+  openCampaign: null
 }
 
 export default function manageCampaign(state = defaultState, action) {
-  // console.log(action.payload);
+  console.log(action);
   switch (action.type) {
     case 'LOGIN_PLAYER':
       return {...state, currentUser: action.payload}
@@ -17,7 +18,9 @@ export default function manageCampaign(state = defaultState, action) {
       let new_campaigns = state.campaigns.filter(campaign => campaign.id !== action.payload)
       return {...state, campaigns: new_campaigns}
     case "RENDER_CONTENT":
-      return {...state, rendering_content: true}
+      return {...state, rendering_content: true, openCampaign: action.payload}
+    case "LOBBY_RETURN":
+      return {...state, rendering_content: false, openCampaign: null}
     default:
       return state;
   }
