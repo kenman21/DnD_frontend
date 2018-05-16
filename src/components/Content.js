@@ -1,13 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {NavLink} from 'react-router-dom';
 
-const Content = (props) => {
+class Content extends React.Component {
+
+  onClick = () => {
+    console.log("here");
+    this.props.history.push("/lobby")
+  }
+  render() {
     return (
       <div>
-        <button onClick={props.lobbyReturn}>Return to Lobby</button>
-        {props.currentUser.id === props.openCampaign.creator_id ? <div>DM</div>:<div>PLAYER</div>}
+        <button onClick={this.onClick}>Return to Lobby</button>
+        {JSON.parse(localStorage.currentUser).id === JSON.parse(localStorage.openCampaign).creator_id ? <div>DM</div>:<div>PLAYER</div>}
       </div>
     )
+  }
 }
 
 function mapStatetoProps(state) {
@@ -17,14 +25,6 @@ function mapStatetoProps(state) {
   }
 }
 
-function mapDispatchtoProps(dispatch) {
-  return{
-    lobbyReturn: () => {
-      dispatch({type: "LOBBY_RETURN"})
-    }
-  }
-}
 
 
-
-export default connect(mapStatetoProps, mapDispatchtoProps)(Content)
+export default connect(mapStatetoProps, null)(Content)

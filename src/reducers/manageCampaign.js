@@ -2,11 +2,11 @@ let defaultState = {
   currentUser: null,
   campaigns: [],
   rendering_content: false,
+  rendering_mapcreator: false,
   openCampaign: null
 }
 
 export default function manageCampaign(state = defaultState, action) {
-  console.log(action);
   switch (action.type) {
     case 'LOGIN_PLAYER':
       return {...state, currentUser: action.payload}
@@ -21,6 +21,8 @@ export default function manageCampaign(state = defaultState, action) {
       return {...state, rendering_content: true, openCampaign: action.payload}
     case "LOBBY_RETURN":
       return {...state, rendering_content: false, openCampaign: null}
+    case "RENDER_MAP_CREATOR":
+      return {...state, rendering_content: false, rendering_mapcreator: true}
     default:
       return state;
   }

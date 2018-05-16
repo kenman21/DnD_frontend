@@ -1,51 +1,36 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {connect} from 'react-redux'
-import logo from './logo.svg';
 import './App.css';
 import LoginSignup from './components/LoginSignup'
-import Home from './components/Home'
-import CampaignContainer from './components/CampaignContainer'
+import Lobby from './components/Lobby'
 import Content from './components/Content'
-
-const URL = 'http://localhost:3000/api/v1/'
+import {getCampaigns} from './actions/fetch_actions.js'
 
 class App extends Component {
 
   componentDidMount = () => {
-    fetch(URL + 'campaigns')
-    .then(res => res.json())
-    .then(res => {
-      this.props.setCampaigns(res)
-    }
-  )}
-
+    this.props.getCampaigns()
+  }
 
   render() {
+    console.log(this.props);
     return (
       <Router>
         <div className="App">
-          <Route path="/" component={LoginSignup} />
-          <Route path="/home" component={Home}/>
-          <Route path="/content" component={Content}/>
+          <Route path="/signin" component={LoginSignup} />
+          <Route path="/campaignpage" component={Content}/>
+          <Route path="/lobby" component={Lobby}/>
         </div>
       </Router>
     )
   }
 }
 
-function mapStatetoProps(state){
+function mapStatetoProps(state) {
   return {
-    currentUser: state.currentUser
+    ...state
   }
 }
 
-function mapDispatchtoProps(dispatch) {
-  return {
-    setCampaigns: (campaigns) => {
-      dispatch({type:'SET_CAMPAIGNS', payload: campaigns})
-    }
-  }
-}
-
-export default connect(mapStatetoProps, mapDispatchtoProps)(App);
+export default connect(mapStatetoProps, {getCampaigns})(App);

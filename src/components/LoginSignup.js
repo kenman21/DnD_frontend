@@ -1,10 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Home from './Home'
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-
-
-const URL = 'http://localhost:3000/api/v1/'
+import PageRouter from './PageRouter'
+import {login, register} from '../actions/fetch_actions.js'
 
 class LoginSignup extends React.Component {
 
@@ -24,43 +21,13 @@ class LoginSignup extends React.Component {
   handleSubmit = (e, arg=true) => {
     e.preventDefault()
     if (arg) {
-      fetch(URL + 'users/login ', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: this.state.username,
-          password: this.state.password
-        })
-      }).then(res => res.json()).then((json) => {
-
-        if (!json.errors) {
-          this.props.saveUser(json)
-
-        }
-      })
+      this.props.login(this.state.username, this.state.password).then(this.props.history.push("/lobby"))
     } else {
-      fetch(URL + 'users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: this.state.newusername,
-          password: this.state.newpassword
-        })
-      }).then(res => res.json()).then((json) => {
-
-        if (!json.errors) {
-          this.props.saveUser(json)
-        }
-      })
+      this.props.register(this.state.newusername, this.state.newpassword).then(this.props.history.push("/lobby"))
     }
   }
 
-  render(){
-    console.log(this.props.currentUser);
+  render() {
     return(
       <div>
       {!this.props.currentUser ?
@@ -77,7 +44,7 @@ class LoginSignup extends React.Component {
           <input type="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="Enter Password"/>
           <input type="submit"/>
         </form>
-      </div> : <Home/> }
+      </div> : <PageRouter/> }
       </div>
     )
   }
@@ -89,12 +56,5 @@ function mapStatetoProps(state) {
   }
 }
 
-function mapDispatchtoProps(dispatch) {
-  return {
-    saveUser: (currentuser) => {
-      dispatch({type:"LOGIN_PLAYER", payload: currentuser})
-    }
-  }
-}
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(LoginSignup)
+export default connect(mapStatetoProps, {login, register})(LoginSignup)
