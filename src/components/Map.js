@@ -11,19 +11,20 @@ class Map extends React.Component {
 
   componentDidMount() {
     let canvas = document.getElementById('canvas-1')
-    canvas.width = 788;
-    canvas.height= 788;
-    let map_w = 768;
-    let map_h = 768;
+    canvas.width = 820;
+    canvas.height= 820;
+    // Visible Canvas Width
+    let map_w = 800;
+    let map_h = 800;
     let p = 10;
     let ctx = canvas.getContext('2d');
-    for (var x = 0; x <= map_w; x += 32) {
+    for (var x = 0; x <= map_w; x += 16) {
       ctx.moveTo(0.5 + x + p, p);
       ctx.lineTo(0.5 + x + p, map_h + p);
       }
 
 
-    for (var x = 0; x <= map_h; x += 32) {
+    for (var x = 0; x <= map_h; x += 16) {
         ctx.moveTo(p, 0.5 + x + p);
         ctx.lineTo(map_w + p, 0.5 + x + p);
       }
@@ -45,13 +46,34 @@ class Map extends React.Component {
   }
 
   render() {
+    // <button onClick={this.handleClick}>Click This</button>
+    const grid = []
+    for (let i = 0; i < 50; i++){
+      const row = []
+      for (let j = 0; j < 50; j++){
+        row.push(
+          <td key={`${i},${j}`} id={`${i},${j}`}>
+          </td>
+        )
+      }
+      grid.push(
+        <tr key={`${i}`}>
+          { row }
+        </tr>
+      )
+    }
+
     return (
       <div id="canvas-container">
-        <button onClick={this.handleClick}>Click This</button>
         <canvas id="canvas-1" >
         </canvas>
-        <canvas id="canvas-2" >
-        </canvas>
+        <div className="table">
+          <table id="grid">
+            <tbody id="body">
+              { grid }
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }

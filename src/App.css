@@ -33,8 +33,40 @@
 
 #canvas-1 {
   z-index: 1;
+  display: block;
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  margin: 0 auto;
 }
 
-#canvas-2 {
+td {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  background-color: rgb(237,237,237);
+}
+
+td:hover {
+  background: rgb(173,216,230)
+}
+
+#canvas-container {
+  position: relative;
+  margin: auto;
+}
+
+.table {
+  position: absolute;
   z-index: 2;
+  left: 0%;
+  right: 0%;
+  /* Set the top equal to the side padding that the canvas grid has */
+  top: 10px;
+  margin: 0 auto;
+}
+
+#grid {
+  margin: 0 auto;
 }
