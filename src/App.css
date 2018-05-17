@@ -31,6 +31,10 @@
   margin: auto;
 }
 
+/* ////////////////////////////////// */
+
+/* MAP CANVAS CSS */
+
 #canvas-1 {
   z-index: 1;
   display: block;
@@ -40,7 +44,8 @@
   margin: 0 auto;
 }
 
-td {
+.canvas-grid {
+  /* td width and size always 2 less than pixel size */
   width: 14px;
   height: 14px;
   padding: 0;
@@ -48,9 +53,10 @@ td {
   background-color: rgb(237,237,237);
 }
 
-td:hover {
+.canvas-grid:hover {
   background: rgb(173,216,230)
 }
+
 
 #canvas-container {
   position: relative;
@@ -58,8 +64,8 @@ td:hover {
 }
 
 .table {
-  position: absolute;
   z-index: 2;
+  position: absolute;
   left: 0%;
   right: 0%;
   /* Set the top equal to the side padding that the canvas grid has */
@@ -67,6 +73,48 @@ td:hover {
   margin: 0 auto;
 }
 
-#grid {
+#map-grid {
   margin: 0 auto;
+}
+
+
+/* ////////////////////////////////// */
+
+/* TILE MAP CSS  */
+
+.right {
+  position: absolute;
+  right: 5%;
+  z-index: 3;
+}
+
+#Page-1 {
+  /* Scale image 1.5x so user can see it... */
+  height: 384px;
+  width: auto;
+  z-index: 2;
+}
+
+/* CONTROLS TILEMAP GRID SIZING AND EFFECTS */
+
+.tile-grid {
+  width: 20px;
+  height: 20px;
+  padding: 1;
+  border: 0;
+}
+
+.tile-grid:hover {
+  background: rgb(173,216,230)
+}
+
+#tileMap-grid {
+  margin: 0 auto;
+}
+
+.tileMap {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0;
 }
