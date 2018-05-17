@@ -58,21 +58,28 @@ class Map extends React.Component {
     switch (e.target.className){
       case "tile-grid":
         this.setState({
-          tile_x: parseInt(e.target.id.split(",")[0]),
-          tile_y: parseInt(e.target.id.split(",")[1])
+          tile_x: parseInt(e.target.id.split(",")[0],10),
+          tile_y: parseInt(e.target.id.split(",")[1],10)
         })
         break
       case "canvas-grid":
-        if (this.state.tile_x && this.state.tile_y) {
-        let map_x = parseInt(e.target.id.split(",")[0])
-        let map_y = parseInt(e.target.id.split(",")[1])
-        let canvas = document.getElementById('canvas-1')
-        let ctx = canvas.getContext('2d');
-        let image = new Image();
-        image.src = "Page-1.png"
-        ctx.drawImage(image,this.state.tile_x,this.state.tile_y,16,16,map_x,map_y,16,16);
+        this.draw(e)
+        break
+      default:
+        return console.log("error");
       }
-      break
+
+  }
+
+  draw = (e) => {
+      if (this.state.tile_x && this.state.tile_y) {
+      let map_x = parseInt(e.target.id.split(",")[0],10)
+      let map_y = parseInt(e.target.id.split(",")[1],10)
+      let canvas = document.getElementById('canvas-1')
+      let ctx = canvas.getContext('2d');
+      let image = new Image();
+      image.src = "Page-1.png"
+      ctx.drawImage(image,this.state.tile_x,this.state.tile_y,16,16,map_x,map_y,16,16);
     }
   }
 
@@ -85,7 +92,7 @@ class Map extends React.Component {
       const row = []
       for (let j = 0; j < grid_w; j++){
         row.push(
-          <td onClick={(e) => this.handleClick(e)} className={class_name} key={`${i},${j}`} id={`${j*multiplier},${i*multiplier}`}>
+          <td draggable onDragOver = {(e) => this.draw(e)} onClick={(e) => this.handleClick(e)} className={class_name} key={`${i},${j}`} id={`${j*multiplier},${i*multiplier}`}>
             <Tile/>
           </td>
         )
