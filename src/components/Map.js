@@ -1,9 +1,10 @@
 import React from 'react'
+import Tile from './Tile'
 
 class Map extends React.Component {
   state = {
-    xdimension: null,
-    ydimension: null,
+    grid_l: 50,
+    grid_w: 50,
     map : {
 
     }
@@ -23,13 +24,13 @@ class Map extends React.Component {
     canvas.width = map_hw+2*p;
     canvas.height= map_hw+2*p;
     let ctx = canvas.getContext('2d');
-    for (var x = 0; x <= map_hw; x += 16) {
+    for (let x = 0; x <= map_hw; x += 16) {
       ctx.moveTo(0.5 + x + p, p);
       ctx.lineTo(0.5 + x + p, map_hw + p);
       }
 
 
-    for (var x = 0; x <= map_hw; x += 16) {
+    for (let x = 0; x <= map_hw; x += 16) {
         ctx.moveTo(p, 0.5 + x + p);
         ctx.lineTo(map_hw + p, 0.5 + x + p);
       }
@@ -37,17 +38,21 @@ class Map extends React.Component {
     ctx.strokeStyle = "grey";
     ctx.stroke();
   }
+  //
+  // handleClick = () => {
+  //   let canvas = document.getElementById('canvas-2')
+  //   canvas.width = 788;
+  //   canvas.height= 788;
+  //   let ctx = canvas.getContext('2d');
+  //   let image = new Image();
+  //   image.src = "/0x72_16x16DungeonTileset.v4.png"
+  //   let x = 16 * 4
+  //   let y = 16 * 0
+  //   ctx.drawImage(image,x,y,16,16,0,0,32,32);
+  // }
 
   handleClick = () => {
-    let canvas = document.getElementById('canvas-2')
-    canvas.width = 788;
-    canvas.height= 788;
-    let ctx = canvas.getContext('2d');
-    let image = new Image();
-    image.src = "/0x72_16x16DungeonTileset.v4.png"
-    let x = 16 * 4
-    let y = 16 * 0
-    ctx.drawImage(image,x,y,16,16,0,0,32,32);
+    console.log("click")
   }
 
   creategrid(l, w, class_name, multiplier=1) {
@@ -59,7 +64,8 @@ class Map extends React.Component {
       const row = []
       for (let j = 0; j < grid_w; j++){
         row.push(
-          <td className={class_name} key={`${i},${j}`} id={`${j*multiplier},${i*multiplier}`}>
+          <td onClick={this.handleClick} className={class_name} key={`${i},${j}`} id={`${j*multiplier},${i*multiplier}`}>
+            <Tile/>
           </td>
         )
       }
@@ -81,7 +87,7 @@ class Map extends React.Component {
         <div className="center table">
           <table id="map-grid">
             <tbody id="map-body">
-              { this.creategrid(50,50,"canvas-grid") }
+              { this.creategrid(this.state.grid_l,this.state.grid_w,"canvas-grid") }
             </tbody>
           </table>
         </div>

@@ -49,7 +49,6 @@ export function register(username, password){
           creator_id: creator_id
         })
       }).then(res => res.json()).then((json) => {
-        console.log(json);
         dispatch({type: 'CREATE_CAMPAIGN', payload: json})
       })
     }
@@ -73,6 +72,19 @@ export function getCampaigns(){
     .then(res => res.json())
     .then(res => {
       dispatch({type:'SET_CAMPAIGNS', payload: res})
+    })
+  }
+}
+
+export function addMap(name, user_id){
+  return (dispatch) => {
+    fetch(URL + 'maps', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        name: name,
+        user_id: user_id
+      })
     })
   }
 }
