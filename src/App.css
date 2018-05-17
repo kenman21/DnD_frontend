@@ -42,21 +42,26 @@
   left: 0%;
   right: 0%;
   margin: 0 auto;
+  border: 1px solid grey;
 }
 
 .canvas-grid {
-  /* td width and size always 2 less than pixel size */
-  width: 14px;
-  height: 14px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
   padding: 0;
   border: 0;
   background-color: rgb(237,237,237);
+  opacity: .25;
+}
+
+.canvas-grid-parent {
+  font-size: 0;
 }
 
 .canvas-grid:hover {
   background: rgb(173,216,230)
 }
-
 
 #canvas-container {
   position: relative;
@@ -68,9 +73,10 @@
   position: absolute;
   left: 0%;
   right: 0%;
+  top: 0;
   /* Set the top equal to the side padding that the canvas grid has */
-  top: 10px;
   margin: 0 auto;
+  border-collapse: collapse;
 }
 
 #map-grid {

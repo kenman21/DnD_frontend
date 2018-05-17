@@ -5,6 +5,8 @@ class Map extends React.Component {
   state = {
     grid_l: 50,
     grid_w: 50,
+    tile_x: null,
+    tile_y: null,
     map : {
 
     }
@@ -19,8 +21,9 @@ class Map extends React.Component {
     // Visible Canvas Width
     let map_res = 50
     let pixel_size = 16
+    // let map_hw = pixel_size * map_res;
     let map_hw = pixel_size * map_res;
-    let p = 10;
+    let p = 0;
     canvas.width = map_hw+2*p;
     canvas.height= map_hw+2*p;
     let ctx = canvas.getContext('2d');
@@ -40,7 +43,7 @@ class Map extends React.Component {
   }
   //
   // handleClick = () => {
-  //   let canvas = document.getElementById('canvas-2')
+  //   let canvas = document.getElementById('canvas-1')
   //   canvas.width = 788;
   //   canvas.height= 788;
   //   let ctx = canvas.getContext('2d');
@@ -51,11 +54,29 @@ class Map extends React.Component {
   //   ctx.drawImage(image,x,y,16,16,0,0,32,32);
   // }
 
-  handleClick = () => {
-    console.log("click")
+  handleClick = (e) => {
+    switch (e.target.className){
+      case "tile-grid":
+        this.setState({
+          tile_x: parseInt(e.target.id.split(",")[0]),
+          tile_y: parseInt(e.target.id.split(",")[1])
+        })
+        break
+      case "canvas-grid":
+        if (this.state.tile_x && this.state.tile_y) {
+        let map_x = parseInt(e.target.id.split(",")[0])
+        let map_y = parseInt(e.target.id.split(",")[1])
+        let canvas = document.getElementById('canvas-1')
+        let ctx = canvas.getContext('2d');
+        let image = new Image();
+        image.src = "Page-1.png"
+        ctx.drawImage(image,this.state.tile_x,this.state.tile_y,16,16,map_x,map_y,16,16);
+      }
+      break
+    }
   }
 
-  creategrid(l, w, class_name, multiplier=1) {
+  creategrid(l, w, class_name, multiplier=16) {
     let grid_l = l
     let grid_w = w
 
@@ -64,13 +85,14 @@ class Map extends React.Component {
       const row = []
       for (let j = 0; j < grid_w; j++){
         row.push(
-          <td onClick={this.handleClick} className={class_name} key={`${i},${j}`} id={`${j*multiplier},${i*multiplier}`}>
+          <td onClick={(e) => this.handleClick(e)} className={class_name} key={`${i},${j}`} id={`${j*multiplier},${i*multiplier}`}>
             <Tile/>
           </td>
         )
       }
+      let parent=`${class_name}` + "-parent"
       grid.push(
-        <tr key={`${i}`}>
+        <tr key={`${i}`} className={parent}>
           { row }
         </tr>
       )
@@ -79,13 +101,12 @@ class Map extends React.Component {
   }
 
   render() {
-
     return (
       <div id="canvas-container">
         <canvas id="canvas-1" >
         </canvas>
         <div className="center table">
-          <table id="map-grid">
+          <table id="map-grid" cellSpacing="0" cellPadding="0">
             <tbody id="map-body">
               { this.creategrid(this.state.grid_l,this.state.grid_w,"canvas-grid") }
             </tbody>
