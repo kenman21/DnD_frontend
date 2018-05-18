@@ -26,16 +26,18 @@ class MapCreator extends React.Component {
   }
 
   render () {
-    console.log(this.props.currentUser);
     return(
       <div>
         <LinkButton to="/lobby">Return to Lobby</LinkButton>
-        <form onSubmit={this.handleSubmit}>
+        <form className="create-map" onSubmit={this.handleSubmit}>
           <label> Create Your Own Map </label><br></br>
           <input onChange={this.handleChange} placeholder="New Map Name"/>
           <input type="submit"/>
         </form>
+        <button>Save Map State</button>
+        <div>
         <Map/>
+        </div>
       </div>
     )
   }
