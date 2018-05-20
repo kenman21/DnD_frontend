@@ -1,7 +1,8 @@
 let defaultState = {
   currentUser: {},
   campaigns: [],
-  openCampaign: null
+  openCampaign: null,
+  actObj: {}
 }
 
 export default function manageCampaign(state = defaultState, action) {
@@ -18,6 +19,8 @@ export default function manageCampaign(state = defaultState, action) {
       return {...state, campaigns: new_campaigns}
     case 'OPEN_CAMPAIGN':
       return {...state, openCampaign: action.payload}
+    case 'ADD_ACTION':
+      return {...state, actObj: {...state.actObj, ...action.payload}}
     default:
       return state;
   }

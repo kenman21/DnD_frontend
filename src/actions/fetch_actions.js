@@ -88,3 +88,15 @@ export function addMap(name, user_id){
     })
   }
 }
+
+export function saveMap(actions) {
+  return (dispatch) => {
+    fetch(URL + 'maps', {
+      method: 'PATCH',
+      headers: headers,
+      body: JSON.stringify({
+        actions: actions
+      })
+    })
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import Map from './Map.js'
 import {connect} from 'react-redux'
 import LinkButton from './LinkButton'
-import {addMap} from '../actions/fetch_actions.js'
+import {addMap, saveMap} from '../actions/fetch_actions.js'
 
 class MapCreator extends React.Component {
 
@@ -34,7 +34,7 @@ class MapCreator extends React.Component {
           <input onChange={this.handleChange} placeholder="New Map Name"/>
           <input type="submit"/>
         </form>
-        <button>Save Map State</button>
+        <button onClick={() => {this.props.saveMap(this.props.actObj)}}>Save Map State</button>
         <div>
         <Map/>
         </div>
@@ -45,8 +45,10 @@ class MapCreator extends React.Component {
 
 function mapStatetoProps(state) {
   return(
-    {currentUser: state.currentUser}
+    {currentUser: state.currentUser,
+     actObj: state.actObj
+    }
   )
 }
 
-export default connect(mapStatetoProps, {addMap})(MapCreator)
+export default connect(mapStatetoProps, {addMap, saveMap})(MapCreator)

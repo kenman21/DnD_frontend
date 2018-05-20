@@ -1,13 +1,14 @@
 import React from 'react'
 import Tile from './Tile'
-
-let actions = []
+import {addAction} from '../actions/actions.js'
+import {connect} from 'react-redux'
 
 let image = new Image();
 image.src = "Page-1.png"
 
 class Map extends React.Component {
   state = {
+    pixel_size: 16,
     grid_l: 50,
     grid_w: 50,
     tile_x: -1,
@@ -40,10 +41,7 @@ class Map extends React.Component {
   createCanvasLines = () => {
     let canvas = document.getElementById('canvas-1')
     // Visible Canvas Width
-    let map_res = 50
-    let pixel_size = 16
-    // let map_hw = pixel_size * map_res;
-    let map_hw = pixel_size * map_res;
+    let map_hw = this.state.pixel_size * this.state.grid_l;
     let p = 0;
     canvas.width = map_hw+2*p;
     canvas.height= map_hw+2*p;
@@ -63,7 +61,7 @@ class Map extends React.Component {
     ctx.stroke();
   }
 
-  creategrid(l, w, class_name, multiplier=16) {
+  creategrid(l, w, class_name) {
     let grid_l = l
     let grid_w = w
 
@@ -72,7 +70,7 @@ class Map extends React.Component {
       const row = []
       for (let j = 0; j < grid_w; j++){
         row.push(
-          <td onClick={(e) => this.handleClick(e)} className={class_name} key={`${i},${j}`} id={`${j*multiplier},${i*multiplier}`}>
+          <td onClick={(e) => this.handleClick(e)} className={class_name} key={`${i},${j}`} id={`${j*this.state.pixel_size},${i*this.state.pixel_size}`}>
           <Tile/>
           </td>
         )
@@ -86,22 +84,6 @@ class Map extends React.Component {
     }
     return grid
   }
-
-  recordAction = (sx,sy,fx,fy) => {
-     let action = {
-       source_x : sx,
-       source_y : sy,
-       final_x : fx,
-       final_y : fy
-     }
-     actions[`${fx}-${fy}`] = `${sx}-${sy}`
-     if (!this.state.currentDrag.includes(action)) {
-       this.setState({
-        currentDrag: [...this.state.actions, action],
-         actions: [...this.state.actions, action]
-       })
-     }
-   }
 
   handleClick = (e) => {
     let x = parseInt(e.target.id.split(",")[0],10);
@@ -149,8 +131,8 @@ class Map extends React.Component {
         this.state.divObj[`${i},${j}`].style.backgroundColor = null
         action(i,j)
         if (type) {
-          if (this.state.actObj[`${i},${j}`]){
-            action_obj[`${i},${j}`] = this.state.actObj[`${i},${j}`]
+          if (this.props.actObj[`${i},${j}`]){
+            action_obj[`${i},${j}`] = this.props.actObj[`${i},${j}`].slice()
             action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y]})
             if (action_obj[`${i},${j}`].length > 2) {
               action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
@@ -161,7 +143,6 @@ class Map extends React.Component {
         }
       }
     }
-    console.log(action_obj);
     return action_obj
   }
 
@@ -179,16 +160,61 @@ class Map extends React.Component {
       let draw_points = this.order_points(this.state.canvas_x, this.state.canvas_y, this.state.canvas_x_end, this.state.canvas_y_end)
       if (draw_points.x[1] >= 0 && draw_points.y[1] >= 0) {
         actions = this.actionOnRectangle(this.fillWithSprite, "draw")
-    } else {
-      this.fillWithSprite(this.state.canvas_x, this.state.canvas_y)
-    }
+      } else {
+        this.fillWithSprite(this.state.canvas_x, this.state.canvas_y)
+        actions = this.record(this.state.canvas_x, this.state.canvas_y, "draw")
+      }
     // Reset the state
       this.clearClicks()
-
-      this.setState({
-        actObj: {...this.state.actObj, ...actions}
-      })
+      this.props.addAction(actions)
+      // this.setState({
+      //   actObj: {...this.props.actObj, ...actions}
+      // })
     }
+  }
+
+  erase = (e) => {
+    let actions = {}
+    let draw_points = this.order_points(this.state.canvas_x, this.state.canvas_y, this.state.canvas_x_end, this.state.canvas_y_end)
+    if (draw_points.x[1] >= 0 && draw_points.y[1] >= 0) {
+      actions = this.actionOnRectangle(this.fillWithWhite, "erase");
+    } else {
+      this.fillWithWhite(this.state.canvas_x,this.state.canvas_y,15,15);
+      actions = this.record(this.state.canvas_x, this.state.canvas_y, "erase");
+    }
+    this.clearClicks
+    this.props.addAction(actions)
+    // this.setState({
+    //   actObj: {...this.props.actObj, ...actions}
+    // })
+  }
+
+  fillWithSprite = (i, j) => {
+    let canvas = document.getElementById('canvas-1')
+    let ctx = canvas.getContext('2d');
+    let action_obj = {}
+    ctx.drawImage(image,this.state.tile_x,this.state.tile_y,16,16,i+1,j+1,15,15);
+  }
+
+  fillWithWhite = (i, j) => {
+    let canvas = document.getElementById('canvas-1');
+    let ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.clearRect(i+1,j+1,15,15)
+  }
+
+  record = (i, j, type) => {
+    let action_obj = {}
+    if (this.props.actObj[`${i},${j}`]){
+      action_obj[`${i},${j}`] = this.props.actObj[`${i},${j}`].slice()
+      action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y]})
+      if (action_obj[`${i},${j}`].length > 2) {
+        action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
+      }
+    } else {
+      action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y]}]
+    }
+    return action_obj
   }
 
   clearClicks = () => {
@@ -200,30 +226,8 @@ class Map extends React.Component {
     })
   }
 
-  fillWithSprite = (i, j) => {
-    let canvas = document.getElementById('canvas-1')
-    let ctx = canvas.getContext('2d');
-    ctx.drawImage(image,this.state.tile_x,this.state.tile_y,16,16,i+1,j+1,15,15);
-  }
-
-  erase = (e) => {
-    let canvas = document.getElementById('canvas-1');
-    let ctx = canvas.getContext('2d');
-    ctx.beginPath();
-    let draw_points = this.order_points(this.state.canvas_x, this.state.canvas_y, this.state.canvas_x_end, this.state.canvas_y_end)
-    if (draw_points.x[1] >= 0 && draw_points.y[1] >= 0) {
-      let actions = this.actionOnRectangle((i,j) => {ctx.clearRect(i+1,j+1,15,15)}, "erase");
-    } else {
-      ctx.clearRect(this.state.canvas_x+1,this.state.canvas_y+1,15,15);
-    }
-    this.clearClicks
-    this.setState({
-      actObj: {...this.state.actObj, ...actions}
-    })
-  }
-
   render() {
-    // console.log(this.state.actObj);
+    console.log(this.props.actObj);
     return (
       <div id="canvas-container">
         <canvas id="canvas-1" >
@@ -240,7 +244,7 @@ class Map extends React.Component {
           <div className="right tileMap">
             <table id="tileMap-grid">
               <tbody id="tileMap-body">
-                { this.creategrid(16,16,"tile-grid", 16) }
+                { this.creategrid(16,16,"tile-grid") }
               </tbody>
             </table>
           </div>
@@ -251,4 +255,10 @@ class Map extends React.Component {
   }
 }
 
-export default Map
+function mapStatetoProps(state) {
+  return(
+    {actObj: state.actObj}
+  )
+}
+
+export default connect(mapStatetoProps, {addAction})(Map)

@@ -9,3 +9,9 @@ export function clearUser(value){
     dispatch({type: 'LOGIN_PLAYER', payload: value})
   }
 }
+
+export function addAction(actions) {
+  return (dispatch) => {
+    dispatch({type: 'ADD_ACTION', payload: actions})
+  }
+}
