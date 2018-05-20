@@ -152,8 +152,8 @@ class Map extends React.Component {
           if (this.state.actObj[`${i},${j}`]){
             action_obj[`${i},${j}`] = this.state.actObj[`${i},${j}`]
             action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y]})
-            if (action_obj[`${i},${j}`].length === 2) {
-              action_obj[`${i},${j}`].unshift()
+            if (action_obj[`${i},${j}`].length > 2) {
+              action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
             }
           } else {
             action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y]}]
@@ -161,6 +161,7 @@ class Map extends React.Component {
         }
       }
     }
+    console.log(action_obj);
     return action_obj
   }
 
@@ -183,8 +184,9 @@ class Map extends React.Component {
     }
     // Reset the state
       this.clearClicks()
+
       this.setState({
-        actObj: actions
+        actObj: {...this.state.actObj, ...actions}
       })
     }
   }
@@ -210,15 +212,18 @@ class Map extends React.Component {
     ctx.beginPath();
     let draw_points = this.order_points(this.state.canvas_x, this.state.canvas_y, this.state.canvas_x_end, this.state.canvas_y_end)
     if (draw_points.x[1] >= 0 && draw_points.y[1] >= 0) {
-      this.actionOnRectangle((i,j) => {ctx.clearRect(i+1,j+1,15,15)});
+      let actions = this.actionOnRectangle((i,j) => {ctx.clearRect(i+1,j+1,15,15)}, "erase");
     } else {
       ctx.clearRect(this.state.canvas_x+1,this.state.canvas_y+1,15,15);
     }
     this.clearClicks
+    this.setState({
+      actObj: {...this.state.actObj, ...actions}
+    })
   }
 
   render() {
-    console.log(this.state.actObj);
+    // console.log(this.state.actObj);
     return (
       <div id="canvas-container">
         <canvas id="canvas-1" >
