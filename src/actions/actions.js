@@ -16,7 +16,13 @@ export function addAction(actions) {
   }
 }
 
-export function openMap(map){
+export function clearActions(){
+  return (dispatch) => {
+    dispatch({type: 'CLEAR_ACTIONS'})
+  }
+}
+
+export function openingMap(map){
   return (dispatch) => {
     dispatch({type: 'OPEN_MAP', payload: map})
   }
@@ -27,5 +33,11 @@ export function keepLoggedIn(user){
     return (
     dispatch({type: 'LOGIN_PLAYER', payload: JSON.parse(user)})
   )
+  }
+}
+
+export function toggleEditing(){
+  return (dispatch) => {
+    dispatch({type: 'TOGGLE_EDITING'})
   }
 }

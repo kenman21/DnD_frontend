@@ -1,6 +1,6 @@
 import React from 'react'
 import Tile from './Tile'
-import {addAction} from '../actions/actions.js'
+import {addAction, toggleEditing} from '../actions/actions.js'
 import {connect} from 'react-redux'
 
 let image = new Image();
@@ -18,7 +18,6 @@ class Map extends React.Component {
     canvas_x_end: -1,
     canvas_y_end: -1,
     divObj: {},
-    actObj: {}
   }
 
   componentDidMount() {
@@ -180,11 +179,11 @@ class Map extends React.Component {
     this.props.addAction(actions)
   }
 
-  fillWithSprite = (i, j) => {
+  fillWithSprite = (i, j, x = this.state.tile_x, y = this.state.tile_y) => {
     let canvas = document.getElementById('canvas-1')
     let ctx = canvas.getContext('2d');
     let action_obj = {}
-    ctx.drawImage(image,this.state.tile_x,this.state.tile_y,16,16,i+1,j+1,15,15);
+    ctx.drawImage(image,x,y,16,16,i+1,j+1,15,15);
   }
 
   fillWithWhite = (i, j) => {
@@ -218,6 +217,19 @@ class Map extends React.Component {
   }
 
   render() {
+    if (this.props.openMap && this.props.openMap.slots && this.props.editing) {
+      for (let i = 0 ; i <= 800; i+=16) {
+        for (let j = 0 ; j <= 800; j+=16) {
+          this.fillWithWhite(i,j)
+        }
+      }
+      for (let i=0; i<this.props.openMap.slots.length; i++) {
+        let action = this.props.openMap.slots[i]
+        this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y)
+      }
+      this.props.editing ? this.props.toggleEditing():null
+    }
+
     return (
       <div id="canvas-container">
         <canvas id="canvas-1" >
@@ -248,8 +260,10 @@ class Map extends React.Component {
 function mapStatetoProps(state) {
   return(
     {actObj: state.actObj,
-    openMap: state.openMap}
+    openMap: state.openMap,
+    currentUserMaps: state.currentUserMaps,
+    editing: state.editing}
   )
 }
 
-export default connect(mapStatetoProps, {addAction})(Map)
+export default connect(mapStatetoProps, {addAction, toggleEditing})(Map)

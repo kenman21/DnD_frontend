@@ -57,7 +57,7 @@
   padding: 0;
   border: 0;
   /* background-color: rgb(237,237,237); */
-  opacity: .15;
+  opacity: .25;
 }
 
 .canvas-grid-parent {
@@ -138,5 +138,5 @@
   position: absolute;
   left: 10%;
   top: 10%;
-  z-index: 3;
+  z-index: 4;
 }

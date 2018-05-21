@@ -3,7 +3,7 @@ import Map from './Map.js'
 import {connect} from 'react-redux'
 import LinkButton from './LinkButton'
 import {addMap, saveMap, getMaps} from '../actions/fetch_actions.js'
-import {keepLoggedIn} from '../actions/actions.js'
+import {keepLoggedIn, openingMap, toggleEditing, clearActions} from '../actions/actions.js'
 
 class MapCreator extends React.Component {
 
@@ -13,15 +13,6 @@ class MapCreator extends React.Component {
   }
 
   componentDidMount = () => {
-    if (localStorage.currentUser && Object.keys(this.props.currentUser).length === 0) {
-      let promise = new Promise((resolve, reject) => {
-        this.props.keepLoggedIn(localStorage.currentUser)
-        resolve()
-      })
-
-      promise.then(() => {this.props.getMaps(this.props.currentUser.id)})
-    }
-
     if (Object.keys(this.props.currentUser).length !== 0) {
       this.props.getMaps(this.props.currentUser.id)
     }
@@ -35,10 +26,21 @@ class MapCreator extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    this.props.clearActions()
     this.props.addMap(this.state.mapName, this.props.currentUser.id)
     this.setState({
       mapName: ""
     })
+  }
+
+  EditMap = (map) => {
+    this.props.toggleEditing()
+    this.props.openingMap(null)
+    this.props.openingMap(map)
+  }
+
+  clearRoom = () => {
+    this.props.openingMap(null)
   }
 
   render () {
@@ -46,19 +48,16 @@ class MapCreator extends React.Component {
       return (
       <div key={map.name}>
         {map.name}
-        <button>Edit Map</button>
+        <button onClick={() => this.EditMap(map)}>Edit Map</button>
       </div>
     )})
-
-    console.log(this.props.currentUser);
-
     return(
       <div>
         <div className="left" id="map-list">
           Map List goes here
           {userMaps}
         </div>
-        <LinkButton to="/lobby">Return to Lobby</LinkButton>
+        <LinkButton onClick={this.clearRoom} to="/lobby">Return to Lobby</LinkButton>
         <form className="create-map" onSubmit={this.handleSubmit}>
           <label> Create Your Own Map </label><br></br>
           <input onChange={this.handleChange} value={this.state.mapName} placeholder="New Map Name"/>
@@ -84,4 +83,4 @@ function mapStatetoProps(state) {
   )
 }
 
-export default connect(mapStatetoProps, {addMap, saveMap, getMaps, keepLoggedIn})(MapCreator)
+export default connect(mapStatetoProps, {addMap, saveMap, getMaps, keepLoggedIn, openingMap, toggleEditing, clearActions})(MapCreator)
