@@ -130,6 +130,13 @@
   right: 0%;
   top: 0;
 }
+
+#erase {
+  bottom: 25%;
+  position: absolute;
+  right: 5%;
+  z-index: 3;
+}
 /* ////////////////////////////////// */
 
 /* MAP LIST */

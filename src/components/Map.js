@@ -208,6 +208,7 @@ class Map extends React.Component {
   }
 
   clearClicks = () => {
+    this.props.editing ? this.props.toggleEditing():null
     this.setState({
       canvas_x: -1,
       canvas_y: -1,
@@ -228,6 +229,14 @@ class Map extends React.Component {
         this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y)
       }
       this.props.editing ? this.props.toggleEditing():null
+    }
+
+    if (this.props.openMap && this.props.openMap.slots== undefined && this.props.actObj === {}) {
+      for (let i = 0 ; i <= 800; i+=16) {
+        for (let j = 0 ; j <= 800; j+=16) {
+          this.fillWithWhite(i,j)
+        }
+      }
     }
 
     return (
@@ -251,7 +260,7 @@ class Map extends React.Component {
             </table>
           </div>
         </div>
-        <button className="right" onClick={this.erase}>Erase</button>
+        <button id="erase" onClick={this.erase}>Erase</button>
       </div>
     )
   }
