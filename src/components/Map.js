@@ -50,13 +50,10 @@ class Map extends React.Component {
       ctx.moveTo(0.5 + x + p, p);
       ctx.lineTo(0.5 + x + p, map_hw + p);
     }
-
-
     for (let x = 0; x <= map_hw; x += 16) {
       ctx.moveTo(p, 0.5 + x + p);
       ctx.lineTo(map_hw + p, 0.5 + x + p);
     }
-
     ctx.strokeStyle = "grey";
     ctx.stroke();
   }
@@ -128,17 +125,17 @@ class Map extends React.Component {
     let action_obj = {}
     for (let i = draw_points.x[0] ; i <= draw_points.x[1]; i+=16) {
       for (let j = draw_points.y[0] ; j <= draw_points.y[1]; j+=16) {
-        this.state.divObj[`${i},${j}`].style.backgroundColor = null
+        this.clearRed(i,j)
         action(i,j)
         if (type) {
           if (this.props.actObj[`${i},${j}`]){
             action_obj[`${i},${j}`] = this.props.actObj[`${i},${j}`].slice()
-            action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y]})
+            action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i , j]})
             if (action_obj[`${i},${j}`].length > 2) {
               action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
             }
           } else {
-            action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y]}]
+            action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i, j]}]
           }
         }
       }
@@ -167,9 +164,6 @@ class Map extends React.Component {
     // Reset the state
       this.clearClicks()
       this.props.addAction(actions)
-      // this.setState({
-      //   actObj: {...this.props.actObj, ...actions}
-      // })
     }
   }
 
@@ -184,9 +178,6 @@ class Map extends React.Component {
     }
     this.clearClicks
     this.props.addAction(actions)
-    // this.setState({
-    //   actObj: {...this.props.actObj, ...actions}
-    // })
   }
 
   fillWithSprite = (i, j) => {
@@ -207,12 +198,12 @@ class Map extends React.Component {
     let action_obj = {}
     if (this.props.actObj[`${i},${j}`]){
       action_obj[`${i},${j}`] = this.props.actObj[`${i},${j}`].slice()
-      action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y]})
+      action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i, j]})
       if (action_obj[`${i},${j}`].length > 2) {
         action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
       }
     } else {
-      action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y]}]
+      action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i, j]}]
     }
     return action_obj
   }
@@ -227,7 +218,6 @@ class Map extends React.Component {
   }
 
   render() {
-    console.log(this.props.actObj);
     return (
       <div id="canvas-container">
         <canvas id="canvas-1" >
@@ -257,7 +247,8 @@ class Map extends React.Component {
 
 function mapStatetoProps(state) {
   return(
-    {actObj: state.actObj}
+    {actObj: state.actObj,
+    openMap: state.openMap}
   )
 }
 

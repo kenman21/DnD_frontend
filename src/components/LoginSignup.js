@@ -17,12 +17,18 @@ class LoginSignup extends React.Component {
     })
   }
 
-  handleSubmit = (e, arg=true) => {
+  handleSubmit = (e, type) => {
     e.preventDefault()
-    if (arg) {
-      this.props.login(this.state.username, this.state.password).then( JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null)
-    } else {
-      this.props.register(this.state.newusername, this.state.newpassword).then(JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null)
+    switch (type) {
+      case "login":
+        this.props.login(this.state.username, this.state.password).then(JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null);
+        break
+      case "register":
+        this.props.register(this.state.newusername, this.state.newpassword).then(setTimeout(() => {JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null},500));
+        break
+      default:
+        console.log("error");
+        break
     }
   }
 
@@ -30,13 +36,13 @@ class LoginSignup extends React.Component {
     return(
       <div id="login">
         <h4> Register an Account </h4>
-        <form onSubmit={(e) => this.handleSubmit(e, false)}>
+        <form onSubmit={(e) => this.handleSubmit(e, "register")}>
           <input type="text" name="newusername" onChange={this.handleChange} value={this.state.newusername} placeholder="Enter Username"/>
           <input type="password" name="newpassword" onChange={this.handleChange} value={this.state.newpassword} placeholder="Enter Password"/>
           <input type="submit"/>
         </form>
         <h4> Or Login </h4>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
+        <form onSubmit={(e) => this.handleSubmit(e, "login")}>
           <input type="text" name="username" onChange={this.handleChange} value={this.state.username} placeholder="Enter Username"/>
           <input type="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="Enter Password"/>
           <input type="submit"/>

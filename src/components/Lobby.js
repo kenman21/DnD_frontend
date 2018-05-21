@@ -29,6 +29,7 @@ class Lobby extends React.Component {
   }
 
   render() {
+
     let campaigns = this.props.campaigns.map(campaign => {
       let url = "/campaign/" + campaign.id
       return(

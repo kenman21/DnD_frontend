@@ -85,16 +85,19 @@ export function addMap(name, user_id){
         name: name,
         user_id: user_id
       })
-    })
+    }).then(res => res.json()).then(res =>
+    dispatch({type: 'OPEN_MAP', payload: res})
+  )
   }
 }
 
-export function saveMap(actions) {
+export function saveMap(map, actions) {
   return (dispatch) => {
-    fetch(URL + 'maps', {
+    fetch(URL + `maps/${map.id}`, {
       method: 'PATCH',
       headers: headers,
       body: JSON.stringify({
+        map_id: map.id,
         actions: actions
       })
     })

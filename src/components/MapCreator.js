@@ -26,6 +26,7 @@ class MapCreator extends React.Component {
   }
 
   render () {
+    console.log(this.props.openMap);
     return(
       <div>
         <LinkButton to="/lobby">Return to Lobby</LinkButton>
@@ -34,7 +35,7 @@ class MapCreator extends React.Component {
           <input onChange={this.handleChange} placeholder="New Map Name"/>
           <input type="submit"/>
         </form>
-        <button onClick={() => {this.props.saveMap(this.props.actObj)}}>Save Map State</button>
+        <button onClick={() => {this.props.saveMap(this.props.openMap, this.props.actObj)}}>Save Map State</button>
         <div>
         <Map/>
         </div>
@@ -46,7 +47,8 @@ class MapCreator extends React.Component {
 function mapStatetoProps(state) {
   return(
     {currentUser: state.currentUser,
-     actObj: state.actObj
+     actObj: state.actObj,
+     openMap: state.openMap
     }
   )
 }

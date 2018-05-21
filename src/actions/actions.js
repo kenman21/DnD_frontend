@@ -15,3 +15,9 @@ export function addAction(actions) {
     dispatch({type: 'ADD_ACTION', payload: actions})
   }
 }
+
+export function openMap(map){
+  return (dispatch) => {
+    dispatch({type: 'OPEN_MAP', payload: map})
+  }
+}
