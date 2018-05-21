@@ -6,11 +6,20 @@ import LoginSignup from './components/LoginSignup'
 import Lobby from './components/Lobby'
 import Content from './components/Content'
 import MapCreator from './components/MapCreator'
-import {getCampaigns} from './actions/fetch_actions.js'
+import {getCampaigns, getMaps} from './actions/fetch_actions.js'
+import {keepLoggedIn} from './actions/actions.js'
+
 
 class App extends Component {
 
   componentDidMount = () => {
+    if (localStorage.currentUser && Object.keys(this.props.currentUser).length === 0) {
+      let promise = new Promise((resolve, reject) => {
+        this.props.keepLoggedIn(localStorage.currentUser)
+        resolve()
+      })
+      promise.then(() => {this.props.getMaps(this.props.currentUser.id)})
+    }
     this.props.getCampaigns()
   }
 
@@ -37,8 +46,8 @@ class App extends Component {
 function mapStatetoProps(state) {
   return {
     campaigns: state.campaigns,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
   }
 }
 
-export default connect(mapStatetoProps, {getCampaigns})(App);
+export default connect(mapStatetoProps, {getCampaigns, getMaps, keepLoggedIn})(App);

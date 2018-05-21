@@ -54,9 +54,7 @@ class Lobby extends React.Component {
         <h4>
         List of Campaigns
         </h4>
-        <ul>
         {campaigns}
-        </ul>
       </div>
     )
   }

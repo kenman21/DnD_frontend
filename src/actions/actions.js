@@ -21,3 +21,11 @@ export function openMap(map){
     dispatch({type: 'OPEN_MAP', payload: map})
   }
 }
+
+export function keepLoggedIn(user){
+  return (dispatch) => {
+    return (
+    dispatch({type: 'LOGIN_PLAYER', payload: JSON.parse(user)})
+  )
+  }
+}

@@ -85,9 +85,10 @@ export function addMap(name, user_id){
         name: name,
         user_id: user_id
       })
-    }).then(res => res.json()).then(res =>
-    dispatch({type: 'OPEN_MAP', payload: res})
-  )
+    }).then(res => res.json()).then(res => {
+    dispatch({type: 'OPEN_MAP', payload: res});
+    dispatch({type: 'SET_MAPS', payload: res})
+  })
   }
 }
 
@@ -100,6 +101,16 @@ export function saveMap(map, actions) {
         map_id: map.id,
         actions: actions
       })
+    })
+  }
+}
+
+export function getMaps(user_id) {
+  return (dispatch) => {
+    fetch(URL + `users/${user_id}/maps`)
+    .then(res => res.json())
+    .then(res => {
+      dispatch({type:'SET_MAPS', payload: res})
     })
   }
 }

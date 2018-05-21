@@ -31,6 +31,10 @@
   margin: auto;
 }
 
+.center {
+  margin: auto;
+}
+
 /* ////////////////////////////////// */
 
 /* MAP CANVAS CSS */
@@ -127,3 +131,12 @@
   top: 0;
 }
 /* ////////////////////////////////// */
+
+/* MAP LIST */
+
+#map-list {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  z-index: 3;
+}

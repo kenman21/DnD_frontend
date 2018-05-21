@@ -1,5 +1,6 @@
 let defaultState = {
   currentUser: {},
+  currentUserMaps: [],
   campaigns: [],
   openCampaign: null,
   openMap: null,
@@ -24,6 +25,8 @@ export default function manageCampaign(state = defaultState, action) {
       return {...state, openMap: action.payload}
     case 'ADD_ACTION':
       return {...state, actObj: {...state.actObj, ...action.payload}}
+    case 'SET_MAPS':
+      return {...state, currentUserMaps: [...action.payload]}
     default:
       return state;
   }
