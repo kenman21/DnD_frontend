@@ -59,12 +59,11 @@ class MapCreator extends React.Component {
         </div>
         <LinkButton onClick={this.clearRoom} to="/lobby">Return to Lobby</LinkButton>
         <form className="create-map" onSubmit={this.handleSubmit}>
-          <label> Create Your Own Map </label><br></br>
           <input onChange={this.handleChange} value={this.state.mapName} placeholder="New Map Name"/>
           <input type="submit"/>
         </form>
-        {this.props.openMap ? <p>{this.props.openMap.name}</p> : null}
-        <button onClick={() => {this.props.saveMap(this.props.openMap, this.props.actObj)}}>Save Map State</button>
+        {this.props.openMap ? <p>{this.props.openMap.name}</p> : <p>Create Your Own Map!</p>}
+        {this.props.openMap? <button onClick={() => {this.props.saveMap(this.props.openMap, this.props.actObj)}}>Save Map State</button>:null}
         <div>
           <Map/>
         </div>

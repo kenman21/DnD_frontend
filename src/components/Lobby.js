@@ -28,6 +28,11 @@ class Lobby extends React.Component {
     this.props.clearUser(null)
   }
 
+  enterCampaign = (campaign) => {
+    this.props.openCampaign(campaign)
+    localStorage.openCampaign = JSON.stringify(campaign)
+  }
+
   render() {
 
     let campaigns = this.props.campaigns.map(campaign => {
@@ -36,7 +41,7 @@ class Lobby extends React.Component {
     <div key={campaign.id}>
       <p>{campaign.name}</p>
       <button onClick={() => this.props.deleteCampaign(campaign.id)}>Delete Campaign</button>
-      <LinkButton to={url} onClick={() => this.props.openCampaign(campaign)}>
+      <LinkButton to={url} onClick={() => this.enterCampaign(campaign)}>
       {campaign.creator_id === this.props.currentUser.id ? "Open Your Campaign Page" : "Join This Campaign"}
       </LinkButton>
     </div>

@@ -109,7 +109,44 @@ export function getMaps(user_id) {
     fetch(URL + `users/${user_id}/maps`)
     .then(res => res.json())
     .then(res => {
-      dispatch({type:'SET_MAPS', payload: res})
+      dispatch({type:'SET_USER_MAPS', payload: res})
+    })
+  }
+}
+
+export function createCharacter(name, user, campaign) {
+  return(dispatch) => {
+    fetch(URL + 'characters', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        name: name,
+        user_id: user.id,
+        campaign_id: campaign.id
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      dispatch({type:'OPEN_CHARACTER', payload: res})
+      localStorage.openCharacter = res
+    })
+  }
+}
+
+export function getUserCharacters(user, campaign) {
+  return (dispatch) => {
+    fetch(URL + `users/${user.id}/characters`, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        user_id: user.id,
+        campaign_id: campaign.id
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      dispatch({type:'SET_USER_CHARACTERS', payload: res})
     })
   }
 }

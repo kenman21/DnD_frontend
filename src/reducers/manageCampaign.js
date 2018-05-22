@@ -1,10 +1,12 @@
 let defaultState = {
   currentUser: {},
   currentUserMaps: [],
-  campaigns: [],
-  openCampaign: null,
-  editing: false,
+  currentUserCharacters: [],
   openMap: null,
+  campaigns: [],
+  openCampaign: {},
+  openCharacter: {},
+  editing: false,
   actObj: {},
 }
 
@@ -28,10 +30,14 @@ export default function manageCampaign(state = defaultState, action) {
       return {...state, actObj: {...state.actObj, ...action.payload}}
     case 'CLEAR_ACTIONS':
       return {...state, actObj: {}}
-    case 'SET_MAPS':
+    case 'SET_USER_MAPS':
       return {...state, currentUserMaps: [...action.payload]}
+    case 'SET_USER_CHARACTERS':
+      return {...state, currentUserCharacters: action.payload}
     case 'TOGGLE_EDITING':
       return {...state, editing: !state.editing}
+    case 'OPEN_CHARACTER':
+      return {...state, openCharacter: action.payload}
     default:
       return state;
   }

@@ -30,9 +30,7 @@ export function openingMap(map){
 
 export function keepLoggedIn(user){
   return (dispatch) => {
-    return (
-    dispatch({type: 'LOGIN_PLAYER', payload: JSON.parse(user)})
-  )
+    dispatch({type: 'LOGIN_PLAYER', payload: user})
   }
 }
 

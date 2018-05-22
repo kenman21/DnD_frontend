@@ -46,21 +46,14 @@
   left: 0%;
   right: 0%;
   margin: 0 auto;
-  border: 2px solid grey;
-}
-
-.canvas-grid {
-  z-index: 0;
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-  padding: 0;
-  border: 0;
-  /* background-color: rgb(237,237,237); */
-  opacity: .25;
+  visibility: hidden;
 }
 
 .canvas-grid-parent {
+  font-size: 0;
+}
+
+.tile-grid-parent {
   font-size: 0;
 }
 
@@ -100,21 +93,66 @@
   z-index: 3;
 }
 
-#Page-1 {
-  /* Scale image 1.5x so user can see it... */
-  height: 384px;
-  width: auto;
-  z-index: 2;
-}
+  .canvas-grid {
+    z-index: 0;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: 0;
+    background-color: rgb(237,237,237);
+    opacity: .25;
+  }
+
+  #Page-1 {
+    /* Scale image 1.5x so user can see it... */
+    height: 384px;
+    width: auto;
+    z-index: 2;
+  }
+
+  .tile-grid {
+    width: 20px;
+    height: 20px;
+    padding: 1;
+    border: 0;
+  }
+
+@media (max-width: 1500px) {
+
+  .canvas-grid {
+    z-index: 0;
+    width: 14px;
+    height: 14px;
+    padding: 0;
+    border: 0;
+    background-color: rgb(237,237,237);
+    opacity: .25;
+  }
+
+   .tile-grid {
+     width: 14px;
+     height: 14px;
+     padding: 1;
+     border: 0;
+   }
+   #Page-1 {
+     height: 224px;
+     width: auto;
+     z-index: 2;
+   }
+
+ }
+
 
 /* CONTROLS TILEMAP GRID SIZING AND EFFECTS */
+/*
+  .tile-grid {
+    width: 12px;
+    height: 12px;
+    padding: 1;
+    border: 0;
+  } */
 
-.tile-grid {
-  width: 20px;
-  height: 20px;
-  padding: 1;
-  border: 0;
-}
 
 .tile-grid:hover {
   background: rgb(173,216,230)
@@ -146,4 +184,19 @@
   left: 10%;
   top: 10%;
   z-index: 4;
+}
+
+/* ////////////////////////////////// */
+
+#character-sheet{
+  width: 80%;
+  margin: 0 auto;
+}
+
+#stats {
+  float: left;
+}
+
+.singlestat {
+  width: 150px !important;
 }
