@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import StatForm from './StatForm'
 import SavingThrowContainer from './SavingThrowContainer'
 import SkillContainer from './SkillContainer'
+import OtherStat from './OtherStat'
 
 class CharacterSheet extends React.Component {
   render() {
@@ -13,24 +14,36 @@ class CharacterSheet extends React.Component {
           <h1> Character Name: {this.props.currentUserCharacters.name} </h1>
         </div>
         <div className="column-one" id="column-one">
-          <div id="stats">
-            <StatForm name="strength"/>
-            <StatForm name="dexterity"/>
-            <StatForm name="constitution"/>
-            <StatForm name="intelligence"/>
-            <StatForm name="wisdom"/>
-            <StatForm name="charisma"/>
+          <div id="first-top">
+            <div id="first-top-left">
+              <StatForm name="strength"/>
+              <StatForm name="dexterity"/>
+              <StatForm name="constitution"/>
+              <StatForm name="intelligence"/>
+              <StatForm name="wisdom"/>
+              <StatForm name="charisma"/>
+            </div>
+            <div id="first-top-right">
+              <OtherStat name="inspiration" title="Inspiration"/>
+              <OtherStat name="proficiency" title="Proficiency"/>
+              <SavingThrowContainer/>
+              <SkillContainer/>
+            </div>
           </div>
-          <div>
-          <div className="ui card inspiration" id="inspiration"><div className="content"><div className="header">Inspiration</div><input id="inspiration-value" type="number" autoComplete="off" min="1" max="30" step="1"/></div></div>
-          <div className="ui card inspiration" id="proficiency"><div className="content"><div className="header">Proficiency</div><input id="proficiency-value" type="number" autoComplete="off" min="1" max="30" step="1"/></div></div>
-          <SavingThrowContainer/>
-          <SkillContainer/>
-          <div className="ui card passive-wisdom" id="passive-wisdom"><div className="content"><div className="header">Passive Wisdom (Perception)</div><input id="passive-wisdom-value" type="number" autoComplete="off" min="1" max="30" step="1"/></div></div>
-          <div className="ui card other-proficiencies" id="other-proficiencies"><div className="content"><div className="header">Other Proficiences and Languages</div><textarea className="notes"/></div></div>
+          <div id="first-bottom">
+            <div id="first-bottom-center">
+              <OtherStat name="passive-wisdom" title="Passive Wisdom (Perception)"/>
+              <div className="ui card other-proficiencies" id="other-proficiencies"><div className="content"><div className="header">Other Proficiences and Languages</div><textarea className="notes"/></div></div>
+            </div>
           </div>
-        <div className="column-two" id="column-two">
         </div>
+        <div className="column-two" id="column-two">
+          <OtherStat name="armorclass" title="Armor Class"/>
+          <OtherStat name="initiative" title="Initiative"/>
+          <OtherStat name="speed" title="Speed"/>
+          <StatForm name="hit-points" firstlabel="Max"/>
+          <OtherStat name="temp-hit-points" title="Temporary Hit-Points"/>
+          <OtherStat name="hit-dice" title="Hit Dice"/>
         </div>
       </div>
     )

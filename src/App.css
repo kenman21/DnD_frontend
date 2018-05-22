@@ -140,6 +140,11 @@
      width: auto;
      z-index: 2;
    }
+   
+   #character-sheet{
+     width: 90%;
+     margin: 0 auto;
+   }
 
  }
 
@@ -188,8 +193,10 @@
 
 /* ////////////////////////////////// */
 
+/* CHARACTER SHEETS */
+
 #character-sheet{
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
 }
 
@@ -200,15 +207,35 @@ input[type=number] {
     text-align: right;
 }
 
-#stats {
+#first-top {
+  height: 830px;
+}
+
+#first-top-left {
+  width: 30%;
+  height: 100%;
   float: left;
+}
+
+#first-top-right {
+  width: 70%;
+  float: right
+}
+
+#first-bottom {
+  margin-top: 25px;
+}
+
+#first-bottom-center {
+
 }
 
 /* 375 width */
 
 .singlestat {
-  width: 120px !important;
-  height: 123px !important;
+  width: 100% !important;
+  height: 14% !important;
+  margin-bottom: 25px !important;
 }
 
 .skillcontent {
@@ -225,7 +252,7 @@ input[type=number] {
 
 .savingthrow {
   width: 230px !important;
-  float: left;
+  float: right;
   margin-left: 25px !important;
   margin-top: 0px !important;
 }
@@ -236,13 +263,15 @@ input[type=number] {
 }
 
 .column-one {
-  width: 33%;
+  width: 30%;
   height: 100%;
+  display: inline-block;
+  float:left;
 }
 
 .skills {
   width: 230px !important;
-  float: left;
+  float: right;
   margin-left: 25px !important;
 }
 
@@ -253,7 +282,7 @@ input[type=number] {
 }
 
 .inspiration {
-  float: left;
+  float: right;
   margin-left: 25px !important;
   width: 230px !important;
   height: 75px;
@@ -263,17 +292,16 @@ input[type=number] {
 .proficiency {
   width: 230px !important;
   height: 75px;
-  float: left;
+  float: right;
   margin-left: 25px !important;
 }
 
 .passive-wisdom {
-  width: 375px !important;
-  margin-top: 25px !important;
+  width: 100% !important;
 }
 
 .other-proficiencies {
-  width: 375px !important;
+  width: 100% !important;
   height: 200px ;
   margin-top: 25px !important;
 }
@@ -290,4 +318,51 @@ input[type=number] {
     repeating-linear-gradient(white, white 30px, #ccc 30px, #ccc 31px, white 31px);
   line-height: 31px;
   padding: 8px 10px;
+}
+
+.column-two {
+  margin-left: 25px;
+  width: 30%;
+  height: 100%;
+  display: inline-block;
+  float: left;
+}
+
+.armorclass {
+  width: 30% !important;
+  height: 123px !important;
+  float: left;
+  margin-left: 1% !important;
+}
+
+.initiative {
+  float:left;
+  margin-top: 0px !important;
+  margin-left: 3% !important;
+  width: 30% !important;
+  height: 123px !important;
+}
+
+.speed {
+  float: left;
+  margin-top: 0px !important;
+  width: 30% !important;
+  height: 123px !important;
+  margin-left: 3% !important;
+}
+
+.singlestat.hit-points {
+  float:right;
+  width: 100% !important;
+  height: 125px !important;
+}
+.temp-hit-points {
+  float: right;
+  width: 100% !important;
+  height: 125px !important;
+}
+
+.hit-dice {
+  float: left;
+  width: 50% !important;
 }
