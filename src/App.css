@@ -224,7 +224,7 @@ input[type=number] {
 }
 
 #first-bottom {
-  margin-top: 25px;
+  margin-top: 10px;
 }
 
 #first-bottom-center {
@@ -255,7 +255,8 @@ input[type=number] {
   width: 230px !important;
   float: right;
   margin-left: 25px !important;
-  margin-top: 0px !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .savingthrow-checkbox {
@@ -274,6 +275,8 @@ input[type=number] {
   width: 230px !important;
   float: right;
   margin-left: 25px !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .skill-checkbox {
@@ -287,7 +290,7 @@ input[type=number] {
   margin-left: 25px !important;
   width: 230px !important;
   height: 75px;
-  margin-top: 0px !important;
+  margin-bottom: 10px !important;
 }
 
 .proficiency {
@@ -295,6 +298,8 @@ input[type=number] {
   height: 75px;
   float: right;
   margin-left: 25px !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
 }
 
 .passive-wisdom {
@@ -330,52 +335,60 @@ input[type=number] {
 }
 
 .armorclass {
-  width: 30% !important;
-  height: 123px !important;
+  width: 32% !important;
+  height: 75px !important;
   float: left;
   margin-left: 1% !important;
-  margin-bottom: 0px !important;
+  margin-bottom: 5px !important;
 }
 
 .initiative {
   float:left;
   margin-top: 0px !important;
-  margin-left: 3% !important;
-  width: 30% !important;
-  height: 123px !important;
-  margin-bottom: 0px !important;
+  margin-left: 1% !important;
+  width: 32% !important;
+  height: 75px !important;
+  margin-bottom: 5px !important;
 }
 
 .speed {
   float: left;
   margin-top: 0px !important;
-  width: 30% !important;
-  height: 123px !important;
-  margin-left: 3% !important;
-  margin-bottom: 0px !important;
+  width: 32% !important;
+  height: 75px !important;
+  margin-left: 1% !important;
+  margin-bottom: 5px !important;
 }
 
 .singlestat.hit-points {
   float:right;
   width: 100% !important;
-  height: 125px !important;
+  height: 90px !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
 }
 .temp-hit-points {
   float: right;
   width: 100% !important;
-  height: 100px !important;
-  margin-top: 0px !important;
+  height: 75px !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
 }
 
 .hit-dice {
   float: left;
   width: 47% !important;
   height: 100px !important;
+  margin-bottom: 10px !important;
+  margin-top: 5px !important;
 }
 
 .deathsaves {
   float: right;
   width: 47% !important;
+  height: 100px !important;
+  margin-bottom: 10px !important;
+  margin-top: 5px !important;
 }
 
 .deathsaves-content {
@@ -398,6 +411,8 @@ input[type=number] {
 .attacks-spellcasting {
   width: 100% !important;
   height: 350px !important;
+  margin-bottom: 5px !important;
+  margin-top: 10px !important;
 }
 
 .as {
@@ -406,6 +421,7 @@ input[type=number] {
 }
 
 .as.column {
+  margin-top: 5px;
   height: 33%;
 }
 
@@ -416,7 +432,7 @@ input[type=number] {
   background: transparent;
   border: none;
   border-bottom: 1px solid #000000;
-  text-align: right;
+  text-align: center;
 }
 
 .attacks-spellcasting-notes {
@@ -425,12 +441,12 @@ input[type=number] {
 
 .equipment {
   width: 100%!important;
-  height: 285px;
+  height: 395px;
   float: right;
 }
 
 .equipment-notes {
-  height: 240px;
+  height: 350px;
 }
 
 .column-three {
@@ -460,19 +476,20 @@ input[type=number] {
 
 .features-traits {
   width: 100% !important;
-  height: 550px !important;
+  height: 500px !important;
 }
 
 .features-traits-notes {
-  height: 500px;
+  height: 450px;
 }
 
 .sheet-header {
+  margin-top: 25px !important;
   width: 100% !important;
 }
 
 .header-field {
-  height: 50px;
+  height: 45px;
   margin: 5px;
   width: 24% !important;
   float: left;
@@ -486,4 +503,8 @@ input[type=number] {
   border: none;
   border-bottom: 1px solid #000000;
   text-align: center;
+}
+
+.charsheet {
+  margin: 0 auto !important;
 }

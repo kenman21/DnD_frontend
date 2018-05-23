@@ -41,7 +41,7 @@ class CharacterSheet extends React.Component {
           <OtherStat name="armorclass" title="Armor Class"/>
           <OtherStat name="initiative" title="Initiative"/>
           <OtherStat name="speed" title="Speed"/>
-          <StatForm name="hit-points" firstlabel="Max"/>
+          <StatForm name="hit-points" firstlabel="Max" secondlabel="Current"/>
           <OtherStat name="temp-hit-points" title="Temporary Hit-Points"/>
           <OtherStat name="hit-dice" title="Hit Dice"/>
           <DeathSaves/>

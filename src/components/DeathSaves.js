@@ -5,7 +5,7 @@ class DeathSaves extends React.Component {
     return (
       <div className="ui card deathsaves" id="deathsaves">
         <div className="content deathsaves-header">
-          <div className="header">Death-Saves</div>
+          <div className="header">Death Saves</div>
         </div>
         <div className="content deathsaves-content">
           <div id="successes">
