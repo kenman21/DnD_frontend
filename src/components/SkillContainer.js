@@ -16,16 +16,16 @@ const SkillContainer = (props) => {
         <Skill name="history" title="History" stat="Int"/>
         <Skill name="insight" title="Insight" stat="Wis"/>
         <Skill name="intimidation" title="Intimidation" stat="Cha"/>
-        <Skill name="investigation" name="Investigation" stat="Int"/>
-        <Skill name="medicine" name="Medicine" stat="Wis"/>
-        <Skill name="nature"  name="Nature" stat="Int"/>
-        <Skill name="perception" name="Perception"stat="Wis"/>
-        <Skill name="performance" name="Performance"stat="Cha"/>
-        <Skill name="persuasion" name="Persuasion"stat="Cha"/>
-        <Skill name="religion" name="Religion" stat="Int"/>
-        <Skill name="sleightofhand" name="Sleight of Hand" stat="Dex"/>
-        <Skill name="stealth" name="Stealth" stat="Dex"/>
-        <Skill name="survival" name="Survival" stat="Wis"/>
+        <Skill name="investigation" title="Investigation" stat="Int"/>
+        <Skill name="medicine" title="Medicine" stat="Wis"/>
+        <Skill name="nature"  title="Nature" stat="Int"/>
+        <Skill name="perception" title="Perception"stat="Wis"/>
+        <Skill name="performance" title="Performance"stat="Cha"/>
+        <Skill name="persuasion" title="Persuasion"stat="Cha"/>
+        <Skill name="religion" title="Religion" stat="Int"/>
+        <Skill name="sleightofhand" title="Sleight of Hand" stat="Dex"/>
+        <Skill name="stealth" title="Stealth" stat="Dex"/>
+        <Skill name="survival" title="Survival" stat="Wis"/>
       </div>
     </div>
   )

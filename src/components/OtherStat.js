@@ -5,7 +5,7 @@ import {setStat} from '../actions/actions.js'
 class OtherStat extends React.Component{
 
   onChange = (e) => {
-    this.props.setStat({[e.target.id]: e.target.value})
+    this.props.setStat({[e.target.id]: parseInt(e.target.value)})
     localStorage[e.target.id] = e.target.value
   }
 

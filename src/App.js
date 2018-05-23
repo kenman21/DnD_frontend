@@ -39,7 +39,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.state);
     let campaign_routes = this.props.campaigns.map(campaign => {
       let url = "/campaign/" + campaign.id
       return (
@@ -63,7 +62,6 @@ function mapStatetoProps(state) {
   return {
     campaigns: state.campaigns,
     currentUser: state.currentUser,
-    state: state
   }
 }
 

@@ -5,9 +5,9 @@ let defaultState = {
   openMap: null,
   campaigns: [],
   openCampaign: {},
-  openCharacter: {},
   editing: false,
   actObj: {},
+  charSheet: {
   acrobaticschecked: "",
   animalhandlingchecked:"",
   arcanachecked:"",
@@ -76,7 +76,7 @@ let defaultState = {
   strengthmod:"",
   temp_hit_pointsvalue:"",
   wisdombase:"",
-  wisdommod:""
+  wisdommod:""}
 }
 
 export default function manageCampaign(state = defaultState, action) {
@@ -110,7 +110,8 @@ export default function manageCampaign(state = defaultState, action) {
     case 'SET_STAT':
       let key = Object.keys(action.payload)[0]
       let value = Object.values(action.payload)[0]
-      return {...state, [key]: value};
+      debugger
+      return {...state, charSheet: {...state.charSheet, [key]: value}};
     default:
       return state;
   }

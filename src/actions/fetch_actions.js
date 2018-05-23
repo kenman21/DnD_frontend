@@ -150,3 +150,15 @@ export function getUserCharacters(user, campaign) {
     })
   }
 }
+
+export function saveCharacter(character_id, charsheet) {
+  return(dispatch) => {
+    fetch(URL + 'characters', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        charsheet: charsheet
+      })
+    })
+  }
+}
