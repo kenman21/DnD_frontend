@@ -205,6 +205,7 @@ input[type=number] {
     border: none;
     border-bottom: 1px solid #000000;
     text-align: right;
+
 }
 
 #first-top {
@@ -464,4 +465,25 @@ input[type=number] {
 
 .features-traits-notes {
   height: 500px;
+}
+
+.sheet-header {
+  width: 100% !important;
+}
+
+.header-field {
+  height: 50px;
+  margin: 5px;
+  width: 24% !important;
+  float: left;
+}
+
+.header-input {
+  width: 100%;
+  margin-bottom: 5px !important;
+  margin: 0 auto;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  text-align: center;
 }

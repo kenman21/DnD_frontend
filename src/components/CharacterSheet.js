@@ -3,18 +3,16 @@ import {connect} from 'react-redux'
 import StatForm from './StatForm'
 import SavingThrowContainer from './SavingThrowContainer'
 import SkillContainer from './SkillContainer'
+import HeaderContainer from './HeaderContainer'
 import OtherStat from './OtherStat'
 import TextField from './TextField'
 import DeathSaves from './DeathSaves'
 
 class CharacterSheet extends React.Component {
   render() {
-    console.log(this.props.currentUserCharacters);
     return (
       <div id="character-sheet">
-        <div>
-          <h1> Character Name: {this.props.currentUserCharacters.name} </h1>
-        </div>
+        <HeaderContainer/>
         <div className="column-one" id="column-one">
           <div id="first-top">
             <div id="first-top-left">

@@ -20,7 +20,6 @@ class PlayerContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.currentUserCharacters);
     return (
       <div>
         {!this.props.currentUserCharacters ?
