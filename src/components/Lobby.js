@@ -29,6 +29,7 @@ class Lobby extends React.Component {
   }
 
   enterCampaign = (campaign) => {
+    localStorage.charsheet = JSON.stringify({})
     this.props.openCampaign(campaign)
     localStorage.openCampaign = JSON.stringify(campaign)
   }

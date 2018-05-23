@@ -39,3 +39,9 @@ export function toggleEditing(){
     dispatch({type: 'TOGGLE_EDITING'})
   }
 }
+
+export function setStat(stat){
+  return (dispatch) => {
+    dispatch({type: 'SET_STAT', payload: stat})
+  }
+}

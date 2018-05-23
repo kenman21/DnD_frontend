@@ -9,7 +9,9 @@ import TextField from './TextField'
 import DeathSaves from './DeathSaves'
 
 class CharacterSheet extends React.Component {
+
   render() {
+
     return (
       <div id="character-sheet">
         <HeaderContainer/>
@@ -32,8 +34,8 @@ class CharacterSheet extends React.Component {
           </div>
           <div id="first-bottom">
             <div id="first-bottom-center">
-              <OtherStat name="passive-wisdom" title="Passive Wisdom (Perception)"/>
-              <TextField name="other-proficiencies" title="Other Proficiences and Languages" />
+              <OtherStat name="passive_wisdom" title="Passive Wisdom (Perception)"/>
+              <TextField name="other_proficiencies" title="Other Proficiences and Languages" />
             </div>
           </div>
         </div>
@@ -41,18 +43,18 @@ class CharacterSheet extends React.Component {
           <OtherStat name="armorclass" title="Armor Class"/>
           <OtherStat name="initiative" title="Initiative"/>
           <OtherStat name="speed" title="Speed"/>
-          <StatForm name="hit-points" firstlabel="Max" secondlabel="Current"/>
-          <OtherStat name="temp-hit-points" title="Temporary Hit-Points"/>
+          <StatForm name="hit_points" firstlabel="Max" secondlabel="Current"/>
+          <OtherStat name="temp_hit_points" title="Temporary Hit-Points"/>
           <OtherStat name="hit-dice" title="Hit Dice"/>
           <DeathSaves/>
-          <TextField name="attacks-spellcasting" title="Attacks and Spellcasting" extra="text"/>
+          <TextField name="attacks_spellcasting" title="Attacks and Spellcasting" extra="text"/>
           <TextField name="equipment" title="Equipment"/>
         </div>
         <div className="column-three" id="column-three">
-          <TextField name="personality-traits" title="Personality and Traits"/>
+          <TextField name="personality_traits" title="Personality and Traits"/>
           <TextField name="ideals" title="Ideals"/>
           <TextField name="bonds" title="Bonds"/>
-          <TextField name="features-traits" title="Features and Traits"/>
+          <TextField name="features_traits" title="Features and Traits"/>
         </div>
       </div>
     )

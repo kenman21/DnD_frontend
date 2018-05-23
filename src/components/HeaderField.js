@@ -1,14 +1,21 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {setStat} from '../actions/actions.js'
 
 class HeaderField extends React.Component {
+  onChange = (e) => {
+    this.props.setStat({[e.target.id]: e.target.value})
+    localStorage[e.target.id] = e.target.value
+  }
+
   render() {
   return(
     <div className="header-field" >
-      <input id={this.props.name} className="header-input" type="text" value={this.props.value}/>
+      <input id={this.props.name} onChange={this.onChange} className="header-input" type="text" value={this.props.value}/>
       <div className="ui tiny header charsheet">{this.props.title}</div>
     </div>
   )
 }
 }
 
-export default HeaderField
+export default connect(null,{setStat})(HeaderField)

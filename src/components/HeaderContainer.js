@@ -8,13 +8,13 @@ class HeaderContainer extends React.Component {
     <div className="ui card sheet-header">
       <div className="content">
         <HeaderField name="char-name" title="Character Name" value={this.props.currentUserCharacters.name}/>
-        <HeaderField name="class-level" title="Class & Level"/>
+        <HeaderField name="class_level" title="Class & Level"/>
         <HeaderField name="background" title="Background"/>
-        <HeaderField name="player-name" title="Player Name"/>
+        <HeaderField name="player_name" title="Player Name"/>
         <HeaderField name="faction" title="Faction"/>
         <HeaderField name="race" title="Race"/>
         <HeaderField name="alignment" title="Alignment"/>
-        <HeaderField name="experience-points" title="Experience Points"/>
+        <HeaderField name="experience_points" title="Experience Points"/>
       </div>
     </div>
   )

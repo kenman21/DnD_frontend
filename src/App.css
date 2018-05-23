@@ -111,8 +111,8 @@
   }
 
   .tile-grid {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     padding: 1;
     border: 0;
   }
@@ -302,11 +302,11 @@ input[type=number] {
   margin-bottom: 5px !important;
 }
 
-.passive-wisdom {
+.passive_wisdom {
   width: 100% !important;
 }
 
-.other-proficiencies {
+.other_proficiencies {
   width: 100% !important;
   height: 200px ;
   margin-top: 25px !important;
@@ -357,7 +357,7 @@ input[type=number] {
   width: 32% !important;
   height: 75px !important;
   margin-left: 1% !important;
-  margin-bottom: 5px !important;
+  margin-bottom: 10px !important;
 }
 
 .singlestat.hit-points {
@@ -367,7 +367,7 @@ input[type=number] {
   margin-top: 5px !important;
   margin-bottom: 5px !important;
 }
-.temp-hit-points {
+.temp_hit_points {
   float: right;
   width: 100% !important;
   height: 75px !important;
@@ -408,7 +408,7 @@ input[type=number] {
   margin-left: 20%;
 }
 
-.attacks-spellcasting {
+.attacks_spellcasting {
   width: 100% !important;
   height: 350px !important;
   margin-bottom: 5px !important;
@@ -458,7 +458,7 @@ input[type=number] {
   margin: 0 auto;
 }
 
-.personality-traits {
+.personality_traits {
   width: 100% !important;
   height: 200px !important;
 }
@@ -474,12 +474,12 @@ input[type=number] {
 }
 
 
-.features-traits {
+.features_traits {
   width: 100% !important;
   height: 500px !important;
 }
 
-.features-traits-notes {
+.features_traits-notes {
   height: 450px;
 }
 

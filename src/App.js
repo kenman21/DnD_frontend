@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   autoLogin = () => {
-    if ((localStorage.currentUser) !== "null" && Object.keys(this.props.currentUser).length === 0) {
+    if ((localStorage.currentUser) !== "null" && Object.keys(this.props.currentUser).length === 0 && (localStorage.currentUser) !== undefined) {
       let promise = new Promise((resolve, reject) => {
         this.props.keepLoggedIn(JSON.parse(localStorage.currentUser))
         resolve()
@@ -35,10 +35,11 @@ class App extends Component {
   }
 
   autoSetCharacter = () => {
-    
+
   }
 
   render() {
+    console.log(this.props.state);
     let campaign_routes = this.props.campaigns.map(campaign => {
       let url = "/campaign/" + campaign.id
       return (
@@ -62,6 +63,7 @@ function mapStatetoProps(state) {
   return {
     campaigns: state.campaigns,
     currentUser: state.currentUser,
+    state: state
   }
 }
 

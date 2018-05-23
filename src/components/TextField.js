@@ -1,6 +1,14 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {setStat} from '../actions/actions.js'
 
 class TextField extends React.Component {
+
+  onChange = (e) => {
+    this.props.setStat({[e.target.id]: e.target.value})
+    localStorage[e.target.id] = e.target.value
+  }
+
   render() {
     return (
       <div className={"ui card "+this.props.name} id={this.props.name}>
@@ -10,28 +18,28 @@ class TextField extends React.Component {
           <div>
           <div className="as column">
           <div className="tiny-header">Name</div>
-            <input id="as-name-1" className="as field" type="text"/>
-            <input id="as-name-2" className="as field" type="text"/>
-            <input id="as-name-3" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_name_1" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_name_2" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_name_3" className="as field" type="text"/>
           </div>
           <div className="as column">
           <div className="tiny-header">Attack Bonus</div>
-            <input id="as-atkb-1" className="as field" type="text"/>
-            <input id="as-atkb-2" className="as field" type="text"/>
-            <input id="as-atkb-3" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_atkb_1" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_atkb_2" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_atkb_3" className="as field" type="text"/>
           </div>
           <div className="as column">
           <div className="tiny-header">Damage/Type</div>
-            <input id="as-type-1" className="as field" type="text"/>
-            <input id="as-type-2" className="as field" type="text"/>
-            <input id="as-type-3" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_type_1" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_type_2" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_type_3" className="as field" type="text"/>
           </div>
           </div>:null}
-          <textarea className={"notes "+this.props.name + "-notes"}/>
+          <textarea onChange={this.onChange} id={this.props.name + "notes"} className={"notes "+this.props.name + "-notes"}/>
         </div>
       </div>
     )
   }
 }
 
-export default TextField
+export default connect(null,{setStat})(TextField)
