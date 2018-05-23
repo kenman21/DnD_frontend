@@ -140,7 +140,7 @@
      width: auto;
      z-index: 2;
    }
-   
+
    #character-sheet{
      width: 90%;
      margin: 0 auto;
@@ -196,7 +196,7 @@
 /* CHARACTER SHEETS */
 
 #character-sheet{
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -309,7 +309,7 @@ input[type=number] {
 .notes {
   background: transparent;
   border: none;
-  width: 300px;
+  width: 100%;
   height: 150px;
   background-attachment: local;
   background-image:
@@ -325,7 +325,7 @@ input[type=number] {
   width: 30%;
   height: 100%;
   display: inline-block;
-  float: left;
+  margin: 0 auto;
 }
 
 .armorclass {
@@ -333,6 +333,7 @@ input[type=number] {
   height: 123px !important;
   float: left;
   margin-left: 1% !important;
+  margin-bottom: 0px !important;
 }
 
 .initiative {
@@ -341,6 +342,7 @@ input[type=number] {
   margin-left: 3% !important;
   width: 30% !important;
   height: 123px !important;
+  margin-bottom: 0px !important;
 }
 
 .speed {
@@ -349,6 +351,7 @@ input[type=number] {
   width: 30% !important;
   height: 123px !important;
   margin-left: 3% !important;
+  margin-bottom: 0px !important;
 }
 
 .singlestat.hit-points {
@@ -359,10 +362,106 @@ input[type=number] {
 .temp-hit-points {
   float: right;
   width: 100% !important;
-  height: 125px !important;
+  height: 100px !important;
+  margin-top: 0px !important;
 }
 
 .hit-dice {
   float: left;
-  width: 50% !important;
+  width: 47% !important;
+  height: 100px !important;
+}
+
+.deathsaves {
+  float: right;
+  width: 47% !important;
+}
+
+.deathsaves-content {
+  width: 100% !important;
+  padding-top: 0 !important;
+  float: left;
+  margin-left: 10px;
+}
+
+#successes {
+  float: left;
+  margin-left: 20%;
+}
+
+#deaths {
+  float: left;
+  margin-left: 20%;
+}
+
+.attacks-spellcasting {
+  width: 100% !important;
+  height: 350px !important;
+}
+
+.as {
+  width: 33% !important;
+  float:left;
+}
+
+.as.column {
+  height: 33%;
+}
+
+.as.field {
+  width: 95% !important;
+  margin-bottom: 5px !important;
+  margin: 0 auto;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  text-align: right;
+}
+
+.attacks-spellcasting-notes {
+  height: 200px;
+}
+
+.equipment {
+  width: 100%!important;
+  height: 285px;
+  float: right;
+}
+
+.equipment-notes {
+  height: 240px;
+}
+
+.column-three {
+  margin-left: 25px;
+  width: 30%;
+  height: 100%;
+  display: inline-block;
+  float: right;
+  margin: 0 auto;
+}
+
+.personality-traits {
+  width: 100% !important;
+  height: 200px !important;
+}
+
+.ideals {
+  width: 100% !important;
+  height: 200px !important;
+}
+
+.bonds {
+  width: 100% !important;
+  height: 200px !important;
+}
+
+
+.features-traits {
+  width: 100% !important;
+  height: 550px !important;
+}
+
+.features-traits-notes {
+  height: 500px;
 }

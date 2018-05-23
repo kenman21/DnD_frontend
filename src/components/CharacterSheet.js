@@ -4,6 +4,8 @@ import StatForm from './StatForm'
 import SavingThrowContainer from './SavingThrowContainer'
 import SkillContainer from './SkillContainer'
 import OtherStat from './OtherStat'
+import TextField from './TextField'
+import DeathSaves from './DeathSaves'
 
 class CharacterSheet extends React.Component {
   render() {
@@ -33,7 +35,7 @@ class CharacterSheet extends React.Component {
           <div id="first-bottom">
             <div id="first-bottom-center">
               <OtherStat name="passive-wisdom" title="Passive Wisdom (Perception)"/>
-              <div className="ui card other-proficiencies" id="other-proficiencies"><div className="content"><div className="header">Other Proficiences and Languages</div><textarea className="notes"/></div></div>
+              <TextField name="other-proficiencies" title="Other Proficiences and Languages" />
             </div>
           </div>
         </div>
@@ -44,6 +46,15 @@ class CharacterSheet extends React.Component {
           <StatForm name="hit-points" firstlabel="Max"/>
           <OtherStat name="temp-hit-points" title="Temporary Hit-Points"/>
           <OtherStat name="hit-dice" title="Hit Dice"/>
+          <DeathSaves/>
+          <TextField name="attacks-spellcasting" title="Attacks and Spellcasting" extra="text"/>
+          <TextField name="equipment" title="Equipment"/>
+        </div>
+        <div className="column-three" id="column-three">
+          <TextField name="personality-traits" title="Personality and Traits"/>
+          <TextField name="ideals" title="Ideals"/>
+          <TextField name="bonds" title="Bonds"/>
+          <TextField name="features-traits" title="Features and Traits"/>
         </div>
       </div>
     )
