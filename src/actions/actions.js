@@ -1,4 +1,4 @@
-export function openCampaign(campaign){
+export function openingCampaign(campaign){
   return (dispatch) => {
     dispatch({type: 'OPEN_CAMPAIGN', payload: campaign})
   }
@@ -43,5 +43,18 @@ export function toggleEditing(){
 export function setStat(stat){
   return (dispatch) => {
     dispatch({type: 'SET_STAT', payload: stat})
+  }
+}
+
+export function setCampaignChars(characters){
+  return (dispatch) => {
+    dispatch({type:'SET_CAMPAIGN_CHARACTERS', payload: characters})
+  }
+}
+
+export function setChar(character) {
+  return (dispatch) => {
+    dispatch({type:'SET_USER_CHARACTERS', payload: character})
+    dispatch({type: 'SET_ALL_STATS', payload: character})
   }
 }

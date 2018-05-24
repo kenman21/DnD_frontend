@@ -6,13 +6,11 @@ class Skill extends React.Component {
 
   onChange = (e) => {
     this.props.setStat({[e.target.id]: e.target.checked})
-    // localStorage[e.target.id] = e.target.checked
   }
 
   calcValue = () => {
     let value = this.props.charSheet[this.props.base+"mod"]
-    this.props.charSheet[this.props.name+"checked"] ? value += this.props.charSheet.proficiencyvalue:null
-    console.log(this.props.charSheet[this.props.name+"checked"]);
+    this.props.charSheet[this.props.name+"checked"] ? (value += this.props.charSheet.proficiencyvalue):null
     return value
   }
 

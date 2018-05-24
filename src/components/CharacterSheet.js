@@ -7,13 +7,18 @@ import HeaderContainer from './HeaderContainer'
 import OtherStat from './OtherStat'
 import TextField from './TextField'
 import DeathSaves from './DeathSaves'
+import {saveCharacter} from '../actions/fetch_actions.js'
 
 class CharacterSheet extends React.Component {
 
+  handleBlur = () => {
+    this.props.saveCharacter(this.props.currentUserCharacters.id, this.props.charSheet);
+    console.log("saving");
+  }
+
   render() {
-    console.log(this.props.charSheet);
     return (
-      <div id="character-sheet">
+      <div onBlur={this.handleBlur} id="character-sheet">
         <HeaderContainer/>
         <div className="column-one" id="column-one">
           <div id="first-top">
@@ -68,4 +73,4 @@ function mapStatetoProps(state) {
   }
 }
 
-export default connect(mapStatetoProps)(CharacterSheet)
+export default connect(mapStatetoProps, {saveCharacter})(CharacterSheet)

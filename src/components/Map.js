@@ -67,7 +67,7 @@ class Map extends React.Component {
       const row = []
       for (let j = 0; j < grid_w; j++){
         row.push(
-          <td onClick={(e) => this.handleClick(e)} className={class_name} key={`${i},${j}`} id={`${j*this.state.pixel_size},${i*this.state.pixel_size}`}>
+          <td onClick={(e) => this.handleClick(e)} onBlur={(e) => this.handleBlur(e)} className={class_name} key={`${i},${j}`} id={`${j*this.state.pixel_size},${i*this.state.pixel_size}`}>
           <Tile/>
           </td>
         )
@@ -185,7 +185,11 @@ class Map extends React.Component {
     let ctx = canvas.getContext('2d');
     // image.style.height = "192px"
     // image.style.width = "192px"
-    ctx.drawImage(image,x,y,this.state.pixel_size,this.state.pixel_size,i+1,j+1,this.state.pixel_size-1,this.state.pixel_size-1);
+    if (this.state.pixel_size == 14) {
+      ctx.drawImage(image,x*16/14,y*16/14,this.state.pixel_size*16/14,this.state.pixel_size*16/14,i+1,j+1,this.state.pixel_size-1,this.state.pixel_size-1);
+    } else {
+      ctx.drawImage(image,x,y,this.state.pixel_size,this.state.pixel_size,i+1,j+1,this.state.pixel_size-1,this.state.pixel_size-1);
+    }
   }
 
   fillWithWhite = (i, j) => {
@@ -219,41 +223,24 @@ class Map extends React.Component {
     })
   }
 
-  render() {
-
-    // if (this.props.openMap) {
-    //   document.getElementById('canvas-1').style.visibility = "visible"
-    // }
-
-    // Wipe the canvas and redraw the chosen Map
-
-    if (this.props.openMap && this.props.openMap.slots && this.props.editing) {
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.openMap !== this.props.openMap) {
       for (let i = 0 ; i <= this.state.pixel_size*this.state.grid_l; i+=this.state.pixel_size) {
         for (let j = 0 ; j <= this.state.pixel_size*this.state.grid_l; j+=this.state.pixel_size) {
           this.fillWithWhite(i,j)
         }
       }
-      for (let i=0; i<this.props.openMap.slots.length; i++) {
-        let action = this.props.openMap.slots[i]
-        if (this.state.pixel_size === 14) {
-          this.fillWithSprite(action.canvas_x*.875, action.canvas_y*.875, action.tile_x, action.tile_y)
-        } else {
+      if (this.props.openMap && this.props.openMap.slots) {
+        for (let i=0; i<this.props.openMap.slots.length; i++) {
+          let action = this.props.openMap.slots[i]
           this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y)
         }
       }
-      this.props.editing ? this.props.toggleEditing():null
     }
+  }
 
-    // Wipe canvas when player creates a new Map
-
-    if (this.props.openMap && this.props.openMap.slots == undefined && this.props.actObj === {}) {
-      for (let i = 0 ; i <= this.state.pixel_size*this.state.grid_l; i+=this.state.pixel_size) {
-        for (let j = 0 ; j <= this.state.pixel_size*this.state.grid_l; j+=this.state.pixel_size) {
-          this.fillWithWhite(i,j)
-        }
-      }
-    }
-
+  render() {
+    console.log(this.props.openMap);
     return (
       <div id="canvas-container">
         <canvas id="canvas-1" >

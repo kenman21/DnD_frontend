@@ -7,7 +7,7 @@ import Lobby from './components/Lobby'
 import Content from './components/Content'
 import MapCreator from './components/MapCreator'
 import {getCampaigns, getMaps} from './actions/fetch_actions.js'
-import {keepLoggedIn, openCampaign} from './actions/actions.js'
+import {keepLoggedIn, openingCampaign} from './actions/actions.js'
 
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
 
   autoSetCampaign = () => {
     if (localStorage.openCampaign) {
-      this.props.openCampaign(JSON.parse(localStorage.openCampaign))
+      this.props.openingCampaign(JSON.parse(localStorage.openCampaign))
     }
   }
 
@@ -32,10 +32,6 @@ class App extends Component {
       })
       promise.then(() => {this.props.getMaps(this.props.currentUser.id)})
     }
-  }
-
-  autoSetCharacter = () => {
-
   }
 
   render() {
@@ -66,4 +62,4 @@ function mapStatetoProps(state) {
   }
 }
 
-export default connect(mapStatetoProps, {getCampaigns, getMaps, keepLoggedIn, openCampaign})(App);
+export default connect(mapStatetoProps, {getCampaigns, getMaps, keepLoggedIn, openingCampaign})(App);

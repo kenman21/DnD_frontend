@@ -5,6 +5,7 @@ let defaultState = {
   openMap: null,
   campaigns: [],
   openCampaign: {},
+  openCampaignCharacters: [],
   editing: false,
   actObj: {},
   charSheet: {
@@ -113,14 +114,14 @@ export default function manageCampaign(state = defaultState, action) {
       return {...state, currentUserCharacters: action.payload}
     case 'TOGGLE_EDITING':
       return {...state, editing: !state.editing}
-    case 'OPEN_CHARACTER':
-      return {...state, openCharacter: action.payload}
     case 'SET_STAT':
       let key = Object.keys(action.payload)[0]
       let value = Object.values(action.payload)[0]
       return {...state, charSheet: {...state.charSheet, [key]: value}};
     case 'SET_ALL_STATS':
       return {...state, charSheet: {...state.charSheet, ...action.payload}}
+    case 'SET_CAMPAIGN_CHARACTERS':
+      return {...state, openCampaignCharacters: [...action.payload]}
     default:
       return state;
   }

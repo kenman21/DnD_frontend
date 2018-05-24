@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addCampaign, deleteCampaign, getUserCharacters} from '../actions/fetch_actions.js'
-import {openCampaign, clearUser} from '../actions/actions.js'
+import {addCampaign, deleteCampaign, getUserCharacters, getCampaignCharacters} from '../actions/fetch_actions.js'
+import {openingCampaign, clearUser} from '../actions/actions.js'
 import LinkButton from './LinkButton'
 
 class Lobby extends React.Component {
@@ -31,10 +31,20 @@ class Lobby extends React.Component {
   enterCampaign = (e,campaign) => {
     let url = e.target.getAttribute('url')
     let promise = new Promise((resolve, reject) => {
-      this.props.openCampaign(campaign)
+      this.props.openingCampaign(campaign)
       resolve()
     })
-    promise.then((e) => {console.log("getting characters");this.props.getUserCharacters(this.props.currentUser, this.props.openCampaign)}).then(()=> {console.log("changing page");this.props.history.push(url)})
+    promise.then((e) =>
+    {
+      // SET CHARACTERS DEPENDING ON WHETHER THIS IS PLAYER VS DM
+      campaign.creator_id === this.props.currentUser.id ?
+      this.props.getCampaignCharacters(this.props.openCampaign.id):
+      this.props.getUserCharacters(this.props.currentUser, this.props.openCampaign)
+    }).then(()=> {
+
+        this.props.history.push(url)
+
+      })
     localStorage.openCampaign = JSON.stringify(campaign)
   }
 
@@ -74,7 +84,8 @@ function mapStatetoProps(state) {
   return {
     currentUser: state.currentUser,
     campaigns: state.campaigns,
+    openCampaign: state.openCampaign
   }
 }
 
-export default connect(mapStatetoProps, {addCampaign, deleteCampaign, openCampaign, clearUser, getUserCharacters})(Lobby)
+export default connect(mapStatetoProps, {addCampaign, deleteCampaign, openingCampaign, clearUser, getUserCharacters, getCampaignCharacters})(Lobby)

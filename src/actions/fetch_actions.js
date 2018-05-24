@@ -86,7 +86,8 @@ export function addMap(name, user_id){
         user_id: user_id
       })
     }).then(res => res.json()).then(res => {
-    dispatch({type: 'OPEN_MAP', payload: res});
+    dispatch({type: 'OPEN_MAP', payload: res.slice(-1)[0]});
+    dispatch({type:'SET_USER_MAPS', payload: res});
   })
   }
 }
@@ -107,6 +108,23 @@ export function saveMap(map, actions) {
 export function getMaps(user_id) {
   return (dispatch) => {
     fetch(URL + `users/${user_id}/maps`)
+    .then(res => res.json())
+    .then(res => {
+      dispatch({type:'SET_USER_MAPS', payload: res})
+    })
+  }
+}
+
+export function deleteMap(map, currentUser) {
+    return (dispatch) => {
+      fetch(URL + `maps/${map.id}`, {
+      method: 'DELETE',
+      headers: headers,
+      body: JSON.stringify({
+        map_id: map.id,
+        user_id: currentUser.id
+      })
+    })
     .then(res => res.json())
     .then(res => {
       dispatch({type:'SET_USER_MAPS', payload: res})
@@ -159,9 +177,20 @@ export function saveCharacter(character_id, charsheet) {
       method: 'PATCH',
       headers: headers,
       body: JSON.stringify({
-        character_id, character_id,
+        character_id: character_id,
         charsheet: charsheet
       })
+    })
+  }
+}
+
+export function getCampaignCharacters(campaign_id){
+  return (dispatch) => {
+    fetch(URL + `campaigns/${campaign_id}/characters`)
+    .then(res => res.json())
+    .then(res => {
+      dispatch({type:'SET_CAMPAIGN_CHARACTERS', payload: res})
+      localStorage.openCampaignCharacters = JSON.stringify(res)
     })
   }
 }

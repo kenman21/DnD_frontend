@@ -2,7 +2,7 @@ import React from 'react'
 import Map from './Map.js'
 import {connect} from 'react-redux'
 import LinkButton from './LinkButton'
-import {addMap, saveMap, getMaps} from '../actions/fetch_actions.js'
+import {addMap, saveMap, getMaps, deleteMap} from '../actions/fetch_actions.js'
 import {keepLoggedIn, openingMap, toggleEditing, clearActions} from '../actions/actions.js'
 
 class MapCreator extends React.Component {
@@ -33,9 +33,8 @@ class MapCreator extends React.Component {
     })
   }
 
-  EditMap = (map) => {
-    this.props.toggleEditing()
-    this.props.openingMap(null)
+  editMap = (map) => {
+    // this.props.openingMap(null)
     this.props.openingMap(map)
   }
 
@@ -43,18 +42,26 @@ class MapCreator extends React.Component {
     this.props.openingMap(null)
   }
 
+  clickDelete = (map, currentUser) => {
+    if (this.props.openMap === map) {
+      this.props.openingMap(null)
+    }
+    this.props.deleteMap(map, currentUser)
+  }
+
   render () {
     let userMaps = this.props.currentUserMaps.map(map => {
       return (
       <div key={map.name}>
         {map.name}
-        <button onClick={() => this.EditMap(map)}>Edit Map</button>
+        <button onClick={() => this.props.openingMap(map)}>Edit Map</button>
+        <button onClick={() => this.clickDelete(map, this.props.currentUser)}>Delete Map</button>
       </div>
     )})
     return(
       <div>
         <div className="left" id="map-list">
-          Map List goes here
+          Your Maps
           {userMaps}
         </div>
         <LinkButton onClick={this.clearRoom} to="/lobby">Return to Lobby</LinkButton>
@@ -82,4 +89,4 @@ function mapStatetoProps(state) {
   )
 }
 
-export default connect(mapStatetoProps, {addMap, saveMap, getMaps, keepLoggedIn, openingMap, toggleEditing, clearActions})(MapCreator)
+export default connect(mapStatetoProps, {addMap, saveMap, getMaps, keepLoggedIn, openingMap, toggleEditing, clearActions, deleteMap})(MapCreator)

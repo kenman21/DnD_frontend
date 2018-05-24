@@ -2,20 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import LinkButton from './LinkButton'
 import PlayerContainer from './PlayerContainer'
-import {saveCharacter} from '../actions/fetch_actions.js'
+import DMContainer from './DMContainer'
 
 class Content extends React.Component {
 
-  saveSheet = () => {
-    this.props.saveCharacter(this.props.currentUserCharacters.id, this.props.charSheet)
-  }
-
   render() {
     return (
-      <div>
+      <div id="content">
         <LinkButton to="/lobby">Return to Lobby</LinkButton>
-        <button onClick={this.saveSheet}>Save Character Sheet</button>
-        {this.props.currentUser.id === this.props.openCampaign.creator_id ? <div>DM</div>:<PlayerContainer/>}
+        {this.props.currentUser.id === this.props.openCampaign.creator_id ? <DMContainer/>:<PlayerContainer/>}
       </div>
     )
   }
@@ -32,4 +27,4 @@ function mapStatetoProps(state) {
 
 
 
-export default connect(mapStatetoProps, {saveCharacter})(Content)
+export default connect(mapStatetoProps)(Content)
