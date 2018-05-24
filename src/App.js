@@ -62,6 +62,7 @@ function mapStatetoProps(state) {
   return {
     campaigns: state.campaigns,
     currentUser: state.currentUser,
+    charSheet: state.charSheet
   }
 }
 

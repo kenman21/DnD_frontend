@@ -8,12 +8,12 @@ const SavingThrowContainer = (props) => {
         <div className="header">Saving Throws</div>
       </div>
       <div className="content">
-        <SavingThrow name="Strength"/>
-        <SavingThrow name="Dexterity"/>
-        <SavingThrow name="Constitution"/>
-        <SavingThrow name="Intelligence"/>
-        <SavingThrow name="Wisdom"/>
-        <SavingThrow name="Charisma"/>
+        <SavingThrow name="strength" title="Strength"/>
+        <SavingThrow name="dexterity" title="Dexterity"/>
+        <SavingThrow name="constitution" title="Constitution"/>
+        <SavingThrow name="intelligence" title="Intelligence"/>
+        <SavingThrow name="wisdom" title="Wisdom"/>
+        <SavingThrow name="charisma" title="Charisma"/>
       </div>
     </div>
   )

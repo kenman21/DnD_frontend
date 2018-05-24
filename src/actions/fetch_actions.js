@@ -145,18 +145,21 @@ export function getUserCharacters(user, campaign) {
     })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       dispatch({type:'SET_USER_CHARACTERS', payload: res})
+      if (res) {
+        dispatch({type:'SET_ALL_STATS', payload: res})
+      }
     })
   }
 }
 
 export function saveCharacter(character_id, charsheet) {
   return(dispatch) => {
-    fetch(URL + 'characters', {
-      method: 'POST',
+    fetch(URL + `characters/${character_id}`, {
+      method: 'PATCH',
       headers: headers,
       body: JSON.stringify({
+        character_id, character_id,
         charsheet: charsheet
       })
     })

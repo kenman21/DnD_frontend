@@ -8,24 +8,24 @@ const SkillContainer = (props) => {
         <div className="header"> Skills </div>
       </div>
       <div className="content skill">
-        <Skill name="acrobatics" title="Acrobatics" stat="Dex"/>
-        <Skill name="animalhandling" title="Animal Handling" stat="Wis"/>
-        <Skill name="arcana" title="Arcana" stat="Int"/>
-        <Skill name="athletics" title="Athletics"stat="Str"/>
-        <Skill name="heception" title="Deception"stat="Cha"/>
-        <Skill name="history" title="History" stat="Int"/>
-        <Skill name="insight" title="Insight" stat="Wis"/>
-        <Skill name="intimidation" title="Intimidation" stat="Cha"/>
-        <Skill name="investigation" title="Investigation" stat="Int"/>
-        <Skill name="medicine" title="Medicine" stat="Wis"/>
-        <Skill name="nature"  title="Nature" stat="Int"/>
-        <Skill name="perception" title="Perception"stat="Wis"/>
-        <Skill name="performance" title="Performance"stat="Cha"/>
-        <Skill name="persuasion" title="Persuasion"stat="Cha"/>
-        <Skill name="religion" title="Religion" stat="Int"/>
-        <Skill name="sleightofhand" title="Sleight of Hand" stat="Dex"/>
-        <Skill name="stealth" title="Stealth" stat="Dex"/>
-        <Skill name="survival" title="Survival" stat="Wis"/>
+        <Skill name="acrobatics" title="Acrobatics" stat="Dex" base="dexterity"/>
+        <Skill name="animalhandling" title="Animal Handling" stat="Wis" base="wisdom"/>
+        <Skill name="arcana" title="Arcana" stat="Int" base="intelligence"/>
+        <Skill name="athletics" title="Athletics"stat="Str" base="strength"/>
+        <Skill name="deception" title="Deception"stat="Cha" base="charisma"/>
+        <Skill name="history" title="History" stat="Int" base="intelligence"/>
+        <Skill name="insight" title="Insight" stat="Wis" base="wisdom"/>
+        <Skill name="intimidation" title="Intimidation" stat="Cha" base="charisma"/>
+        <Skill name="investigation" title="Investigation" stat="Int" base="intelligence"/>
+        <Skill name="medicine" title="Medicine" stat="Wis" base="wisdom"/>
+        <Skill name="nature"  title="Nature" stat="Int" base="intelligence"/>
+        <Skill name="perception" title="Perception"stat="Wis" base="wisdom"/>
+        <Skill name="performance" title="Performance"stat="Cha" base="charisma"/>
+        <Skill name="persuasion" title="Persuasion"stat="Cha" base="charisma"/>
+        <Skill name="religion" title="Religion" stat="Int" base="intelligence"/>
+        <Skill name="sleightofhand" title="Sleight of Hand" stat="Dex" base="dexterity"/>
+        <Skill name="stealth" title="Stealth" stat="Dex" base="dexterity"/>
+        <Skill name="survival" title="Survival" stat="Wis" base="wisdom"/>
       </div>
     </div>
   )

@@ -7,7 +7,7 @@ class HeaderContainer extends React.Component {
   return(
     <div className="ui card sheet-header">
       <div className="content">
-        <HeaderField name="char-name" title="Character Name" value={this.props.currentUserCharacters.name}/>
+        <HeaderField name="char_name" title="Character Name"/>
         <HeaderField name="class_level" title="Class & Level"/>
         <HeaderField name="background" title="Background"/>
         <HeaderField name="player_name" title="Player Name"/>

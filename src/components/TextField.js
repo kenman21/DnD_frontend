@@ -18,28 +18,34 @@ class TextField extends React.Component {
           <div>
           <div className="as column">
           <div className="tiny-header">Name</div>
-            <input onChange={this.onChange} id="as_name_1" className="as field" type="text"/>
-            <input onChange={this.onChange} id="as_name_2" className="as field" type="text"/>
-            <input onChange={this.onChange} id="as_name_3" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_name_1" className="as field" type="text" value={this.props.charSheet.as_name_1}/>
+            <input onChange={this.onChange} id="as_name_2" className="as field" type="text" value={this.props.charSheet.as_name_2}/>
+            <input onChange={this.onChange} id="as_name_3" className="as field" type="text" value={this.props.charSheet.as_name_3}/>
           </div>
           <div className="as column">
           <div className="tiny-header">Attack Bonus</div>
-            <input onChange={this.onChange} id="as_atkb_1" className="as field" type="text"/>
-            <input onChange={this.onChange} id="as_atkb_2" className="as field" type="text"/>
-            <input onChange={this.onChange} id="as_atkb_3" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_atkb_1" className="as field" type="text" value={this.props.charSheet.as_atkb_1}/>
+            <input onChange={this.onChange} id="as_atkb_2" className="as field" type="text" value={this.props.charSheet.as_atkb_2}/>
+            <input onChange={this.onChange} id="as_atkb_3" className="as field" type="text" value={this.props.charSheet.as_atkb_3}/>
           </div>
           <div className="as column">
           <div className="tiny-header">Damage/Type</div>
-            <input onChange={this.onChange} id="as_type_1" className="as field" type="text"/>
-            <input onChange={this.onChange} id="as_type_2" className="as field" type="text"/>
-            <input onChange={this.onChange} id="as_type_3" className="as field" type="text"/>
+            <input onChange={this.onChange} id="as_type_1" className="as field" type="text" value={this.props.charSheet.as_type_1}/>
+            <input onChange={this.onChange} id="as_type_2" className="as field" type="text" value={this.props.charSheet.as_type_2}/>
+            <input onChange={this.onChange} id="as_type_3" className="as field" type="text" value={this.props.charSheet.as_type_3}/>
           </div>
           </div>:null}
-          <textarea onChange={this.onChange} id={this.props.name + "notes"} className={"notes "+this.props.name + "-notes"}/>
+          <textarea value={this.props.charSheet[this.props.name + "notes"]} onChange={this.onChange} id={this.props.name + "notes"} className={"notes "+this.props.name + "-notes"}/>
         </div>
       </div>
     )
   }
 }
 
-export default connect(null,{setStat})(TextField)
+function mapStatetoProps(state) {
+  return {
+    charSheet: state.charSheet
+  }
+}
+
+export default connect(mapStatetoProps,{setStat})(TextField)

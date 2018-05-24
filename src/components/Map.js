@@ -221,9 +221,9 @@ class Map extends React.Component {
 
   render() {
 
-    if (this.props.openMap) {
-      document.getElementById('canvas-1').style.visibility = "visible"
-    }
+    // if (this.props.openMap) {
+    //   document.getElementById('canvas-1').style.visibility = "visible"
+    // }
 
     // Wipe the canvas and redraw the chosen Map
 

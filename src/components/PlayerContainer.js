@@ -38,7 +38,8 @@ function mapStatetoProps(state) {
   return {
     currentUser: state.currentUser,
     openCampaign: state.openCampaign,
-    currentUserCharacters: state.currentUserCharacters
+    currentUserCharacters: state.currentUserCharacters,
+    charSheet: state.charSheet
   }
 }
 

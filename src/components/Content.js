@@ -7,7 +7,7 @@ import {saveCharacter} from '../actions/fetch_actions.js'
 class Content extends React.Component {
 
   saveSheet = () => {
-    this.props.saveCharacter(this.props.currentUserCharacters, this.props.charSheet)
+    this.props.saveCharacter(this.props.currentUserCharacters.id, this.props.charSheet)
   }
 
   render() {
@@ -26,10 +26,10 @@ function mapStatetoProps(state) {
     currentUser: state.currentUser,
     openCampaign: state.openCampaign,
     currentUserCharacters: state.currentUserCharacters,
-    charsheet: state.charSheet,
+    charSheet: state.charSheet,
   }
 }
 
 
 
-export default connect(mapStatetoProps, null)(Content)
+export default connect(mapStatetoProps, {saveCharacter})(Content)

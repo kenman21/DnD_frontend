@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addCampaign, deleteCampaign} from '../actions/fetch_actions.js'
+import {addCampaign, deleteCampaign, getUserCharacters} from '../actions/fetch_actions.js'
 import {openCampaign, clearUser} from '../actions/actions.js'
 import LinkButton from './LinkButton'
 
@@ -28,9 +28,13 @@ class Lobby extends React.Component {
     this.props.clearUser(null)
   }
 
-  enterCampaign = (campaign) => {
-    localStorage.charsheet = JSON.stringify({})
-    this.props.openCampaign(campaign)
+  enterCampaign = (e,campaign) => {
+    let url = e.target.getAttribute('url')
+    let promise = new Promise((resolve, reject) => {
+      this.props.openCampaign(campaign)
+      resolve()
+    })
+    promise.then((e) => {console.log("getting characters");this.props.getUserCharacters(this.props.currentUser, this.props.openCampaign)}).then(()=> {console.log("changing page");this.props.history.push(url)})
     localStorage.openCampaign = JSON.stringify(campaign)
   }
 
@@ -42,9 +46,9 @@ class Lobby extends React.Component {
     <div key={campaign.id}>
       <p>{campaign.name}</p>
       <button onClick={() => this.props.deleteCampaign(campaign.id)}>Delete Campaign</button>
-      <LinkButton to={url} onClick={() => this.enterCampaign(campaign)}>
+      <button url={url} onClick={(e) => this.enterCampaign(e,campaign)}>
       {campaign.creator_id === this.props.currentUser.id ? "Open Your Campaign Page" : "Join This Campaign"}
-      </LinkButton>
+      </button>
     </div>
     )})
 
@@ -73,4 +77,4 @@ function mapStatetoProps(state) {
   }
 }
 
-export default connect(mapStatetoProps, {addCampaign, deleteCampaign, openCampaign, clearUser})(Lobby)
+export default connect(mapStatetoProps, {addCampaign, deleteCampaign, openCampaign, clearUser, getUserCharacters})(Lobby)

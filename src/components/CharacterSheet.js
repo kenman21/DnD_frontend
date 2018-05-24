@@ -11,7 +11,7 @@ import DeathSaves from './DeathSaves'
 class CharacterSheet extends React.Component {
 
   render() {
-
+    console.log(this.props.charSheet);
     return (
       <div id="character-sheet">
         <HeaderContainer/>
@@ -63,7 +63,8 @@ class CharacterSheet extends React.Component {
 
 function mapStatetoProps(state) {
   return {
-    currentUserCharacters: state.currentUserCharacters
+    currentUserCharacters: state.currentUserCharacters,
+    charSheet: state.charSheet
   }
 }
 
