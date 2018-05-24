@@ -34,8 +34,8 @@ class MapCreator extends React.Component {
   }
 
   editMap = (map) => {
-    // this.props.openingMap(null)
     this.props.openingMap(map)
+    this.props.getMaps(this.props.currentUser.id)
   }
 
   clearRoom = () => {
@@ -54,7 +54,7 @@ class MapCreator extends React.Component {
       return (
       <div key={map.name}>
         {map.name}
-        <button onClick={() => this.props.openingMap(map)}>Edit Map</button>
+        <button onClick={() => this.editMap(map)}>Edit Map</button>
         <button onClick={() => this.clickDelete(map, this.props.currentUser)}>Delete Map</button>
       </div>
     )})

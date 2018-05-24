@@ -130,12 +130,20 @@ class Map extends React.Component {
         if (type) {
           if (this.props.actObj[`${i},${j}`]){
             action_obj[`${i},${j}`] = this.props.actObj[`${i},${j}`].slice()
-            action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i , j]})
+            if (this.state.pixel_size == 14) {
+              action_obj[`${i},${j}`].push({[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14]})
+            }else {
+              action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i , j]})
+            }
             if (action_obj[`${i},${j}`].length > 2) {
               action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
             }
           } else {
-            action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i, j]}]
+            if (this.state.pixel_size == 14) {
+              action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14]}]
+            } else {
+              action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i, j]}]
+            }
           }
         }
       }
@@ -203,7 +211,12 @@ class Map extends React.Component {
     let action_obj = {}
     if (this.props.actObj[`${i},${j}`]){
       action_obj[`${i},${j}`] = this.props.actObj[`${i},${j}`].slice()
-      action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i, j]})
+      // action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i, j]})
+      if (this.state.pixel_size == 14) {
+        action_obj[`${i},${j}`].push({[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14]})
+      }else {
+        action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i , j]})
+      }
       if (action_obj[`${i},${j}`].length > 2) {
         action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
       }
@@ -233,14 +246,17 @@ class Map extends React.Component {
       if (this.props.openMap && this.props.openMap.slots) {
         for (let i=0; i<this.props.openMap.slots.length; i++) {
           let action = this.props.openMap.slots[i]
-          this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y)
+          if (this.state.pixel_size == 14) {
+            this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16)
+          }else{
+            this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y)
+          }
         }
       }
     }
   }
 
   render() {
-    console.log(this.props.openMap);
     return (
       <div id="canvas-container">
         <canvas id="canvas-1" >

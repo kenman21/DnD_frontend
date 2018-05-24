@@ -52,7 +52,7 @@
 /* div.center.table:focus{
     outline: none;
 } */
-==
+
 .canvas-grid-parent {
   font-size: 0;
 }
@@ -130,7 +130,7 @@
     padding: 0;
     border: 0;
     background-color: rgb(237,237,237);
-    opacity: .25;
+    opacity: .2;
   }
 
    .tile-grid {
