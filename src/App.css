@@ -27,12 +27,66 @@
   to { transform: rotate(360deg); }
 }
 
+#frontpage {
+  font-family: 'Roboto Condensed', sans-serif !important;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  align-items: center;
+  margin-top: -275px;
+  margin-left: -350px;
+  width: 700px;
+  height: 250px;
+}
+
 #login {
-  margin: auto;
+  display: inline-block;
+  padding: 25px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  text-align: center;
+}
+
+.front-header-2{
+  margin-bottom: 14px;
+  margin-top: 10px;
+}
+
+#register {
+  display: inline-block;
+  padding: 25px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  text-align: center;
+}
+
+.signin {
+  padding: 5px;
+  width: 250px;
+}
+
+.password {
+  padding: 5px;
+  padding-bottom: 15px;
+  width: 250px;
 }
 
 .center {
   margin: auto;
+}
+
+#DD {
+  font-family: 'EB Garamond', serif;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+#M {
+  font-family: 'EB Garamond', serif;
+  font-size: 32px;
+  margin-top: 10px;
 }
 
 /* ////////////////////////////////// */

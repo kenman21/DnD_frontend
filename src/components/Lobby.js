@@ -53,28 +53,38 @@ class Lobby extends React.Component {
     let campaigns = this.props.campaigns.map(campaign => {
       let url = "/campaign/" + campaign.id
       return(
-    <div key={campaign.id}>
-      <p>{campaign.name}</p>
-      <button onClick={() => this.props.deleteCampaign(campaign.id)}>Delete Campaign</button>
-      <button url={url} onClick={(e) => this.enterCampaign(e,campaign)}>
-      {campaign.creator_id === this.props.currentUser.id ? "Open Your Campaign Page" : "Join This Campaign"}
-      </button>
+    <div className="card" key={campaign.id}>
+      <div className="content">
+        <div className="header">
+          <p>{campaign.name}</p>
+        </div>
+          <div class="extra content">
+            <div class="ui two buttons">
+              {campaign.creator_id === this.props.currentUser.id ? <button className="ui button" onClick={() => this.props.deleteCampaign(campaign.id)}>Delete Campaign</button> : null}
+              <button className="ui button" url={url} onClick={(e) => this.enterCampaign(e,campaign)}>
+              {campaign.creator_id === this.props.currentUser.id ? "Open Your Campaign Page" : "Join This Campaign"}
+              </button>
+            </div>
+        </div>
+      </div>
     </div>
     )})
 
     return (
       <div>
-        <LinkButton to="/signin" onClick={this.handleClick}>Sign Out</LinkButton>
+        <LinkButton className="ui button" to="/signin" onClick={this.handleClick}>Sign Out</LinkButton>
         <form onSubmit={this.handleSubmit}>
           <label> Create Your Own Campaign </label><br></br>
           <input onChange={this.handleChange} value={this.state.campaignName} placeholder="New Campaign Name"/>
           <input type="submit"/>
         </form>
-        <LinkButton to="/mapcreator">Map Creator</LinkButton>
+        <LinkButton className="ui button" to="/mapcreator">Map Creator</LinkButton>
         <h4>
         List of Campaigns
         </h4>
+        <div class="ui cards">
         {campaigns}
+        </div>
       </div>
     )
   }

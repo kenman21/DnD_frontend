@@ -34,19 +34,34 @@ class LoginSignup extends React.Component {
 
   render() {
     return(
-      <div id="login">
-        <h4> Register an Account </h4>
-        <form onSubmit={(e) => this.handleSubmit(e, "register")}>
-          <input type="text" name="newusername" onChange={this.handleChange} value={this.state.newusername} placeholder="Enter Username"/>
-          <input type="password" name="newpassword" onChange={this.handleChange} value={this.state.newpassword} placeholder="Enter Password"/>
-          <input type="submit"/>
-        </form>
-        <h4> Or Login </h4>
-        <form onSubmit={(e) => this.handleSubmit(e, "login")}>
-          <input type="text" name="username" onChange={this.handleChange} value={this.state.username} placeholder="Enter Username"/>
-          <input type="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="Enter Password"/>
-          <input type="submit"/>
-        </form>
+      <div id="frontpage">
+        <h2 id="DD"> DUNGEONS & DRAGONS</h2>
+        <h2 id="M"> MANAGER</h2>
+        <div id="register">
+          <h4> Register an Account </h4>
+          <form onSubmit={(e) => this.handleSubmit(e, "register")}>
+          <div className="ui input focus signin">
+            <input  type="text" name="newusername" onChange={this.handleChange} value={this.state.newusername} placeholder="Enter Username"/>
+          </div><br></br>
+          <div className="ui input focus password">
+            <input className="ui input focus"type="password" name="newpassword" onChange={this.handleChange} value={this.state.newpassword} placeholder="Enter Password"/>
+          </div><br></br>
+            <input className="ui button" tabindex="0" type="submit"/>
+          </form>
+        </div>
+        <div id="login">
+          <h4 className="front-header-1"> Already have an Account?</h4>
+          <h4 className="front-header-2"> Sign in</h4>
+          <form onSubmit={(e) => this.handleSubmit(e, "login")}>
+          <div className="ui input focus signin">
+            <input type="text" name="username" onChange={this.handleChange} value={this.state.username} placeholder="Enter Username"/>
+          </div><br></br>
+          <div className="ui input focus password">
+            <input className="ui input focus" type="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="Enter Password"/>
+          </div><br></br>
+            <input className="ui button" tabindex="0" type="submit"/>
+          </form>
+        </div>
       </div>
     )
   }
