@@ -13,7 +13,6 @@ class CharacterSheet extends React.Component {
 
   handleBlur = () => {
     this.props.saveCharacter(this.props.currentUserCharacters.id, this.props.charSheet);
-    console.log("saving");
   }
 
   render() {

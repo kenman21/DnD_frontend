@@ -75,6 +75,7 @@
 
 .center {
   margin: auto;
+  width: 80%;
 }
 
 #DD {
@@ -89,6 +90,75 @@
   margin-top: 10px;
 }
 
+.campaign {
+  height: 150px;
+  width: 23% !important;
+}
+
+#campaign-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.two.buttons {
+  margin: 0 auto !important;
+}
+
+.openc {
+  margin: 0 auto !important;
+  width: 47%!important;
+  display: inline-block;
+}
+
+.open{
+  height: 50px;
+  /* margin: auto 3px 1px!important; */
+  width: 100%!important;
+}
+
+.deletec {
+  height: 50px;
+  margin-right: 2px !important;
+  width: 47%!important;
+  display: inline-block;
+}
+
+.delete {
+  height: 50px;
+  /* margin: auto 3px 1px!important; */
+  width: 100%!important;
+}
+
+#signout {
+  float: right;
+  margin-right: 1%;
+  margin-top: 1%;
+}
+
+#options {
+  width: 65%;
+  margin: 0 auto;
+}
+
+#create-campaign {
+  /* position: absolute; */
+  margin-top: 25%;
+  margin-bottom: 10%;
+  margin-right: 50%;
+  display: inline-block;
+}
+
+#map-creator {
+  /* position: absolute; */
+  display: inline-block;
+}
+
+#return-lobby {
+  width: 150px;
+  margin-top: 1%;
+  margin-left: 90%;
+  margin-right: 1%;
+}
 /* ////////////////////////////////// */
 
 /* MAP CANVAS CSS */
@@ -140,6 +210,21 @@
   z-index: 2;
 }
 
+#char-buttons {
+  margin-left: 45%;
+}
+
+.character-tab {
+  display: inline-block;
+}
+
+#logo {
+  width: 200px;
+  height: auto;
+  position: absolute;
+  top: -55px;
+  left: -25px;
+}
 
 /* ////////////////////////////////// */
 
@@ -147,7 +232,7 @@
 
 .right {
   position: absolute;
-  right: 5%;
+  right: 3%;
   z-index: 3;
 }
 
@@ -173,6 +258,11 @@
     height: 24px;
     padding: 1;
     border: 0;
+  }
+
+  .tile-card {
+    height: 384px !important;
+    width: auto !important;
   }
 
 @media (max-width: 1500px) {
@@ -201,7 +291,7 @@
 
    #character-sheet{
      width: 90%;
-     margin: 0 auto;
+     margin: 0 auto !important;
    }
 
  }
@@ -234,9 +324,10 @@
 
 #erase {
   bottom: 25%;
-  position: absolute;
-  right: 5%;
-  z-index: 3;
+  /* position: absolute; */
+  margin-left: 90%;
+  margin-bottom: 25px;
+  z-index: 4;
 }
 /* ////////////////////////////////// */
 
@@ -244,9 +335,20 @@
 
 #map-list {
   position: absolute;
-  left: 10%;
-  top: 10%;
+  left: 2%;
+  top: 120px;
+  width: 20%;
   z-index: 4;
+}
+
+.map {
+  width: 225px !important;
+  margin: 25px auto 25px !important;
+}
+
+.map-button {
+  width: 75px !important;
+  margin: 10px 10px !important;
 }
 
 /* ////////////////////////////////// */
@@ -255,7 +357,7 @@
 
 #character-sheet{
   width: 90%;
-  margin: 0 auto;
+  margin: 3% auto;
 }
 
 input[type=number] {
@@ -283,10 +385,6 @@ input[type=number] {
 
 #first-bottom {
   margin-top: 10px;
-}
-
-#first-bottom-center {
-
 }
 
 /* 375 width */

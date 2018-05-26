@@ -9,6 +9,7 @@ class HeaderField extends React.Component {
   }
 
   render() {
+  console.log(this.props.charSheet.char_name);
   return(
     <div className="header-field" >
       <input id={this.props.name} onChange={this.onChange} className="header-input" type="text" value={this.props.charSheet[this.props.name] ? this.props.charSheet[this.props.name]:""}/>

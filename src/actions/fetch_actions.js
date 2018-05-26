@@ -147,6 +147,10 @@ export function createCharacter(name, user, campaign) {
     .then(res => {
       dispatch({type:'OPEN_CHARACTER', payload: res})
       localStorage.openCharacter = res
+      dispatch({type:'SET_USER_CHARACTERS', payload: res})
+      if (res) {
+        dispatch({type:'SET_ALL_STATS', payload: res})
+      }
     })
   }
 }

@@ -268,17 +268,21 @@ class Map extends React.Component {
             </tbody>
           </table>
         </div>
+        <button id="erase" className="ui button" onClick={this.erase}>Erase</button>
         <div className="right">
-          <img src="Page-1.png" alt="Page-1" id="Page-1"/>
-          <div className="right tileMap">
-            <table id="tileMap-grid" cellSpacing="0" cellPadding="0">
-              <tbody id="tileMap-body">
-                { this.creategrid(16,16,"tile-grid") }
-              </tbody>
-            </table>
+          <div className="ui cards">
+            <div className="ui card tile-card">
+              <img src="Page-1.png" alt="Page-1" id="Page-1"/>
+              <div className="right tileMap">
+                <table id="tileMap-grid" cellSpacing="0" cellPadding="0">
+                  <tbody id="tileMap-body">
+                    { this.creategrid(16,16,"tile-grid") }
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
-        <button id="erase" onClick={this.erase}>Erase</button>
       </div>
     )
   }

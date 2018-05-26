@@ -18,11 +18,13 @@ class DMContainer extends React.Component {
   }
 
   render() {
-    let characters = this.props.openCampaignCharacters.map(character => <button onClick={this.handleClick} id={character.id} key={character.id}>{character.name}</button>)
+    let characters = this.props.openCampaignCharacters.map(character => <button className="ui button character-tab" onClick={this.handleClick} id={character.id} key={character.id}>{character.name}</button>)
     return (
       <div>
-        {characters}
-        {this.props.currentUserCharacters.length !== 0 ? <CharacterSheet/>:null}
+        <div id="char-buttons">
+          {characters}
+        </div>
+        {this.props.openCampaignCharacters.length !== 0 ? <CharacterSheet/>:<h4 className="no-players">No one has joined your campaign!</h4>}
       </div>
     )
   }

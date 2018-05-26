@@ -52,25 +52,38 @@ class MapCreator extends React.Component {
   render () {
     let userMaps = this.props.currentUserMaps.map(map => {
       return (
-      <div key={map.name}>
-        {map.name}
-        <button onClick={() => this.editMap(map)}>Edit Map</button>
-        <button onClick={() => this.clickDelete(map, this.props.currentUser)}>Delete Map</button>
+      <div className="card map" key={map.name}>
+        <div className="content">
+          <div className="header">
+            <h5>{map.name}</h5>
+          </div>
+        </div>
+        <div className="extra content">
+          <div className="ui two buttons">
+            <button className="ui button map-button" onClick={() => this.editMap(map)}>Edit</button>
+            <button className="ui button map-button" onClick={() => this.clickDelete(map, this.props.currentUser)}>Delete</button>
+          </div>
+        </div>
       </div>
     )})
+
     return(
       <div>
         <div className="left" id="map-list">
-          Your Maps
-          {userMaps}
+          <h4>Your Maps</h4>
+          <div className="ui cards">
+            {userMaps}
+          </div>
         </div>
-        <LinkButton onClick={this.clearRoom} to="/lobby">Return to Lobby</LinkButton>
+        <LinkButton className="ui button" id="return-lobby" onClick={this.clearRoom} to="/lobby">Return to Lobby</LinkButton>
         <form className="create-map" onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} value={this.state.mapName} placeholder="New Map Name"/>
-          <input type="submit"/>
+          <div className="ui input focus">
+            <input  onChange={this.handleChange} value={this.state.mapName} placeholder="New Map Name"/>
+          </div>
+          <input className="ui button" type="submit"/>
         </form>
-        {this.props.openMap ? <p>{this.props.openMap.name}</p> : <p>Create Your Own Map!</p>}
-        {this.props.openMap? <button onClick={() => {this.props.saveMap(this.props.openMap, this.props.actObj)}}>Save Map State</button>:null}
+        {this.props.openMap ? <h4>{this.props.openMap.name}</h4> : <h4>Create Your Own Map!</h4>}
+        {this.props.openMap? <button className="ui button" onClick={() => {this.props.saveMap(this.props.openMap, this.props.actObj)}}>Save Map State</button>:null}
         <div>
           <Map/>
         </div>

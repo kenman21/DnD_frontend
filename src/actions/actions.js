@@ -58,3 +58,10 @@ export function setChar(character) {
     dispatch({type: 'SET_ALL_STATS', payload: character})
   }
 }
+
+export function clearChar() {
+  return (dispatch) => {
+    dispatch({type:'SET_USER_CHARACTERS', payload: {}})
+    dispatch({type: 'CLEAR_STATS', payload: {}})
+  }
+}

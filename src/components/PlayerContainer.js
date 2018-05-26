@@ -19,16 +19,25 @@ class PlayerContainer extends React.Component {
     })
   }
 
+  handleSubmit = () => {
+    this.props.createCharacter(this.state.character_name, this.props.currentUser, this.props.openCampaign)
+    this.props.getUserCharacters(this.props.currentUser, this.props.openCampaign)
+  }
+
   render() {
     return (
       <div>
         {!this.props.currentUserCharacters ?
-        <div><h3>Give Your Character a Name </h3>
-        <form onSubmit={() => this.props.createCharacter(this.state.character_name, this.props.currentUser, this.props.openCampaign)}>
-          <input type="text" onChange={this.handleChange} placeholder="Character Name"/>
-          <input type="submit"/>
+        <div>
+        <h3>Congratulations on Starting a New Campaign!</h3>
+        <h3>Give Your Character a Name to Begin!</h3>
+        <form onSubmit={this.handleSubmit}>
+          <div className="ui input focus">
+            <input type="text" onChange={this.handleChange} placeholder="Character Name"/>
+          </div>
+          <input className="ui button" type="submit"/>
         </form></div>
-        : <CharacterSheet/> }
+        : <div><CharacterSheet/></div>}
       </div>
     )
   }

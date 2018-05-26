@@ -53,18 +53,18 @@ class Lobby extends React.Component {
     let campaigns = this.props.campaigns.map(campaign => {
       let url = "/campaign/" + campaign.id
       return(
-    <div className="card" key={campaign.id}>
+    <div className="card campaign" key={campaign.id}>
       <div className="content">
         <div className="header">
           <p>{campaign.name}</p>
         </div>
-          <div class="extra content">
-            <div class="ui two buttons">
-              {campaign.creator_id === this.props.currentUser.id ? <button className="ui button" onClick={() => this.props.deleteCampaign(campaign.id)}>Delete Campaign</button> : null}
-              <button className="ui button" url={url} onClick={(e) => this.enterCampaign(e,campaign)}>
-              {campaign.creator_id === this.props.currentUser.id ? "Open Your Campaign Page" : "Join This Campaign"}
-              </button>
-            </div>
+      </div>
+      <div className="extra content">
+        <div className="ui two buttons">
+          {campaign.creator_id === this.props.currentUser.id ? <div className="deletec"><button className="ui button delete" onClick={() => this.props.deleteCampaign(campaign.id)}>Delete Campaign</button></div> : null}
+          <div className="openc"><button className="ui button open" url={url} onClick={(e) => this.enterCampaign(e,campaign)}>
+          {campaign.creator_id === this.props.currentUser.id ? "Open Campaign" : "Join Campaign"}
+          </button></div>
         </div>
       </div>
     </div>
@@ -72,18 +72,26 @@ class Lobby extends React.Component {
 
     return (
       <div>
-        <LinkButton className="ui button" to="/signin" onClick={this.handleClick}>Sign Out</LinkButton>
-        <form onSubmit={this.handleSubmit}>
-          <label> Create Your Own Campaign </label><br></br>
-          <input onChange={this.handleChange} value={this.state.campaignName} placeholder="New Campaign Name"/>
-          <input type="submit"/>
-        </form>
-        <LinkButton className="ui button" to="/mapcreator">Map Creator</LinkButton>
-        <h4>
-        List of Campaigns
-        </h4>
-        <div class="ui cards">
-        {campaigns}
+        <img src="logo.png" alt="logo" id="logo"/>
+        <LinkButton id="signout" className="ui button" to="/signin" onClick={this.handleClick}>Sign Out</LinkButton>
+        <div id="lobby">
+          <div id="options">
+            <form onSubmit={this.handleSubmit} id="create-campaign">
+              <h4> Create Your Own Campaign </h4><br></br>
+              <div className="ui input focus">
+                <input onChange={this.handleChange} value={this.state.campaignName} placeholder="Campaign Name"/>
+              </div>
+              <input className="ui button" type="submit" value="Create!"/>
+            </form>
+            <div id="map-creator">
+              <LinkButton className="ui button" to="/mapcreator">Enter Map Creator</LinkButton>
+            </div>
+          </div>
+          <div id="campaign-container">
+            <div className="ui cards">
+              {campaigns}
+            </div>
+          </div>
         </div>
       </div>
     )

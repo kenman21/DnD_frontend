@@ -85,7 +85,86 @@ let defaultState = {
   intelligencecheckbox: false,
   wisdomcheckbox: false,
   charismacheckbox: false
+  }
 }
+
+let defaultSheet = {
+acrobaticschecked: false,
+animalhandlingchecked:false,
+arcanachecked:false,
+athleticschecked:false,
+deceptionchecked:false,
+historychecked:false,
+insightchecked:false,
+intimidationchecked:false,
+investigationchecked:false,
+medicinechecked:false,
+naturechecked:false,
+perceptionchecked:false,
+performancechecked:false,
+persuasionchecked:false,
+religionchecked:false,
+sleightofHandchecked:false,
+stealthchecked:false,
+survivalchecked:false,
+alignment:"",
+armorclassvalue:0,
+as_atkb_1:"",
+as_atkb_2:"",
+as_atkb_3:"",
+as_name_1:"",
+as_name_2:"",
+as_name_3:"",
+as_type_1:"",
+as_type_2:"",
+as_type_3:"",
+attacks_spellcastingnotes:"",
+background:"",
+bondsnotes:"",
+charismabase:0,
+charismamod:0,
+char_name: "",
+class_level:"",
+constitutionbase:0,
+constitutionmod:0,
+d1_checkbox:false,
+d2_checkbox:false,
+d3_checkbox:false,
+dexteritybase:0,
+dexteritymod:0,
+equipmentnotes:"",
+experience_points:"",
+faction:"",
+features_traitsnotes:"",
+hit_dicevalue:0,
+hit_pointsbase:0,
+hit_pointsmod:0,
+idealsnotes:"",
+initiativevalue:0,
+inspirationvalue:0,
+intelligencebase:0,
+intelligencemod:0,
+other_proficienciesnotes:"",
+passive_wisdomvalue:0,
+personality_traitsnotes:"",
+player_name:"",
+proficiencyvalue:0,
+race:"",
+s1_checkbox:false,
+s2_checkbox:false,
+s3_checkbox:false,
+speedvalue:0,
+strengthbase:0,
+strengthmod:0,
+temp_hit_pointsvalue:0,
+wisdombase:0,
+wisdommod:0,
+strengthcheckbox: false,
+dexteritycheckbox: false,
+constitutioncheckbox: false,
+intelligencecheckbox: false,
+wisdomcheckbox: false,
+charismacheckbox: false
 }
 
 export default function manageCampaign(state = defaultState, action) {
@@ -120,6 +199,8 @@ export default function manageCampaign(state = defaultState, action) {
       return {...state, charSheet: {...state.charSheet, [key]: value}};
     case 'SET_ALL_STATS':
       return {...state, charSheet: {...state.charSheet, ...action.payload}}
+    case 'CLEAR_STATS':
+      return {...state, charSheet: defaultSheet}
     case 'SET_CAMPAIGN_CHARACTERS':
       return {...state, openCampaignCharacters: [...action.payload]}
     default:

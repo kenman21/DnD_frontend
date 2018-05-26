@@ -3,14 +3,22 @@ import {connect} from 'react-redux'
 import LinkButton from './LinkButton'
 import PlayerContainer from './PlayerContainer'
 import DMContainer from './DMContainer'
+import {clearChar} from '../actions/actions.js'
+
 
 class Content extends React.Component {
 
+  handleClick = () => {
+    this.props.clearChar()
+  }
+
   render() {
     return (
-      <div id="content">
-        <LinkButton to="/lobby">Return to Lobby</LinkButton>
-        {this.props.currentUser.id === this.props.openCampaign.creator_id ? <DMContainer/>:<PlayerContainer/>}
+      <div>
+      <LinkButton id="return-lobby" onClick={this.handleClick} className="ui button" to="/lobby">Return to Lobby</LinkButton>
+        <div id="content">
+          {this.props.currentUser.id === this.props.openCampaign.creator_id ? <DMContainer/>:<PlayerContainer/>}
+        </div>
       </div>
     )
   }
@@ -27,4 +35,4 @@ function mapStatetoProps(state) {
 
 
 
-export default connect(mapStatetoProps)(Content)
+export default connect(mapStatetoProps, {clearChar})(Content)
