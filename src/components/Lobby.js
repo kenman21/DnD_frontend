@@ -120,7 +120,7 @@ class Lobby extends React.Component {
                   <div>
                     <h3> Enter the Campaign Password </h3>
                     <div className="ui input focus">
-                      <input id="entering-password" type="password" onChange={this.handleChange} value={this.state.enteringPassword} type="text" placeholder="Password"/>
+                      <input id="entering-password" type="password" onChange={this.handleChange} value={this.state.enteringPassword} placeholder="Password"/>
                     </div> <br></br>
                     <button id="entering-password-submit" url={url} className="ui button" url={url} onClick={(e) => this.checkPassword(e, campaign)}>
                       Submit

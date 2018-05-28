@@ -256,10 +256,10 @@ class Map extends React.Component {
   changeTile = (e) => {
     switch (e.target.id){
       case "right":
-        this.props.changeTileSheet("right")
+        {this.props.openTileSheet < 37 ? this.props.changeTileSheet("right"):null}
         break
       case "left":
-        this.props.changeTileSheet("left")
+        {this.props.openTileSheet > 1 ? this.props.changeTileSheet("left"):null}
         break
       default:
         console.log("errors");
