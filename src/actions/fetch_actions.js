@@ -39,14 +39,15 @@ export function register(username, password){
     }
   }
 
-  export function addCampaign(name, creator_id){
+  export function addCampaign(name, creator_id, password){
     return (dispatch) => {
       fetch(URL + 'campaigns', {
         method: 'POST',
         headers: headers,
         body: JSON.stringify({
           name: name,
-          creator_id: creator_id
+          creator_id: creator_id,
+          password: password
         })
       }).then(res => res.json()).then((json) => {
         dispatch({type: 'CREATE_CAMPAIGN', payload: json})
@@ -196,5 +197,19 @@ export function getCampaignCharacters(campaign_id){
       dispatch({type:'SET_CAMPAIGN_CHARACTERS', payload: res})
       localStorage.openCampaignCharacters = JSON.stringify(res)
     })
+  }
+}
+
+export function checkCampaignPassword(password, campaign_id, ){
+  return (dispatch) => {
+    return fetch(URL + `campaigns/${campaign_id}/password`, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        password: password,
+        campaign_id: campaign_id
+      })
+    })
+    .then(res => res.json())
   }
 }

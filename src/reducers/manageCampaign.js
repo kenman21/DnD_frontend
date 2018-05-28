@@ -8,6 +8,7 @@ let defaultState = {
   openCampaignCharacters: [],
   editing: false,
   actObj: {},
+  openTileSheet: 1,
   charSheet: {
   acrobaticschecked: false,
   animalhandlingchecked:false,
@@ -203,6 +204,13 @@ export default function manageCampaign(state = defaultState, action) {
       return {...state, charSheet: defaultSheet}
     case 'SET_CAMPAIGN_CHARACTERS':
       return {...state, openCampaignCharacters: [...action.payload]}
+    case 'CHANGE_TILE_SHEET':
+      switch (action.payload){
+        case 'right':
+          return {...state, openTileSheet: state.openTileSheet+1}
+        case 'left':
+          return {...state, openTileSheet: state.openTileSheet-1}
+      }
     default:
       return state;
   }

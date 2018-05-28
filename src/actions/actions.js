@@ -65,3 +65,9 @@ export function clearChar() {
     dispatch({type: 'CLEAR_STATS', payload: {}})
   }
 }
+
+export function changeTileSheet(direction) {
+  return(dispatch) => {
+    dispatch({type: 'CHANGE_TILE_SHEET', payload: direction})
+  }
+}

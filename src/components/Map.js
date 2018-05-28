@@ -1,10 +1,7 @@
 import React from 'react'
 import Tile from './Tile'
-import {addAction, toggleEditing} from '../actions/actions.js'
+import {addAction, toggleEditing, changeTileSheet} from '../actions/actions.js'
 import {connect} from 'react-redux'
-
-let image = new Image();
-image.src = "Page-1.png"
 
 class Map extends React.Component {
   state = {
@@ -131,18 +128,18 @@ class Map extends React.Component {
           if (this.props.actObj[`${i},${j}`]){
             action_obj[`${i},${j}`] = this.props.actObj[`${i},${j}`].slice()
             if (this.state.pixel_size == 14) {
-              action_obj[`${i},${j}`].push({[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14]})
+              action_obj[`${i},${j}`].push({[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14, this.props.openTileSheet]})
             }else {
-              action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i , j]})
+              action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i , j, this.props.openTileSheet]})
             }
             if (action_obj[`${i},${j}`].length > 2) {
               action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
             }
           } else {
             if (this.state.pixel_size == 14) {
-              action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14]}]
+              action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14, this.props.openTileSheet]}]
             } else {
-              action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i, j]}]
+              action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i, j, this.props.openTileSheet]}]
             }
           }
         }
@@ -188,11 +185,11 @@ class Map extends React.Component {
     this.props.addAction(actions)
   }
 
-  fillWithSprite = (i, j, x = this.state.tile_x, y = this.state.tile_y) => {
+  fillWithSprite = (i, j, x = this.state.tile_x, y = this.state.tile_y, sheet = this.props.openTileSheet) => {
     let canvas = document.getElementById('canvas-1')
     let ctx = canvas.getContext('2d');
-    // image.style.height = "192px"
-    // image.style.width = "192px"
+    let image = new Image();
+    image.src = `Page-${sheet}.png`
     if (this.state.pixel_size == 14) {
       ctx.drawImage(image,x*16/14,y*16/14,this.state.pixel_size*16/14,this.state.pixel_size*16/14,i+1,j+1,this.state.pixel_size-1,this.state.pixel_size-1);
     } else {
@@ -213,15 +210,15 @@ class Map extends React.Component {
       action_obj[`${i},${j}`] = this.props.actObj[`${i},${j}`].slice()
       // action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i, j]})
       if (this.state.pixel_size == 14) {
-        action_obj[`${i},${j}`].push({[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14]})
+        action_obj[`${i},${j}`].push({[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14, this.props.openTileSheet]})
       }else {
-        action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i , j]})
+        action_obj[`${i},${j}`].push({[type]: [this.state.tile_x, this.state.tile_y, i , j, this.props.openTileSheet]})
       }
       if (action_obj[`${i},${j}`].length > 2) {
         action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
       }
     } else {
-      action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i, j]}]
+      action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i, j, this.props.openTileSheet]}]
     }
     return action_obj
   }
@@ -247,16 +244,30 @@ class Map extends React.Component {
         for (let i=0; i<this.props.openMap.slots.length; i++) {
           let action = this.props.openMap.slots[i]
           if (this.state.pixel_size == 14) {
-            this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16)
+            this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16, action.sheet)
           }else{
-            this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y)
+            this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y, action.sheet)
           }
         }
       }
     }
   }
 
+  changeTile = (e) => {
+    switch (e.target.id){
+      case "right":
+        this.props.changeTileSheet("right")
+        break
+      case "left":
+        this.props.changeTileSheet("left")
+        break
+      default:
+        console.log("errors");
+    }
+  }
+
   render() {
+    console.log(this.props.actObj);
     return (
       <div id="canvas-container">
         <canvas id="canvas-1" >
@@ -269,10 +280,14 @@ class Map extends React.Component {
           </table>
         </div>
         <button id="erase" className="ui button" onClick={this.erase}>Erase</button>
+        <div className="arrows">
+          <img onClick={(e) => this.changeTile(e)} src="leftarrow.png" alt="leftarrow" id="left"/>
+          <img onClick={(e) => this.changeTile(e)} src="rightarrow.png" alt="rightarrow" id="right"/>
+        </div>
         <div className="right">
           <div className="ui cards">
             <div className="ui card tile-card">
-              <img src="Page-1.png" alt="Page-1" id="Page-1"/>
+              <img src={"Page-" + this.props.openTileSheet + ".png"} alt="Page-1" id="Page-1"/>
               <div className="right tileMap">
                 <table id="tileMap-grid" cellSpacing="0" cellPadding="0">
                   <tbody id="tileMap-body">
@@ -293,8 +308,10 @@ function mapStatetoProps(state) {
     {actObj: state.actObj,
     openMap: state.openMap,
     currentUserMaps: state.currentUserMaps,
-    editing: state.editing}
+    editing: state.editing,
+    openTileSheet: state.openTileSheet
+  }
   )
 }
 
-export default connect(mapStatetoProps, {addAction, toggleEditing})(Map)
+export default connect(mapStatetoProps, {addAction, changeTileSheet, toggleEditing})(Map)
