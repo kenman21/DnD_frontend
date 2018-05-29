@@ -142,20 +142,23 @@
 
 #options {
   width: 70%;
+  height: 300px;
+  position: relative;
   margin: 0 auto;
 }
 
 #create-campaign {
-  /* position: absolute; */
-  margin-top: 3%;
-  margin-bottom: 5%;
-  margin-right: 50%;
+  position: absolute;
+  left: 10%;
+  top: 15%;
   display: inline-block;
 }
 
 #map-creator {
-  /* position: absolute; */
+  position: absolute;
   display: inline-block;
+  top: 25%;
+  right: 10%;
 }
 
 #return-lobby {
@@ -168,6 +171,7 @@
 .options-header {
   font-family: 'EB Garamond', serif;
   font-size: 24px;
+  margin-bottom: 0px;
 }
 /* ////////////////////////////////// */
 
@@ -180,7 +184,7 @@
   left: 0%;
   right: 0%;
   margin: 0 auto;
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 /* div.center.table:focus{
@@ -239,6 +243,10 @@
 .campaign-creation {
   margin-top: 5px !important;
   margin-bottom: 5px !important;
+}
+
+#campaign-password {
+  margin-bottom: 10px !important;
 }
 
 #entering-password-submit {

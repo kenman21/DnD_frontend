@@ -1,6 +1,6 @@
 import React from 'react'
 import Tile from './Tile'
-import {addAction, toggleEditing, changeTileSheet} from '../actions/actions.js'
+import { addAction, toggleEditing, changeTileSheet} from '../actions/actions.js'
 import {connect} from 'react-redux'
 
 let image = new Image();
@@ -24,13 +24,20 @@ class MapContainer extends React.Component {
     this.findDivs()
     this.createCanvasLines()
     this.createImages()
-    document.addEventListener("keydown", (e) => {
-      if (e.which === 27) {
-        this.actionOnRectangle(this.clearRed)
-        this.clearClicks()
-      }
-    } )
+    document.addEventListener("keydown", this.wipeClicks)
   }
+
+  componentWillUnmount = () => {
+    document.removeEventListener("keydown", this.wipeClicks)
+  }
+
+  wipeClicks = (e) => {
+    if (e.which === 27) {
+      this.actionOnRectangle(this.clearRed)
+      this.clearClicks()
+    }
+  }
+
 
   /////////METHODS FOR SETTING UP THE MAP CANVAS AND TILES/////////////
 
@@ -125,7 +132,10 @@ class MapContainer extends React.Component {
           this.setState({
             canvas_x_end: x,
             canvas_y_end: y
-          }, () => {this.actionOnRectangle(this.colorRed)})
+          }, () => {
+            this.actionOnRectangle(this.colorRed);
+            this.props.passToCreator(this.state.canvas_x, this.state.canvas_y, this.state.canvas_x_end, this.state.canvas_y_end)
+            })
         }
         break
       default:
@@ -259,7 +269,10 @@ class MapContainer extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.openMap !== this.props.openMap) {
+    if (this.props.openMap) {
+      document.getElementById('canvas-1').style.visibility = "visible"
+    }
+    if (prevProps.openMap !== this.props.openMap || this.props.openSession !== prevProps.openSession) {
       for (let i = 0 ; i <= this.state.pixel_size*this.state.grid_l; i+=this.state.pixel_size) {
         for (let j = 0 ; j <= this.state.pixel_size*this.state.grid_l; j+=this.state.pixel_size) {
           this.fillWithWhite(i,j)
@@ -268,10 +281,27 @@ class MapContainer extends React.Component {
       if (this.props.openMap && this.props.openMap.slots) {
         for (let i=0; i<this.props.openMap.slots.length; i++) {
           let action = this.props.openMap.slots[i]
-          if (this.state.pixel_size == 14) {
-            this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16, action.sheet)
-          }else{
-            this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y, action.sheet)
+          if (this.props.openSession && !this.props.openSession.start_x) {
+            if (this.state.pixel_size == 14) {
+              this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16, action.sheet)
+            }else{
+              this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y, action.sheet)
+            }
+          } else {
+            if (this.props.currentUser.id === this.props.openCampaign.creator_id) {
+              if (this.state.pixel_size == 14) {
+                this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16, action.sheet)
+              }else{
+                this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y, action.sheet)
+              }
+            }
+            if (action.canvas_x >= this.props.openSession.start_x && action.canvas_x <= this.props.openSession.end_x && action.canvas_y >= this.props.openSession.start_y && action.canvas_y <= this.props.openSession.end_y){
+              if (this.state.pixel_size == 14) {
+                this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16, action.sheet)
+              }else{
+                this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y, action.sheet)
+              }
+            }
           }
         }
       }
@@ -338,7 +368,10 @@ function mapStatetoProps(state) {
     openMap: state.openMap,
     currentUserMaps: state.currentUserMaps,
     editing: state.editing,
-    openTileSheet: state.openTileSheet
+    openTileSheet: state.openTileSheet,
+    openSession: state.openSession,
+    openCampaign: state.openCampaign,
+    currentUser: state.currentUser
   }
   )
 }

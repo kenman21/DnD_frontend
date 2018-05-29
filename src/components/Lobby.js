@@ -92,7 +92,6 @@ class Lobby extends React.Component {
   }
 
   render() {
-
     let campaigns = this.props.campaigns.map(campaign => {
       let url = "/campaign/" + campaign.id
       return(
@@ -112,7 +111,7 @@ class Lobby extends React.Component {
             </div> : null}
           <div className="openc">
             {campaign.creator_id === this.props.currentUser.id ?
-            <button className="ui button" url={url} onClick={(e) => this.enterCampaign(e,campaign)}>
+            <button className="ui button open" url={url} onClick={(e) => this.enterCampaign(e,campaign)}>
               Open Campaign
             </button> :
               <div>
@@ -173,7 +172,8 @@ function mapStatetoProps(state) {
   return {
     currentUser: state.currentUser,
     campaigns: state.campaigns,
-    openCampaign: state.openCampaign
+    openCampaign: state.openCampaign,
+    openSession: state.openSession
   }
 }
 

@@ -146,6 +146,7 @@ export function createCharacter(name, user, campaign) {
     })
     .then(res => res.json())
     .then(res => {
+      debugger
       dispatch({type:'OPEN_CHARACTER', payload: res})
       localStorage.openCharacter = res
       dispatch({type:'SET_USER_CHARACTERS', payload: res})
@@ -249,7 +250,6 @@ export function setSessionMap(map_id, session_id) {
 
 export function highlightSessionMap(openSession_id, canvasx, canvasy, canvas_x_end, canvas_y_end) {
   return (dispatch) => {
-    debugger
     fetch(URL + `sessions/${openSession_id}`, {
       method: 'PATCH',
       headers: headers,
@@ -263,9 +263,38 @@ export function highlightSessionMap(openSession_id, canvasx, canvasy, canvas_x_e
       })
     }).then(res => res.json())
     .then(res => {
-      debugger
       dispatch({type: 'SET_SESSION', payload: res})
       localStorage.openSession = JSON.stringify(res)
+    })
+  }
+}
+
+export function deleteSession(openSession_id){
+    return (dispatch) => {
+      fetch(URL + `sessions/${openSession_id}`, {
+      method: 'DELETE',
+      headers: headers,
+      body: JSON.stringify({
+        id: openSession_id,
+      })
+    }).then(dispatch({type: 'SET_SESSION', payload: {}}))
+  }
+}
+
+export function checkForSession(campaign_id){
+  return (dispatch) => {
+    fetch(URL + `campaigns/${campaign_id}/session`, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        campaign_id: campaign_id
+      })
+    }).then(res => res.json())
+    .then(res => {
+      if (!res.error) {
+        dispatch({type: 'SET_SESSION', payload: res.activeSession[0]})
+        dispatch({type: 'OPEN_MAP', payload: res.map})
+      }
     })
   }
 }

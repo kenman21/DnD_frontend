@@ -2,6 +2,7 @@ import React from 'react'
 import MapCreator from './MapCreator'
 import {connect} from 'react-redux'
 import {setSession} from '../actions/actions.js'
+import {checkForSession} from '../actions/fetch_actions.js'
 
 class Session extends React.Component {
 
@@ -9,11 +10,16 @@ class Session extends React.Component {
     if (localStorage.openSession) {
       this.props.setSession(JSON.parse(localStorage.openSession))
     }
+    if (this.props.currentUser.id !== this.props.openCampaign.creator_id) {
+      this.props.checkForSession(this.props.openCampaign.id)
+    }
   }
+
+
   render() {
     return (
       <div>
-        {this.props.currentUser.id === this.props.openCampaign.creator_id ? <MapCreator session={true}/> : <MapCreator session={true}/>}
+        <MapCreator session={true}/>
       </div>
     )
   }
@@ -27,4 +33,4 @@ function mapStatetoProps(state) {
   }
 }
 
-export default connect(mapStatetoProps, {setSession})(Session)
+export default connect(mapStatetoProps, {setSession, checkForSession})(Session)

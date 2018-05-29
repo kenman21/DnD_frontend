@@ -21,10 +21,10 @@ class LoginSignup extends React.Component {
     e.preventDefault()
     switch (type) {
       case "login":
-        this.props.login(this.state.username, this.state.password).then(setTimeout(() => {JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null},250));
+        this.props.login(this.state.username, this.state.password).then(setTimeout(() => {JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null},500));
         break
       case "register":
-        this.props.register(this.state.newusername, this.state.newpassword).then(setTimeout(() => {JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null},250));
+        this.props.register(this.state.newusername, this.state.newpassword).then(setTimeout(() => {JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null},500));
         break
       default:
         console.log("error");

@@ -77,3 +77,9 @@ export function setSession(session) {
     dispatch({type: 'SET_SESSION', payload: session})
   }
 }
+
+export function clearHighlight() {
+  return(dispatch) => {
+    dispatch({type: 'CLEAR_HIGHLIGHT'})
+  }
+}

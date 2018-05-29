@@ -212,6 +212,8 @@ export default function manageCampaign(state = defaultState, action) {
       }
     case 'SET_SESSION':
       return {...state, openSession: action.payload}
+    case 'CLEAR_HIGHLIGHT':
+      return {...state, openSession: {...state.openSession, start_x: null, start_y: null, end_x: null, end_y: null}}
     default:
       return state;
   }

@@ -3,29 +3,44 @@ import {connect} from 'react-redux'
 import LinkButton from './LinkButton'
 import PlayerContainer from './PlayerContainer'
 import DMContainer from './DMContainer'
-import {clearChar} from '../actions/actions.js'
-import {createSession} from '../actions/fetch_actions.js'
+import {clearChar, setSession} from '../actions/actions.js'
+import {createSession, checkForSession} from '../actions/fetch_actions.js'
+import { ActionCable } from 'react-actioncable-provider'
 
 class Content extends React.Component {
+
+  componentDidMount = () => {
+    if (this.props.currentUser.id !== this.props.openCampaign.creator_id) {
+      this.props.checkForSession(this.props.openCampaign.id)
+    }
+  }
 
   handleClick = (e) => {
     switch(e.target.id){
       case "return-lobby":
         this.props.clearChar()
+        this.props.history.push('/lobby')
         break
-      case "session":
+      case "create":
         this.props.createSession(this.props.openCampaign.id)
+        break
+      case "join":
+        this.props.checkForSession(this.props.openCampaign.id)
         break
       default:
         console.log("error");
     }
   }
 
+
+
   render() {
     return (
       <div>
-      <LinkButton id="return-lobby" onClick={this.handleClick} className="ui button" to="/lobby">Return to Lobby</LinkButton>
-      <LinkButton id="session" onClick={this.handleClick} className="ui button" to={"/campaign/" + this.props.openCampaign.id + "/session/"}>Live Session</LinkButton>
+        <button id="return-lobby" onClick={this.handleClick} className="ui button">Return to Lobby</button>
+        {this.props.currentUser.id === this.props.openCampaign.creator_id ?
+        <LinkButton id="create" onClick={this.handleClick} className="ui button" to={"/campaign/" + this.props.openCampaign.id + "/session/"}>Create Live Session</LinkButton>:null}
+        {this.props.openSession && this.props.currentUser.id !== this.props.openCampaign.creator_id ? <LinkButton id="join" onClick={this.handleClick} className="ui button" to={"/campaign/" + this.props.openCampaign.id + "/session/"}>Join Live Session</LinkButton>:null}
         <div id="content">
           {this.props.currentUser.id === this.props.openCampaign.creator_id ? <DMContainer/>:<PlayerContainer/>}
         </div>
@@ -40,9 +55,10 @@ function mapStatetoProps(state) {
     openCampaign: state.openCampaign,
     currentUserCharacters: state.currentUserCharacters,
     charSheet: state.charSheet,
+    openSession: state.openSession
   }
 }
 
 
 
-export default connect(mapStatetoProps, {clearChar, createSession})(Content)
+export default connect(mapStatetoProps, {setSession, clearChar, createSession, checkForSession})(Content)
