@@ -6,7 +6,7 @@ let defaultState = {
   campaigns: [],
   openCampaign: {},
   openCampaignCharacters: [],
-  editing: false,
+  openSession: {},
   actObj: {},
   openTileSheet: 1,
   charSheet: {
@@ -169,7 +169,6 @@ charismacheckbox: false
 }
 
 export default function manageCampaign(state = defaultState, action) {
-  // console.log(action);
   switch (action.type) {
     case 'LOGIN_PLAYER':
       return {...state, currentUser: action.payload}
@@ -211,6 +210,8 @@ export default function manageCampaign(state = defaultState, action) {
         case 'left':
           return {...state, openTileSheet: state.openTileSheet-1}
       }
+    case 'SET_SESSION':
+      return {...state, openSession: action.payload}
     default:
       return state;
   }

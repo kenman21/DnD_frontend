@@ -6,9 +6,9 @@ import LoginSignup from './components/LoginSignup'
 import Lobby from './components/Lobby'
 import Content from './components/Content'
 import MapCreator from './components/MapCreator'
+import Session from './components/Session'
 import {getCampaigns, getMaps} from './actions/fetch_actions.js'
 import {keepLoggedIn, openingCampaign} from './actions/actions.js'
-
 
 class App extends Component {
 
@@ -37,9 +37,13 @@ class App extends Component {
   render() {
     let campaign_routes = this.props.campaigns.map(campaign => {
       let url = "/campaign/" + campaign.id
+      let sessionurl =  "/campaign/" + campaign.id + "/session/"
       return (
-      <Route key={campaign.id} path={url} component={Content}/>
-    )
+      <div>
+      <Route key={campaign.id} exact path={url} component={Content}/>
+      <Route key={campaign.id + "session"} exact path={sessionurl} component={Session}/>
+      </div>
+     )
   })
     return (
       <Router>

@@ -64,7 +64,8 @@ class Lobby extends React.Component {
     e.preventDefault()
     this.props.addCampaign(this.state.campaignName, this.props.currentUser.id, this.state.campaignPassword)
     this.setState({
-      campaignName: ""
+      campaignName: "",
+      campaignPassword: ""
     })
   }
 
