@@ -83,3 +83,9 @@ export function clearHighlight() {
     dispatch({type: 'CLEAR_HIGHLIGHT'})
   }
 }
+
+export function setMessages(messages){
+  return(dispatch) => {
+    dispatch({type: 'SET_MESSAGES', payload: messages})
+  }
+}

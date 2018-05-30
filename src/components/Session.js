@@ -2,7 +2,8 @@ import React from 'react'
 import MapCreator from './MapCreator'
 import {connect} from 'react-redux'
 import {setSession} from '../actions/actions.js'
-import {checkForSession} from '../actions/fetch_actions.js'
+import {checkForSession, getChatroom} from '../actions/fetch_actions.js'
+import ChatContainer from './ChatContainer'
 
 class Session extends React.Component {
 
@@ -13,6 +14,7 @@ class Session extends React.Component {
     if (this.props.currentUser.id !== this.props.openCampaign.creator_id) {
       this.props.checkForSession(this.props.openCampaign.id)
     }
+    this.props.getChatroom(this.props.openCampaign.id)
   }
 
 
@@ -20,6 +22,7 @@ class Session extends React.Component {
     return (
       <div>
         <MapCreator session={true}/>
+        <ChatContainer/>
       </div>
     )
   }
@@ -33,4 +36,4 @@ function mapStatetoProps(state) {
   }
 }
 
-export default connect(mapStatetoProps, {setSession, checkForSession})(Session)
+export default connect(mapStatetoProps, {setSession, getChatroom, checkForSession})(Session)

@@ -1,9 +1,10 @@
 import React from 'react'
 import MapContainer from './MapContainer.js'
+import ChatContainer from './ChatContainer.js'
 import {connect} from 'react-redux'
 import LinkButton from './LinkButton'
 import {addMap, saveMap, getMaps, deleteMap, setSessionMap, highlightSessionMap, deleteSession} from '../actions/fetch_actions.js'
-import {keepLoggedIn, openingMap, toggleEditing, clearActions, setSession} from '../actions/actions.js'
+import {keepLoggedIn, openingMap, toggleEditing, clearActions, setSession, setMessages} from '../actions/actions.js'
 import { ActionCable } from 'react-actioncable-provider'
 
 class MapCreator extends React.Component {
@@ -28,6 +29,9 @@ class MapCreator extends React.Component {
       case 'UPDATE_HIGHLIGHT':
         this.props.setSession(data.payload.session)
         this.props.openingMap(data.payload.map)
+        break
+      case 'ADD_MESSAGE':
+        this.props.setMessages(data.payload.messages)
         break
       default:
         console.log(data);
@@ -108,32 +112,33 @@ class MapCreator extends React.Component {
     )})
     return(
       <div>
-        <ActionCable channel={{channel: 'CampaignChannel', campaign_id: this.props.openCampaign.id}}
+        {this.props.session ? <ActionCable channel={{channel: 'CampaignChannel', campaign_id: this.props.openCampaign.id}}
         onReceived={this.handleSocketResponse}
-        />
+        /> : null}
         {!this.props.session || this.props.currentUser.id === this.props.openCampaign.creator_id ?
         <div className="left" id="map-list">
-          <h4>Your Maps</h4>
+          <h4 className="your maps small header">Your Maps</h4>
             <div className="ui cards">
               {userMaps}
             </div>
         </div>:null}
         <LinkButton className="ui button" id="return-lobby" onClick={this.clearRoom} to="/lobby">Return to Lobby</LinkButton>
         {this.props.session && this.props.currentUser.id === this.props.openCampaign.creator_id ? <button id="highlight" onClick={this.handleClick} className="ui button">Highlight Map</button>:null}
-        {this.props.session && !this.props.openMap ? <h2> No Active Sessions Right Now! </h2>:null}
-        {!this.props.session ?
+        {this.props.session && !this.props.openMap && this.props.currentUser.id !== this.props.openCampaign.creator_id ? <h2> No Active Sessions Right Now! </h2>:null}
+        {!this.props.session && !this.props.openMap?
         <form className="create-map" onSubmit={this.handleSubmit}>
-          {!this.props.openMap ? <h2> Create a Map! Enter a Name Below </h2>:null}
+          {!this.props.openMap ? <h2 className="small header"> Create a Map! Enter a Name Below </h2>:null}
           <div className="ui input focus">
             <input  onChange={this.handleChange} value={this.state.mapName} placeholder="New Map Name"/>
           </div>
           <input className="ui button" type="submit"/>
         </form>:null}
-        {this.props.openMap ? <h4>{this.props.openMap.name}</h4> : null}
+        {this.props.openMap ? <h2 className="small header">{this.props.openMap.name}</h2> : null}
         {this.props.openMap && !this.props.session? <button className="ui button save" onClick={() => {this.props.saveMap(this.props.openMap, this.props.actObj)}}>Save Map State</button>:null}
         <div>
           <MapContainer passToCreator={this.passtoCreator} session={this.props.session}/>
         </div>
+        {this.props.session ? <ChatContainer/>:null}
       </div>
     )
   }
@@ -151,4 +156,4 @@ function mapStatetoProps(state) {
   )
 }
 
-export default connect(mapStatetoProps, {deleteSession, setSession, setSessionMap, highlightSessionMap, addMap, saveMap, getMaps, keepLoggedIn, openingMap, toggleEditing, clearActions, deleteMap})(MapCreator)
+export default connect(mapStatetoProps, {setMessages, deleteSession, setSession, setSessionMap, highlightSessionMap, addMap, saveMap, getMaps, keepLoggedIn, openingMap, toggleEditing, clearActions, deleteMap})(MapCreator)
