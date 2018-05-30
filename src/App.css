@@ -745,3 +745,32 @@ input[type=number] {
 .charsheet {
   margin: 0 auto !important;
 }
+
+#chatroom {
+  position: absolute;
+  right: 2%;
+  border: 1px solid;
+  width: 20%;
+  height: 500px;
+  background: white;
+  z-index: 3;
+  overflow-y: scroll;
+  border-radius: 15px 15px 0px 0px;
+}
+
+#messageinput {
+  width:100%;
+  bottom: 0%;
+  position:absolute;
+  left:0%;
+  text-align: left;
+}
+
+#message-container {
+  height: 90%;
+  overflow-y: scroll;
+  text-align: left;
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 10px;
+}

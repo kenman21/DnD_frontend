@@ -8,6 +8,8 @@ let defaultState = {
   openCampaignCharacters: [],
   openSession: {},
   actObj: {},
+  openChatroom: {},
+  chatMessages: [],
   openTileSheet: 1,
   charSheet: {
   acrobaticschecked: false,
@@ -214,6 +216,10 @@ export default function manageCampaign(state = defaultState, action) {
       return {...state, openSession: action.payload}
     case 'CLEAR_HIGHLIGHT':
       return {...state, openSession: {...state.openSession, start_x: null, start_y: null, end_x: null, end_y: null}}
+    case 'SET_OPEN_CHATROOM':
+      return {...state, openChatroom: action.payload}
+    case 'SET_MESSAGES':
+      return {...state, chatMessages: action.payload}
     default:
       return state;
   }

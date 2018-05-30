@@ -112,7 +112,6 @@ export function getMaps(user_id) {
     .then(res => res.json())
     .then(res => {
       dispatch({type:'SET_USER_MAPS', payload: res})
-      debugger
     })
   }
 }
@@ -296,6 +295,37 @@ export function checkForSession(campaign_id){
         dispatch({type: 'SET_SESSION', payload: res.activeSession[0]})
         dispatch({type: 'OPEN_MAP', payload: res.map})
       }
+    })
+  }
+}
+
+export function addMessage(chatroom_id, user_id, message, campaign_id){
+  return (dispatch) => {
+    fetch(URL + 'messages', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        chatroom_id: chatroom_id,
+        user_id: user_id,
+        message: message,
+        campaign_id: campaign_id
+      })
+    })
+  }
+}
+
+export function getChatroom(campaign_id){
+  return (dispatch) => {
+    fetch(URL + `campaigns/${campaign_id}/chatroom`, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        campaign_id: campaign_id,
+      })
+    }).then(res => res.json())
+    .then(res => {
+      dispatch({type: 'SET_OPEN_CHATROOM', payload: res.chatroom})
+      dispatch({type: 'SET_MESSAGES', payload: res.messages})
     })
   }
 }
