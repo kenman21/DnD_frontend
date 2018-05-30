@@ -108,12 +108,12 @@ class MapCreator extends React.Component {
     )})
     return(
       <div>
-        <ActionCable channel={{channel: 'CampaignChannel', campaign_id: this.props.openCampaign.id}}
+        {!this.props.session ? <ActionCable channel={{channel: 'CampaignChannel', campaign_id: this.props.openCampaign.id}}
         onReceived={this.handleSocketResponse}
-        />
+        /> : null}
         {!this.props.session || this.props.currentUser.id === this.props.openCampaign.creator_id ?
         <div className="left" id="map-list">
-          <h4>Your Maps</h4>
+          <h4 className="your maps small header">Your Maps</h4>
             <div className="ui cards">
               {userMaps}
             </div>
@@ -121,15 +121,15 @@ class MapCreator extends React.Component {
         <LinkButton className="ui button" id="return-lobby" onClick={this.clearRoom} to="/lobby">Return to Lobby</LinkButton>
         {this.props.session && this.props.currentUser.id === this.props.openCampaign.creator_id ? <button id="highlight" onClick={this.handleClick} className="ui button">Highlight Map</button>:null}
         {this.props.session && !this.props.openMap ? <h2> No Active Sessions Right Now! </h2>:null}
-        {!this.props.session ?
+        {!this.props.session && !this.props.openMap?
         <form className="create-map" onSubmit={this.handleSubmit}>
-          {!this.props.openMap ? <h2> Create a Map! Enter a Name Below </h2>:null}
+          {!this.props.openMap ? <h2 className="small header"> Create a Map! Enter a Name Below </h2>:null}
           <div className="ui input focus">
             <input  onChange={this.handleChange} value={this.state.mapName} placeholder="New Map Name"/>
           </div>
           <input className="ui button" type="submit"/>
         </form>:null}
-        {this.props.openMap ? <h4>{this.props.openMap.name}</h4> : null}
+        {this.props.openMap ? <h2 className="small header">{this.props.openMap.name}</h2> : null}
         {this.props.openMap && !this.props.session? <button className="ui button save" onClick={() => {this.props.saveMap(this.props.openMap, this.props.actObj)}}>Save Map State</button>:null}
         <div>
           <MapContainer passToCreator={this.passtoCreator} session={this.props.session}/>

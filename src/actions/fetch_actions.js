@@ -87,7 +87,7 @@ export function addMap(name, user_id){
         user_id: user_id
       })
     }).then(res => res.json()).then(res => {
-    dispatch({type: 'OPEN_MAP', payload: res.slice(-1)[0]});
+    dispatch({type: 'OPEN_MAP', payload: res[0]});
     dispatch({type:'SET_USER_MAPS', payload: res});
   })
   }
@@ -112,6 +112,7 @@ export function getMaps(user_id) {
     .then(res => res.json())
     .then(res => {
       dispatch({type:'SET_USER_MAPS', payload: res})
+      debugger
     })
   }
 }

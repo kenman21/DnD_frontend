@@ -44,6 +44,7 @@ class MapContainer extends React.Component {
 
   createImages = () => {
     let obj = {}
+
     for (let i = 1; i < 37; i ++) {
       obj["image-" + `${i}`] = new Image()
       obj["image-" + `${i}`].src = `/Page-${i}.png`
@@ -114,7 +115,6 @@ class MapContainer extends React.Component {
   /////////////METHODS FOR CONTROLLING THE DRAWING/////////////
 
   handleonDrop = (e) => {
-    console.log("clearing");
     if (e.target.className ==="tile-grid"){
       this.clearClicks()
     }
@@ -359,10 +359,10 @@ class MapContainer extends React.Component {
 
   changeTile = (e) => {
     switch (e.target.id){
-      case "right":
+      case "rightarrow":
         {this.props.openTileSheet < 37 ? this.props.changeTileSheet("right"):null}
         break
-      case "left":
+      case "leftarrow":
         {this.props.openTileSheet > 1 ? this.props.changeTileSheet("left"):null}
         break
       default:
@@ -383,19 +383,16 @@ class MapContainer extends React.Component {
           </table>
         </div>
         {!this.props.session ?
-        <div>
+        <div className="right">
           <button id="erase" className="ui button" onClick={this.erase}>Erase</button>
           <div className="arrows">
-            <img onClick={(e) => this.changeTile(e)} src="leftarrow.png" alt="leftarrow" id="left"/>
-            <img onClick={(e) => this.changeTile(e)} src="rightarrow.png" alt="rightarrow" id="right"/>
+            <img onClick={(e) => this.changeTile(e)} src="leftarrow.png" alt="leftarrow" id="leftarrow"/>
+            <img onClick={(e) => this.changeTile(e)} src="rightarrow.png" alt="rightarrow" id="rightarrow"/>
           </div>
-        </div>:null}
-        {!this.props.session ?
-        <div className="right">
           <div className="ui cards">
             <div className="ui card tile-card">
               <img src={"Page-" + this.props.openTileSheet + ".png"} alt="Page-1" id="Page-1"/>
-              <div className="right tileMap">
+              <div className="tileMap">
                 <table id="tileMap-grid" cellSpacing="0" cellPadding="0">
                   <tbody id="tileMap-body">
                     { this.creategrid(16,16,"tile-grid") }
@@ -403,8 +400,7 @@ class MapContainer extends React.Component {
                 </table>
               </div>
             </div>
-          </div>
-        </div>:null
+          </div></div>:null
       }
       </div>
     )
