@@ -69,9 +69,12 @@ class Lobby extends React.Component {
     })
   }
 
-  handleClick = () => {
+  handleClick = (e) => {
     localStorage.currentUser = JSON.stringify(null)
     this.props.clearUser(null)
+    // if (e.target.id === "entering-map-creator"){
+    //   this.props.getMaps(this.props.currentUser.id)
+    // }
   }
 
   enterCampaign = (e,campaign) => {
@@ -153,7 +156,7 @@ class Lobby extends React.Component {
             </form>
             <div id="map-creator">
             <h3 className="options-header"> Create Your Own Map </h3><br></br>
-              <LinkButton className="ui button" to="/mapcreator">Enter Map Creator</LinkButton>
+              <LinkButton id="entering-map-creator" className="ui button" to="/mapcreator">Enter Map Creator</LinkButton>
             </div>
           </div>
           <h3 className="options-header"> Browse All Campaigns </h3><br></br>

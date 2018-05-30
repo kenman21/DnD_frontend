@@ -17,7 +17,9 @@ class MapContainer extends React.Component {
     canvas_x_end: -1,
     canvas_y_end: -1,
     divObj: {},
-    imageObj: {}
+    imageObj: {},
+    drag_start: -1,
+    drag_end: -1
   }
 
   componentDidMount() {
@@ -93,7 +95,7 @@ class MapContainer extends React.Component {
       const row = []
       for (let j = 0; j < grid_w; j++){
         row.push(
-          <td onClick={(e) => this.handleClick(e)} onBlur={(e) => this.handleBlur(e)} className={class_name} key={`${i},${j}`} id={`${j*this.state.pixel_size},${i*this.state.pixel_size}`}>
+          <td draggable onDragOver = {(e) => e.preventDefault()} onDrop={this.handleonDrop} onClick={(e) => this.handleClick(e)} onDragStart={this.handleDragStart} onDragEnter={this.handleDragEnter} className={class_name} key={`${i},${j}`} id={`${j*this.state.pixel_size},${i*this.state.pixel_size}`}>
           <Tile/>
           </td>
         )
@@ -111,15 +113,57 @@ class MapContainer extends React.Component {
   //////////////////////////////////////////////////////////////
   /////////////METHODS FOR CONTROLLING THE DRAWING/////////////
 
+  handleonDrop = (e) => {
+    console.log("clearing");
+    if (e.target.className ==="tile-grid"){
+      this.clearClicks()
+    }
+  }
+
+  handleDragStart = (e) => {
+    if (e.target.className ==="tile-grid"){
+      let x = parseInt(e.target.id.split(",")[0],10);
+      let y = parseInt(e.target.id.split(",")[1],10);
+      this.setState({
+        tile_x: x,
+        tile_y: y
+      })
+    }
+  }
+
+  handleDragEnter = (e) => {
+    if (e.target.className ==="tile-grid" && this.state.tile_x !== -1){
+      let x = parseInt(e.target.id.split(",")[0],10);
+      let y = parseInt(e.target.id.split(",")[1],10);
+      let diffx = x - this.state.tile_x;
+      let diffy = y - this.state.tile_y;
+      this.setState({
+        tile_x: x,
+        tile_y: y,
+        canvas_x: this.state.canvas_x + diffx,
+        canvas_y: this.state.canvas_y + diffy,
+      }, () => {this.dragDraw()})
+    }
+  }
+
+  dragDraw = () => {
+    let actions = {}
+    this.fillWithSprite(this.state.canvas_x, this.state.canvas_y)
+    actions = this.record(this.state.canvas_x, this.state.canvas_y, "draw")
+    this.props.addAction(actions)
+  }
+
   handleClick = (e) => {
     let x = parseInt(e.target.id.split(",")[0],10);
     let y = parseInt(e.target.id.split(",")[1],10)
     switch (e.target.className){
       case "tile-grid":
-        this.setState({
-          tile_x: x,
-          tile_y: y
-        }, () => {this.draw(e)})
+        if (this.state.tile_x === -1 && this.state.tile_y === -1) {
+          this.setState({
+            tile_x: x,
+            tile_y: y
+          }, () => {this.draw(e)})
+        }
         break
       case "canvas-grid":
         if (this.state.canvas_x === -1 && this.state.canvas_y === -1) {
@@ -252,7 +296,11 @@ class MapContainer extends React.Component {
         action_obj[`${i},${j}`] = action_obj[`${i},${j}`].slice(1)
       }
     } else {
-      action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i, j, this.props.openTileSheet]}]
+      if (this.state.pixel_size == 14) {
+        action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x*16/14, this.state.tile_y*16/14, i*16/14, j*16/14, this.props.openTileSheet]}]
+      }else {
+        action_obj[`${i},${j}`] = [{[type]: [this.state.tile_x, this.state.tile_y, i , j, this.props.openTileSheet]}]
+      }
     }
     return action_obj
   }
@@ -263,7 +311,9 @@ class MapContainer extends React.Component {
       canvas_x: -1,
       canvas_y: -1,
       canvas_x_end: -1,
-      canvas_y_end: -1
+      canvas_y_end: -1,
+      tile_x: -1,
+      tile_y: -1
     })
   }
 
