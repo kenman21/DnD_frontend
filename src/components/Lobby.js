@@ -116,7 +116,7 @@ class Lobby extends React.Component {
             </button> :
               <div>
               <button className="ui button open" onClick={this.show.bind(this)}>Join Campaign</button>
-              <Rodal visible={this.state.visible} onClose={this.hide.bind(this)}>
+              <Rodal visible={this.state.visible} onClose={this.hide.bind(this)} height={"150"}>
                   <div>
                     <h3> Enter the Campaign Password </h3>
                     <div className="ui input focus">

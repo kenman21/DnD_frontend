@@ -173,6 +173,10 @@
   font-size: 24px;
   margin-bottom: 0px;
 }
+
+#join {
+  margin-bottom: 15px !important;
+}
 /* ////////////////////////////////// */
 
 /* MAP CANVAS CSS */
@@ -215,7 +219,7 @@
   right: 0%;
   top: 2px;
   /* Set the top equal to the side padding that the canvas grid has */
-  margin: 0 auto;
+  margin: 0 auto 50px;
   border-collapse: collapse;
 }
 
@@ -263,6 +267,10 @@
   position: absolute;
   right: 3%;
   z-index: 3;
+}
+
+.save {
+  margin-bottom: 10px !important;
 }
 
   .canvas-grid {

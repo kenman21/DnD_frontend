@@ -38,7 +38,6 @@ class MapContainer extends React.Component {
     }
   }
 
-
   /////////METHODS FOR SETTING UP THE MAP CANVAS AND TILES/////////////
 
   createImages = () => {
@@ -109,7 +108,7 @@ class MapContainer extends React.Component {
     return grid
   }
 
-  /////////////
+  //////////////////////////////////////////////////////////////
   /////////////METHODS FOR CONTROLLING THE DRAWING/////////////
 
   handleClick = (e) => {

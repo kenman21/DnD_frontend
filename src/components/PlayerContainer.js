@@ -20,8 +20,12 @@ class PlayerContainer extends React.Component {
   }
 
   handleSubmit = () => {
-    this.props.createCharacter(this.state.character_name, this.props.currentUser, this.props.openCampaign)
-    this.props.getUserCharacters(this.props.currentUser, this.props.openCampaign)
+    let promise = new Promise((resolve, reject) => {
+      this.props.createCharacter(this.state.character_name, this.props.currentUser, this.props.openCampaign)
+      resolve()
+    })
+    promise.then(() => {this.props.getUserCharacters(this.props.currentUser, this.props.openCampaign)})
+
   }
 
   render() {
