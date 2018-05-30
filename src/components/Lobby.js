@@ -64,13 +64,17 @@ class Lobby extends React.Component {
     e.preventDefault()
     this.props.addCampaign(this.state.campaignName, this.props.currentUser.id, this.state.campaignPassword)
     this.setState({
-      campaignName: ""
+      campaignName: "",
+      campaignPassword: ""
     })
   }
 
-  handleClick = () => {
+  handleClick = (e) => {
     localStorage.currentUser = JSON.stringify(null)
     this.props.clearUser(null)
+    // if (e.target.id === "entering-map-creator"){
+    //   this.props.getMaps(this.props.currentUser.id)
+    // }
   }
 
   enterCampaign = (e,campaign) => {
@@ -91,7 +95,6 @@ class Lobby extends React.Component {
   }
 
   render() {
-
     let campaigns = this.props.campaigns.map(campaign => {
       let url = "/campaign/" + campaign.id
       return(
@@ -111,12 +114,12 @@ class Lobby extends React.Component {
             </div> : null}
           <div className="openc">
             {campaign.creator_id === this.props.currentUser.id ?
-            <button className="ui button" url={url} onClick={(e) => this.enterCampaign(e,campaign)}>
+            <button className="ui button open" url={url} onClick={(e) => this.enterCampaign(e,campaign)}>
               Open Campaign
             </button> :
               <div>
               <button className="ui button open" onClick={this.show.bind(this)}>Join Campaign</button>
-              <Rodal visible={this.state.visible} onClose={this.hide.bind(this)}>
+              <Rodal visible={this.state.visible} onClose={this.hide.bind(this)} height={"150"}>
                   <div>
                     <h3> Enter the Campaign Password </h3>
                     <div className="ui input focus">
@@ -153,7 +156,7 @@ class Lobby extends React.Component {
             </form>
             <div id="map-creator">
             <h3 className="options-header"> Create Your Own Map </h3><br></br>
-              <LinkButton className="ui button" to="/mapcreator">Enter Map Creator</LinkButton>
+              <LinkButton id="entering-map-creator" className="ui button" to="/mapcreator">Enter Map Creator</LinkButton>
             </div>
           </div>
           <h3 className="options-header"> Browse All Campaigns </h3><br></br>
@@ -172,7 +175,8 @@ function mapStatetoProps(state) {
   return {
     currentUser: state.currentUser,
     campaigns: state.campaigns,
-    openCampaign: state.openCampaign
+    openCampaign: state.openCampaign,
+    openSession: state.openSession
   }
 }
 

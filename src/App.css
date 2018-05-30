@@ -142,20 +142,23 @@
 
 #options {
   width: 70%;
+  height: 300px;
+  position: relative;
   margin: 0 auto;
 }
 
 #create-campaign {
-  /* position: absolute; */
-  margin-top: 3%;
-  margin-bottom: 5%;
-  margin-right: 50%;
+  position: absolute;
+  left: 10%;
+  top: 15%;
   display: inline-block;
 }
 
 #map-creator {
-  /* position: absolute; */
+  position: absolute;
   display: inline-block;
+  top: 25%;
+  right: 10%;
 }
 
 #return-lobby {
@@ -168,6 +171,11 @@
 .options-header {
   font-family: 'EB Garamond', serif;
   font-size: 24px;
+  margin-bottom: 0px;
+}
+
+#join {
+  margin-bottom: 15px !important;
 }
 /* ////////////////////////////////// */
 
@@ -180,7 +188,7 @@
   left: 0%;
   right: 0%;
   margin: 0 auto;
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 /* div.center.table:focus{
@@ -211,7 +219,7 @@
   right: 0%;
   top: 2px;
   /* Set the top equal to the side padding that the canvas grid has */
-  margin: 0 auto;
+  margin: 0 auto 50px;
   border-collapse: collapse;
 }
 
@@ -241,6 +249,10 @@
   margin-bottom: 5px !important;
 }
 
+#campaign-password {
+  margin-bottom: 10px !important;
+}
+
 #entering-password-submit {
   margin-left: 40%;
   margin-top: 10px;
@@ -255,6 +267,10 @@
   position: absolute;
   right: 3%;
   z-index: 3;
+}
+
+.save {
+  margin-bottom: 10px !important;
 }
 
   .canvas-grid {

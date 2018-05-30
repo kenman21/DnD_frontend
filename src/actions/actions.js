@@ -71,3 +71,15 @@ export function changeTileSheet(direction) {
     dispatch({type: 'CHANGE_TILE_SHEET', payload: direction})
   }
 }
+
+export function setSession(session) {
+  return(dispatch) => {
+    dispatch({type: 'SET_SESSION', payload: session})
+  }
+}
+
+export function clearHighlight() {
+  return(dispatch) => {
+    dispatch({type: 'CLEAR_HIGHLIGHT'})
+  }
+}

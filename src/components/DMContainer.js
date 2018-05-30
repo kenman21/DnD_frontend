@@ -7,7 +7,7 @@ import {getCampaignCharacters} from '../actions/fetch_actions.js'
 class DMContainer extends React.Component {
 
   componentDidMount = () => {
-    if (this.props.openCampaignCharacters.length === 0) {
+    if (this.props.openCampaignCharacters.length === 0 && localStorage.openCampaignCharacters) {
       this.props.setCampaignChars(JSON.parse(localStorage.openCampaignCharacters))
     }
   }

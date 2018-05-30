@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {login, register} from '../actions/fetch_actions.js'
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
 
 class LoginSignup extends React.Component {
 
@@ -8,7 +10,7 @@ class LoginSignup extends React.Component {
     newusername: "",
     newpassword: "",
     username: "",
-    password: ""
+    password: "",
   }
 
   handleChange = (e) => {
@@ -21,10 +23,13 @@ class LoginSignup extends React.Component {
     e.preventDefault()
     switch (type) {
       case "login":
-        this.props.login(this.state.username, this.state.password).then(setTimeout(() => {JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null},250));
+        this.props.login(this.state.username, this.state.password)
+        .then(setTimeout(() => {JSON.parse(localStorage.currentUser) ?
+          this.props.history.push("/lobby"):
+          this.setState({errors: "There was an error. Please try again"})},500));
         break
       case "register":
-        this.props.register(this.state.newusername, this.state.newpassword).then(setTimeout(() => {JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null},250));
+        this.props.register(this.state.newusername, this.state.newpassword).then(setTimeout(() => {JSON.parse(localStorage.currentUser) ? this.props.history.push("/lobby"):null},500));
         break
       default:
         console.log("error");

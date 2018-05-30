@@ -6,7 +6,6 @@ class SavingThrow extends React.Component {
 
   onChange = (e) => {
     this.props.setStat({[e.target.id]: e.target.checked})
-    // localStorage[e.target.id] = e.target.value
   }
 
   calcValue = () => {
