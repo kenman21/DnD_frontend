@@ -23,7 +23,6 @@ class MessageInput extends React.Component {
   }
 
   render () {
-    console.log(this.props.openChatroom);
     return (
       <form onSubmit={this.handleSubmit}>
         <div id="messageinput" className="ui input focus">

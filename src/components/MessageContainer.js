@@ -4,9 +4,6 @@ import Message from './Message'
 
 class MessageContainer extends React.Component {
 
-  componentDidUpdate = () => {
-    console.log("updated");
-  }
   render () {
     let messages = this.props.chatMessages.map(message => <Message key={message.id} {...message}/>)
     return (
