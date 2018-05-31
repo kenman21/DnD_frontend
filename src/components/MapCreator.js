@@ -10,6 +10,7 @@ import { ActionCable } from 'react-actioncable-provider'
 class MapCreator extends React.Component {
 
   state = {
+    pixel_size: window.screen.width > 1440 ? 16:14,
     mapCreated: false,
     mapName: "",
     canvasx: -1,
@@ -75,7 +76,11 @@ class MapCreator extends React.Component {
   handleClick = (e) => {
     switch (e.target.id) {
       case 'highlight':
-        this.props.highlightSessionMap(this.props.openSession.id, this.state.canvasx, this.state.canvasy, this.state.canvas_x_end, this.state.canvas_y_end)
+        if (this.state.pixel_size === 14) {
+          this.props.highlightSessionMap(this.props.openSession.id, this.state.canvasx * 16/14, this.state.canvasy * 16/14, this.state.canvas_x_end * 16/14, this.state.canvas_y_end * 16/14)
+        } else {
+          this.props.highlightSessionMap(this.props.openSession.id, this.state.canvasx, this.state.canvasy, this.state.canvas_x_end, this.state.canvas_y_end)
+        }
         break
       default:
         console.log("error");

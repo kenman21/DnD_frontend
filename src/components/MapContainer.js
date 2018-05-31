@@ -317,6 +317,22 @@ class MapContainer extends React.Component {
     })
   }
 
+  drawFromRecord = (action) => {
+    if (action.tile_x !==256 && action.tile_y !== 256){
+      if (this.state.pixel_size == 14) {
+        this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16, action.sheet)
+      }else{
+        this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y, action.sheet)
+      }
+    }else {
+      if (this.state.pixel_size == 14) {
+        this.fillWithWhite(action.canvas_x*14/16, action.canvas_y*14/16)
+      }else{
+        this.fillWithWhite(action.canvas_x, action.canvas_y)
+      }
+    }
+  }
+
   componentDidUpdate = (prevProps, prevState) => {
     if (this.props.openMap) {
       document.getElementById('canvas-1').style.visibility = "visible"
@@ -331,25 +347,14 @@ class MapContainer extends React.Component {
         for (let i=0; i<this.props.openMap.slots.length; i++) {
           let action = this.props.openMap.slots[i]
           if (this.props.openSession && !this.props.openSession.start_x) {
-            if (this.state.pixel_size == 14) {
-              this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16, action.sheet)
-            }else{
-              this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y, action.sheet)
-            }
+            this.drawFromRecord(action)
           } else {
             if (this.props.currentUser.id === this.props.openCampaign.creator_id) {
-              if (this.state.pixel_size == 14) {
-                this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16, action.sheet)
-              }else{
-                this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y, action.sheet)
-              }
+              this.drawFromRecord(action)
             }
+            // IF THERE ARE SESSION COORDINATES, DONT DRAW THINGS OUTSIDE OF HIGHLIGHT
             if (action.canvas_x >= this.props.openSession.start_x && action.canvas_x <= this.props.openSession.end_x && action.canvas_y >= this.props.openSession.start_y && action.canvas_y <= this.props.openSession.end_y){
-              if (this.state.pixel_size == 14) {
-                this.fillWithSprite(action.canvas_x*14/16, action.canvas_y*14/16, action.tile_x*14/16, action.tile_y*14/16, action.sheet)
-              }else{
-                this.fillWithSprite(action.canvas_x, action.canvas_y, action.tile_x, action.tile_y, action.sheet)
-              }
+              this.drawFromRecord(action)
             }
           }
         }
