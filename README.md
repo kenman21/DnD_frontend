@@ -27,6 +27,11 @@ In the map creator, users are given the option to create a new map, or open a pr
 Users on the home screen may also create a new campaign via the area labeled "Create Your Own Campaign". Here, users can enter in the name of the campaign that will be shown on the home screen, as well as a campaign password. User's will need this password in order to join this player's campaign. After the user has created their campaign, they may find it in the section at the bottom labeled "Browse All Campaigns." Once they find the game they have created, a user can open up the campaign to immediately see any players that have joined. If there are players entered into the campaign, their character sheets will be shown to the campaign creator. A user joining this person's campaign can create a unique character and backstory with the provided character sheet. Entries will be persisted everytime they click out of one of the fields of the sheet.
 
 Campaign creators may use their maps to interact with their players via the Live Session feature, found on their campaign page. To open a live session, the campaign manager must press the "Create Live Session" button. Once they've done so, they will be shown all of the maps they've created on the left hand side of the screen, as well as a live chat on the right. Using the live session feature, a manager can choose for their players to only see a specific portion of the map. To do this, they need to click to open a previously created map. Then, they must click twice on the map, to create the highlighted rectangle that they want the players to see. After the campaign owner is satisfied with the region they've selected, they may click on the "Highlight Map" button, to have this region shown to the players. The campaign owner can deselect the region they've chosen by pressing ESC, and highlight a new region at any time.
+
+A demo of the application can be found here: 
+
+https://www.youtube.com/watch?v=uXyRM54LVK8&feature=youtu.be
+
 Authors
 
 Kenneth Lehr - kenman21
