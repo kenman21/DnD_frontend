@@ -62,6 +62,7 @@ class MapCreator extends React.Component {
   clearRoom = () => {
     this.props.openingMap(null)
     this.props.clearActions()
+    this.props.clearActions()
     if (Object.keys(this.props.openSession).length !== 0 && this.props.currentUser.id === this.props.openCampaign.creator_id) {
       this.props.deleteSession(this.props.openSession.id)
     }
