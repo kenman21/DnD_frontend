@@ -2,14 +2,15 @@ import React from 'react'
 import CharacterSheet from './CharacterSheet'
 import {connect} from 'react-redux'
 import {setChar, setCampaignChars} from '../actions/actions.js'
-import {getCampaignCharacters} from '../actions/fetch_actions.js'
+import {getCampaignCharacters, getCampaignCharacters} from '../actions/fetch_actions.js'
 
 class DMContainer extends React.Component {
 
   componentDidMount = () => {
-    if (this.props.openCampaignCharacters.length === 0 && localStorage.openCampaignCharacters) {
-      this.props.setCampaignChars(JSON.parse(localStorage.openCampaignCharacters))
-    }
+    // if (this.props.openCampaignCharacters.length === 0 && localStorage.openCampaignCharacters) {
+    //   this.props.setCampaignChars(JSON.parse(localStorage.openCampaignCharacters))
+    // }
+    this.props.getCampaignCharacters(JSON.parse(localStorage.openCampaign).id)
   }
 
   handleClick = (e) => {
