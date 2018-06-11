@@ -159,7 +159,7 @@ export function createCharacter(name, user, campaign) {
 
 export function getUserCharacters(user, campaign) {
   return (dispatch) => {
-    fetch(URL + `users/${user.id}/characters`, {
+    return fetch(URL + `users/${user.id}/characters`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({

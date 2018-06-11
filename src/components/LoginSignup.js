@@ -11,6 +11,17 @@ class LoginSignup extends React.Component {
     newpassword: "",
     username: "",
     password: "",
+    errors: null,
+    visible: false,
+
+  }
+
+  show() {
+    this.setState({ visible: true });
+  }
+
+  hide() {
+      this.setState({ visible: false });
   }
 
   handleChange = (e) => {

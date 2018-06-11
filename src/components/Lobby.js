@@ -14,12 +14,12 @@ class Lobby extends React.Component {
     enteringPassword: ""
   }
 
-  show() {
+  show = () => {
     this.setState({ visible: true });
   }
 
-  hide() {
-      this.setState({ visible: false });
+  hide = () => {
+    this.setState({ visible: false });
   }
 
   handleChange = (e) => {
@@ -49,14 +49,9 @@ class Lobby extends React.Component {
     this.props.checkCampaignPassword(this.state.enteringPassword, campaign.id)
     .then(json => {
       if (!json.errors) {
-        this.props.getUserCharacters(this.props.currentUser, this.props.openCampaign)
-        this.props.history.push(url)
+        this.props.getUserCharacters(this.props.currentUser, this.props.openCampaign).then(this.props.history.push(url))
         localStorage.openCampaign = JSON.stringify(campaign)
     }})
-    // .then(json => {if (!json.errors) {
-    //     this.props.history.push(url)
-    //     localStorage.openCampaign = JSON.stringify(campaign)
-    //   }})
 
   }
 
@@ -70,12 +65,18 @@ class Lobby extends React.Component {
   }
 
   handleClick = (e) => {
-    localStorage.currentUser = JSON.stringify(null)
-    this.props.clearUser(null)
-    // if (e.target.id === "entering-map-creator"){
-    //   this.props.getMaps(this.props.currentUser.id)
-    // }
-  }
+    switch (e.target.id){
+      case 'signout':
+        localStorage.currentUser = JSON.stringify(null)
+        this.props.clearUser(null)
+        break
+      case 'campaign-join':
+        this.show()
+        break
+      default:
+        console.log("error");
+      }
+    }
 
   enterCampaign = (e,campaign) => {
     let url = e.target.getAttribute('url')
@@ -87,7 +88,6 @@ class Lobby extends React.Component {
     {
       this.props.getCampaignCharacters(this.props.openCampaign.id)
     }).then(()=> {
-
         this.props.history.push(url)
 
       })
@@ -118,7 +118,7 @@ class Lobby extends React.Component {
               Open Campaign
             </button> :
               <div>
-              <button className="ui button open" onClick={this.show.bind(this)}>Join Campaign</button>
+              <button id="campaign-join" className="ui button open" onClick={this.handleClick}>Join Campaign</button>
               <Rodal visible={this.state.visible} onClose={this.hide.bind(this)} height={"150"}>
                   <div>
                     <h3> Enter the Campaign Password </h3>

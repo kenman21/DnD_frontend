@@ -61,6 +61,7 @@ class MapCreator extends React.Component {
 
   clearRoom = () => {
     this.props.openingMap(null)
+    this.props.clearActions()
     if (Object.keys(this.props.openSession).length !== 0 && this.props.currentUser.id === this.props.openCampaign.creator_id) {
       this.props.deleteSession(this.props.openSession.id)
     }
@@ -161,4 +162,4 @@ function mapStatetoProps(state) {
   )
 }
 
-export default connect(mapStatetoProps, {setMessages, deleteSession, setSession, setSessionMap, highlightSessionMap, addMap, saveMap, getMaps, keepLoggedIn, openingMap, toggleEditing, clearActions, deleteMap})(MapCreator)
+export default connect(mapStatetoProps, {clearActions, setMessages, deleteSession, setSession, setSessionMap, highlightSessionMap, addMap, saveMap, getMaps, keepLoggedIn, openingMap, toggleEditing, clearActions, deleteMap})(MapCreator)

@@ -9,12 +9,6 @@ import { ActionCable } from 'react-actioncable-provider'
 
 class Content extends React.Component {
 
-  // componentDidMount = () => {
-  //   // if (this.props.currentUser.id !== this.props.openCampaign.creator_id) {
-  //   //   this.props.checkForSession(this.props.openCampaign.id)
-  //   // }
-  // }
-
   handleClick = (e) => {
     switch(e.target.id){
       case "return-lobby":
